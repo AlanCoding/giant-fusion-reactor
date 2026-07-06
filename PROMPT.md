@@ -1,0 +1,7 @@
+You have been hired to design a commercial fusion plant, except that this one will be constructed in the micro-gravity environment of a high-Earth orbit, possibly L4 or L5.
+
+This project will start entirely from the drawing board. You can pick whatever fusion approach you wish, inertial, magnetic, or even something entirely new.
+
+This will be build amidst construction of O'Neill colonies supplied by a mass driver. There will be no close-range radiation concerns so if it's a little leaky/deadly during operation that's okay, we just feed this data into the space traffic control. Because of the large industrial scale, you will have access to a tremendous amount of materials. You can also make highly optimistic assumptions about superconducting materials.
+
+For for that freedom, you need to pay us back with a design that is both scientifically well-founded and scales _extremely_ well. This will make use of a high-temperature radiator, and our deliverable is electricity. A lot of it. This needs to scale to support ~billion person population, although it can lead to multiple reactors. Ideally, we don't build 1,000s of reactors. Just a handful, or even 2 or 3 for redundancy, is all we need. But space industry isn't like Earth industry. It trades many material convinces of Earth for more energy-intensive processes. So you need to lay down the hammer here. Q value by itself doesn't matter tremendously. What matters is firstly scalability and a coherent fuel cycle, walls that don't melt, and power conversion that can handle it, and things like that.
