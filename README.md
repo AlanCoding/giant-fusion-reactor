@@ -34,12 +34,12 @@ Legend:
 
 | Subsystem | grok_fast | meta_thinking | vibe | chat_gpt_5.5_high | gemini_3.5_flash | claude_sonnet_4.6_high |
 |---|---|---|---|---|---|---|
-| Reactor topology | `T` FRC / beam-driven linear magnetic confinement. Space-friendly geometry, but paired with an aggressive fuel choice. | `T` linear tandem mirror. Good orbital fit, but still speculative on confinement quality. | `A/T` linear mirror / FRC hybrid. Best alignment with open-ended space construction. | `R` gasdynamic mirror. The weakest confinement basis in the set. | `B` spherical tokamak. Most mature terrestrial benchmark, but not the best space-native fit. | `A/B` quasi-isodynamic stellarator. Serious toroidal alternative, but not the current space-native consensus. |
-| Fuel cycle | `R` p-B11. Attractive on paper, but too fragile as a first industrial fuel choice. | `A/T` catalyzed D-D with tritium recycling. More credible for scale, but the inventory story needs work. | `A/T` catalyzed D-D. Same general direction as the consensus, with a charged-particle emphasis. | `A/T` catalyzed D-D. Fuel choice is defensible, but the reactor family is weaker. | `B/R` D-T. Best-known physics, but neutron burden conflicts with the prompt’s scaling emphasis. | `R` D-T with FLiBe blanket. Coherent, but not aligned with the emerging consensus fuel direction. |
-| First wall / blanket | `T` refractory or liquid-metal handling is implied, but not developed enough. | `A` flowing liquid lithium curtain. Strong fit for high heat and neutron handling. | `A` liquid lithium blanket / curtain. Good coherence with the fuel cycle. | `A` liquid tin curtain. Mechanically plausible, but less aligned than lithium for blanket/breeding logic. | `A` liquid lithium wall. Conventional and sensible. | `A` flowing FLiBe blanket. Coherent for D-T, but shifts the design away from the lithium-first consensus. |
-| Energy extraction | `A` direct conversion first, thermal second. Correct priority for charged-particle-rich concepts. | `A` direct conversion plus Brayton bottoming cycle. Good hybridization. | `A` direct conversion plus thermal backup. Consistent with the architecture. | `A` direct conversion plus thermal cycle. Same general pattern. | `A` hybrid direct + thermal conversion. Correct structure, though still D-T dependent. | `A` magnetic direct conversion plus Brayton. Strong integration for a toroidal exhaust path. |
-| Heat rejection | `A` high-temperature radiators. Correct requirement, even if the sizing is still rough. | `A` liquid droplet radiators. Strong space-native answer. | `A` droplet or sheet radiators. Good fit. | `A` liquid droplet radiators. Good fit. | `A` 1500 K radiators. Acceptable, but less exploratory than the others. | `A` liquid droplet radiators. Reasonable for orbital scale, though extremely demanding. |
-| Scale / deployment | `T` 10-100+ GW class. Good ambition, but not yet tied to a stable fuel baseline. | `A` few gigantic power islands. Best match to the prompt’s “handful of reactors” target. | `A` a few 20 TW-class burners in shared islands. Good modularity. | `A/T` 12 km-class plant, but the power claim rests on the weakest confinement model. | `A/B` single large reactor can cover huge demand, but it leans on a tokamak scaling story. | `A/T` 300 m stellarator ring. Strong single-station concept, but a major extrapolation in coil complexity and scale. |
+| Reactor topology | `T` FRC / beam-driven linear magnetic confinement. Uses an open-ended magnetic channel with beam assistance. | `T` linear tandem mirror. Uses a straight-axis mirror system with end plugging. | `A/T` linear mirror / FRC hybrid. Combines open-ended linear confinement with compact-core elements. | `R` gasdynamic mirror. Uses a simple open linear mirror with deliberate leakage. | `B` spherical tokamak. Uses a compact tokamak topology with low aspect ratio. | `A/B` quasi-isodynamic stellarator. Uses a closed torus with 3D external coil shaping. |
+| Fuel cycle | `R` p-B11. Uses aneutronic fuel with very high temperature requirements. | `A/T` catalyzed D-D with tritium recycling. Uses deuterium with internal tritium/helium-3 cycling. | `A/T` catalyzed D-D. Uses deuterium with charged-product recycling emphasis. | `A/T` catalyzed D-D. Uses deuterium with mirror-style ash handling. | `B/R` D-T. Uses deuterium-tritium with lithium breeding. | `R` D-T with FLiBe blanket. Uses deuterium-tritium with molten-salt breeding and cooling. |
+| First wall / blanket | `T` refractory or liquid-metal handling is implied, but not developed enough. | `A` flowing liquid lithium curtain. Uses a moving liquid-metal first wall for neutron and heat handling. | `A` liquid lithium blanket / curtain. Uses lithium as the plasma-facing liquid boundary. | `A` liquid tin curtain. Uses a flowing liquid-metal boundary and heat sink. | `A` liquid lithium wall. Uses a liquid-lithium first wall with breeding support. | `A` flowing FLiBe blanket. Uses a flowing molten-salt blanket for neutron and heat capture. |
+| Energy extraction | `A` direct conversion first, thermal second. Prioritizes charged-product electricity recovery. | `A` direct conversion plus Brayton bottoming cycle. Combines direct conversion and thermal conversion. | `A` direct conversion plus thermal backup. Uses direct recovery with fallback heat conversion. | `A` direct conversion plus thermal cycle. Uses direct recovery plus a thermal loop. | `A` hybrid direct + thermal conversion. Uses direct conversion plus conventional power conversion. | `A` magnetic direct conversion plus Brayton. Uses direct exhaust conversion plus a thermal bottoming cycle. |
+| Heat rejection | `A` high-temperature radiators. Uses hot radiators to reduce area. | `A` liquid droplet radiators. Uses droplet radiators for low-mass heat rejection. | `A` droplet or sheet radiators. Uses high-temperature radiation with lightweight structures. | `A` liquid droplet radiators. Uses droplet radiators for high-power heat rejection. | `A` 1500 K radiators. Uses compact high-temperature radiators. | `A` liquid droplet radiators. Uses droplet radiators sized for orbital power levels. |
+| Scale / deployment | `T` 10-100+ GW class. Uses very large reactor units rather than many small ones. | `A` few gigantic power islands. Uses a small number of very large reactor islands. | `A` a few 20 TW-class burners in shared islands. Uses modular giant burners in shared facilities. | `A/T` 12 km-class plant, but the power claim rests on the weakest confinement model. | `A/B` single large reactor can cover huge demand, but it leans on a tokamak scaling story. | `A/T` 300 m stellarator ring. Uses a single large stellarator-scale station. |
 | Main technical risk | p-B11 ignition / bremsstrahlung. | Mirror confinement and tritium handling. | Tritium inventory and advanced-fuel confinement. | GDM confinement credibility. | Neutron loading, divertors, and space-scale tokamak complexity. | Coil complexity, blanket integration, and extrapolation from stellarator demos to power-plant scale. |
 
 ## Current Read of the Set
@@ -149,6 +149,47 @@ The design remains attractive because it preserves:
 
 But it only remains viable if the stellarator-like shaping is enough to solve the radial transport problem.
 
+## Scaling Levers
+
+The basic scaling picture is simple: take an existing magnetic confinement design, enlarge it substantially, and keep the magnets and coil system in the same rough proportion to the machine. The field strength does not automatically get weaker just because the machine gets bigger. What changes is the ratio between the particle orbit size and the machine size. As the chamber gets larger, the charged-particle paths occupy a smaller fraction of the available volume, which is favorable for confinement, alpha retention, and wall loading.
+
+This is the main reason the large-machine version is interesting. The magnets do not have to become a completely different class of object just because the reactor gets bigger. What changes is that the plasma becomes a smaller dynamical feature inside a much larger magnetic structure.
+
+The main scaling levers now appear to be:
+
+- **Minor radius**
+  - Increasing tube diameter increases the radial diffusion time roughly like `a^2` if transport stays in the same regime.
+  - This is the strongest argument for moving away from the 12 km by 4 m tube toward a fatter tube.
+
+- **Field strength**
+  - The field still needs to be strong enough to confine the target plasma and control alpha particles.
+  - The required order of magnitude does not automatically drop just because the device gets wider.
+  - Lowering the field just to save magnet mass is not automatically attractive if it worsens confinement or alpha capture.
+  - If superconducting manufacture is not the limiting factor, then improving Q and preserving confinement is the better trade than trying to minimize field strength at the expense of plasma performance.
+  - In other words, the first question is not "can we make the magnets weaker?" The first question is "can we make the plasma better?".
+
+- **Aspect ratio**
+  - A larger radius reduces the transport burden and makes the linear machine less sensitive to residual drift.
+  - This also reduces how much fine 3D shaping is needed relative to the whole machine.
+
+- **Alpha confinement**
+  - Larger devices make alpha self-capture more favorable because the alpha gyroradius becomes a smaller fraction of the plasma size.
+  - This improves the energy-balance case for burning plasma operation.
+
+- **Field shaping burden**
+  - The newer argument is not that field shaping disappears.
+  - It is that the required shaping becomes a correction on top of a larger, quieter magnetic volume rather than the entire confinement solution.
+  - In practice, that means the magnetic geometry starts to look like a midpoint between a tokamak and a stellarator: straighter than a torus, but no longer a dumb uniform field.
+  - The manufacturability question is separate: if the twist itself has to do all the work, the coils still become stellarator-like and hard to build.
+  - The only real way to buy back coil simplicity is to make the bulk geometry simple and let the large scale reduce the amount of 3D correction needed.
+
+This is the core updated argument:
+
+> A larger linear plasma chamber may reduce the transport problem enough that only modest stellarator-like shaping is needed to finish the job.
+
+If that turns out to be true, then the linear design remains viable and may be preferable to a full toroidal machine.
+If it is not true, then the toroidal stellarator branch likely wins on confinement physics.
+
 ## Confinement Breakdown
 
 The confinement problem should be split into three distinct questions:
@@ -247,6 +288,8 @@ That is the favorable interpretation for this design:
 - and the **radial-drift solutions** handle the remaining transport leakage.
 
 That is cleaner than a torus in one specific sense: the torus makes the exception cases part of the core geometry. Here, the core can be simple and the corrections can be layered on top.
+
+This revised view also weakens the original 12 km by 4 m tube proposal. If radial transport cannot be closed with a uniform field plus modest shaping, then the better linear candidate is a **much fatter, lower-aspect-ratio machine**, not the ultra-skinny pipe.
 
 ### What Would Make the Linear Design Dead-on-Arrival
 
