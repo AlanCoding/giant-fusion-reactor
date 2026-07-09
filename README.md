@@ -99,19 +99,21 @@ Reasons a torus might still be worth testing later:
 
 But if torus is adopted, it must earn that choice by beating the linear architecture on total system mass, wall loading, and net electric efficiency, not on reactor compactness alone.
 
-## Consensus Design Reframed
+## Candidate Designs Reframed
 
-The current consensus is no longer best described as a plain mirror machine.
-
-The better description is:
+The current design review is best kept as two live branches:
 
 - a **linear main confinement section**
-- with **mirror or FRC-like end treatment**
-- and **stellarator / Novatron-style transport shaping** in the core
+  - with mirror or FRC-like end treatment
+  - and modest transport shaping in the core
 
-That framing captures the actual design intent more accurately.
+- a **scaled-up stellarator**
+  - using a large toroidal geometry
+  - with reduced complexity relative to current delicate stellarator prototypes if possible
 
-### What Each Part Does
+That is the current comparison set. The open question is whether the linear branch can buy back enough confinement margin to keep coil geometry simple, or whether the scaled-up stellarator is the more physically conservative path.
+
+### What The Linear Branch Does
 
 - **Linear main section**
   - Provides the long, high-volume burn region.
@@ -134,7 +136,7 @@ The actual requirement is closer to:
 - keep the geometry linear for scale and exhaust handling,
 - but borrow the **field-shaping logic** that makes stellarators and optimized mirrors viable.
 
-So the consensus is not “a plain mirror.”
+So the linear branch is not “a plain mirror.”
 It is a **linearized transport-optimized confinement concept**.
 
 ### Current Status
@@ -149,9 +151,16 @@ The design remains attractive because it preserves:
 
 But it only remains viable if the stellarator-like shaping is enough to solve the radial transport problem.
 
+The toroidal branch remains on the table because it may buy confinement more directly, but it has to justify its coil complexity and exhaust geometry.
+
 ## Scaling Levers
 
 The basic scaling picture is simple: take an existing magnetic confinement design, enlarge it substantially, and keep the magnets and coil system in the same rough proportion to the machine. The field strength does not automatically get weaker just because the machine gets bigger. What changes is the ratio between the particle orbit size and the machine size. As the chamber gets larger, the charged-particle paths occupy a smaller fraction of the available volume, which is favorable for confinement, alpha retention, and wall loading.
+
+For the latest low-level scaling equations, see:
+
+- [Basic Magnetic and Reactor Scaling](analysis/basic_magnetic_and_reactor_scaling.md)
+- [Active-Area Workbook Plots](analysis/active_area_plots.md)
 
 This is the main reason the large-machine version is interesting. The magnets do not have to become a completely different class of object just because the reactor gets bigger. What changes is that the plasma becomes a smaller dynamical feature inside a much larger magnetic structure.
 
@@ -160,6 +169,7 @@ The main scaling levers now appear to be:
 - **Minor radius**
   - Increasing tube diameter increases the radial diffusion time roughly like `a^2` if transport stays in the same regime.
   - This is the strongest argument for moving away from the 12 km by 4 m tube toward a fatter tube.
+  - The open question is how much larger the minor radius must get before the confinement margin becomes comfortable rather than marginal.
 
 - **Field strength**
   - The field still needs to be strong enough to confine the target plasma and control alpha particles.
@@ -171,6 +181,7 @@ The main scaling levers now appear to be:
 - **Aspect ratio**
   - A larger radius reduces the transport burden and makes the linear machine less sensitive to residual drift.
   - This also reduces how much fine 3D shaping is needed relative to the whole machine.
+  - This is also where the toroidal branch may become more attractive if the aspect ratio can be made large without making the coil set unmanufacturable.
 
 - **Alpha confinement**
   - Larger devices make alpha self-capture more favorable because the alpha gyroradius becomes a smaller fraction of the plasma size.
