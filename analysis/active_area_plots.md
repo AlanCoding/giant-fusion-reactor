@@ -76,13 +76,13 @@ This first table names the three cases in plain language.
 | Scenario | What it means | Field posture | What it buys | What it costs |
 |---|---|---|---|---|
 | 1 | Proof of scaling | Keep `B` fixed at the reference field. | Best orbit margin at large radius and the simplest comparison case. | Highest field burden if the field is pushed high. |
-| 2 | Middle ground | Relax `B` partway between the fixed-field and more aggressive falling-field cases. | Trades some magnet burden away without giving up too much orbit margin. | Not as simple as constant `B`, and not as aggressive as the strongest falling-field idea. |
-| 3 | Controlled laziness | Relax `B` with scale, but keep the same shared `2 m` anchor as the other cases. | Lowers magnet burden while staying in a familiar reactor-like field range. | Orbit margin improves more slowly than in the idealized minimum-`B` law. |
+| 2 | Middle ground | Relax `B` partway between the fixed-field case and the strongest field-relaxation case. | Trades some magnet burden away without giving up too much orbit margin. | Not as simple as constant `B`, and not as aggressive as the strongest falling-field idea. |
+| 3 | Controlled laziness | Relax `B` more aggressively with scale, while keeping the same shared `2 m` anchor as the other cases. | Lowers magnet burden the most while staying in a familiar reactor-like field range. | Orbit margin improves more slowly than in the idealized minimum-`B` law. |
 
 ## Radius Comparison Table
 
-This table uses the same three scenarios at two representative radii: `2 m` and `50 m`.
-All three scenarios share the same `B = 10 T` anchor at `2 m`; the differences show up as the radius grows.
+This table uses a single baseline at `2 m` and the three scenarios at `50 m`.
+The baseline row is the shared reference point.
 For readability, the margin is reported as `a/ρ`, which is just the inverse of the direct orbit ratio.
 
 The field and orbit relations are:
@@ -97,19 +97,17 @@ Here `p_B` is the burden proxy. It is not the full coil mass, but it is the magn
 
 | Scenario | Radius | `B` | `a/ρ` | `p_B` | `Magnet Mass Intensity` |
 |---|---|---:|---:|---:|---:|
-| 1 | `2 m` | `10 T` | `346x` | `39.8 MPa` | `5.0 kg/kW` |
+| baseline | `2 m` | `10 T` | `346x` | `39.8 MPa` | `5.0 kg/kW` |
 | 1 | `50 m` | `10 T` | `8650x` | `39.8 MPa` | `5.0 kg/kW` |
-| 2 | `2 m` | `34.6 T` | `1199x` | `477 MPa` | `60.0 kg/kW` |
 | 2 | `50 m` | `8.32 T` | `7202x` | `27.6 MPa` | `2.4 kg/kW` |
-| 3 | `2 m` | `18.6 T` | `644x` | `137.8 MPa` | `17.3 kg/kW` |
 | 3 | `50 m` | `6.93 T` | `5995x` | `19.1 MPa` | `3.46 kg/kW` |
 
 The important reading is:
 
-- at `2 m`, the scenarios separate because the workbook’s field law is already active at the anchor radius
+- the baseline row is the shared reference point
 - scenario 1 keeps `B` fixed, so the orbit margin is best at large radius but the field burden stays high
-- scenario 2 is the compromise case between the two field-relaxation options
-- scenario 3 relaxes `B` more aggressively, so the field burden falls further at large radius
+- scenario 2 is the compromise case between the fixed-field case and the strongest field-relaxation case
+- scenario 3 relaxes `B` more aggressively, so the field burden falls the most at large radius
 
 For a real coil mass estimate, the geometry of the coils would still need to be specified.
 For now, `p_B` is the cleanest high-level burden number.
