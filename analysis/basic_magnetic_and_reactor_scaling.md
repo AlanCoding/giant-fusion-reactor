@@ -564,6 +564,10 @@ That will separate:
 - scaling that is real because the plasma density and volume are still favorable,
 - from scaling that is fake because the plasma is only bigger on paper.
 
+The 2 m and 50 m comparison table lives with the figures:
+
+- [analysis/active_area_plots.md](/home/arominge/repos/giant_fusion/analysis/active_area_plots.md)
+
 ## 10) Wall area as the hard requirement
 
 You are right to push on this.
