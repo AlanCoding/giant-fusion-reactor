@@ -95,18 +95,18 @@ p_B = B^2 / (2μ0)
 
 Here `p_B` is the burden proxy. It is not the full coil mass, but it is the magnetic-pressure scale that drives support and structural loading.
 
-| Scenario | Radius | `B` | `a/ρ` | `p_B` |
-|---|---|---:|---:|---:|
-| 1 | `2 m` | `10 T` | `346x` | `39.8 MPa` |
-| 1 | `50 m` | `10 T` | `8650x` | `39.8 MPa` |
-| 2 | `2 m` | `10 T` | `346x` | `39.8 MPa` |
-| 2 | `50 m` | `8.32 T` | `7202x` | `27.6 MPa` |
-| 3 | `2 m` | `10 T` | `346x` | `39.8 MPa` |
-| 3 | `50 m` | `6.93 T` | `5995x` | `19.1 MPa` |
+| Scenario | Radius | `B` | `a/ρ` | `p_B` | `Magnet Mass Intensity` |
+|---|---|---:|---:|---:|---:|
+| 1 | `2 m` | `10 T` | `346x` | `39.8 MPa` | `5.0 kg/kW` |
+| 1 | `50 m` | `10 T` | `8650x` | `39.8 MPa` | `5.0 kg/kW` |
+| 2 | `2 m` | `34.6 T` | `1199x` | `477 MPa` | `60.0 kg/kW` |
+| 2 | `50 m` | `8.32 T` | `7202x` | `27.6 MPa` | `2.4 kg/kW` |
+| 3 | `2 m` | `18.6 T` | `644x` | `137.8 MPa` | `17.3 kg/kW` |
+| 3 | `50 m` | `6.93 T` | `5995x` | `19.1 MPa` | `3.46 kg/kW` |
 
 The important reading is:
 
-- at `2 m`, all three cases start from the same field anchor and the same orbit margin
+- at `2 m`, the scenarios separate because the workbook’s field law is already active at the anchor radius
 - scenario 1 keeps `B` fixed, so the orbit margin is best at large radius but the field burden stays high
 - scenario 2 is the compromise case between the two field-relaxation options
 - scenario 3 relaxes `B` more aggressively, so the field burden falls further at large radius
