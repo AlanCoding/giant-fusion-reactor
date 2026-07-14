@@ -1,6 +1,6 @@
 # Active-Area Workbook Plots
 
-This page collects the active-area scaling workbook figures and the direct orbit-ratio constraint in one place.
+This page collects the active-area scaling workbook figures, the direct orbit-ratio constraint, and the confinement-time bookkeeping in one place.
 
 ## B Scaling
 
@@ -117,34 +117,27 @@ It is the most direct plasma-side quantity in the workbook.
 This is the version the trust issue was really about.
 It uses the real gyroradius equation and shows `a/ρ` directly against physical radius.
 The orbit-ratio-constrained case stays flat because `B ∝ 1/a`; the middle-ground case rises more slowly; the constant-`B` case rises fastest.
-This is the simpler whole-chamber view. The fusion-fill closure below replaces the denominator with the remaining edge gap `a - r_active`.
+This is the simpler whole-chamber view. The transport closure below uses the full radius rather than an edge-gap proxy.
 
 ![Radius Sweep Orbit Ratio](assets/radius_sweep/18_orbit_ratio_constraint_radius.svg)
 
-## Fusion-Fill Closure
+## Fusion Transport Closure
 
-The radius sweep still has one failure mode: it can make the fusion-active region
-so large that it fills the chamber. This section adds the missing geometric cap.
+The radius sweep still needs a cross-field transport closure. This section adds
+the missing radial-loss estimate without pretending the plasma edge is the main
+geometric object.
 It is the detailed workbook version of the same wall-loading / beta-limited
 closure summarized in [accepted_closures/beta_wall_fill_scaling.md](/home/arominge/repos/giant_fusion/analysis/accepted_closures/beta_wall_fill_scaling.md).
+The summary table now tracks `beta`, and the companion note adds a separate
+confinement-time and total-quantity bookkeeping view.
 
-The new definitions are:
-
-```text
-A_active = A_req
-r_active = sqrt(A_active / π)
-f_fill = A_active / (π a^2)
-edge_gap = a - r_active
-```
-
-The orbit metric is then measured against the remaining edge gap:
+The transport closure is:
 
 ```text
-rho / (a - r_active)
+tau_perp ~ a^2 / D_perp
 ```
 
-That keeps the scenario 3 idea, but applies it to the actual plasma edge rather
-than to the full chamber radius.
+The end scrape-off / direct-conversion region is still a separate axial problem.
 
 The calibration here is deliberately closer to a reactor-grade burn point:
 
@@ -153,39 +146,32 @@ The calibration here is deliberately closer to a reactor-grade burn point:
 - `B0 = 5.3 T`
 - `P/L` anchored to a near-future reactor-scale line power
 
-### B Scaling with Fill Closure
+This table is the fixed-beta operating point. For an explicit field-versus-beta
+allocation law, see [beta_budget_allocation.md](/home/arominge/repos/giant_fusion/analysis/beta_budget_allocation.md).
 
-This is the field path after the fill constraint is imposed.
-The low-field branch no longer gets to hide behind an unbounded active radius.
+### B Scaling with Transport Closure
+
+This is the field path after the radial-loss closure is imposed.
+The low-field branch no longer gets to ignore cross-field transport.
 
 ![Fusion-Fill B Scaling](assets/fill_sweep/11_active_area_B_scaling_fill.svg)
 
-### Active Fill Fraction
+### Radius-Based Confinement Time
 
-This is the key new occupancy metric.
-It shows how much of the chamber cross-section is actually occupied by fusion-active plasma.
+This is the confinement-time proxy based on `a^2 / D_perp`.
+It is the metric that tells you how long a particle stays cross-field trapped
+in the core transport picture.
 
-![Fusion-Fill Fraction](assets/fill_sweep/12_active_area_fill_fraction.svg)
-
-### Active Plasma Radius
-
-This is the equivalent radius of the fusion-active zone, derived from `A_active`.
-
-![Fusion-Fill Active Radius](assets/fill_sweep/13_active_area_active_radius.svg)
-
-### Edge-Gap Orbit Ratio
-
-This is the corrected orbit-margin measure.
-The numerator is still the gyroradius, but the denominator is now the remaining
-gap to the edge of the active fusion region.
-
-![Fusion-Fill Edge Orbit Ratio](assets/fill_sweep/14_active_area_edge_orbit_ratio.svg)
+![Fusion-Fill Cross-Field Confinement Time](assets/fill_sweep/16_active_area_perp_confinement.svg)
 
 ### Magnet Burden
 
-This is the same real-unit coil burden proxy, now evaluated after the fill closure.
+This is the same real-unit coil burden proxy, now evaluated after the transport closure.
 
 ![Fusion-Fill Magnet Burden](assets/fill_sweep/15_active_area_coil_burden.svg)
+
+The full turnover and total-quantity bookkeeping is in
+[confinement_time_and_totals.md](/home/arominge/repos/giant_fusion/analysis/confinement_time_and_totals.md).
 
 ## Scenario Summary Table
 
@@ -195,40 +181,61 @@ This first table names the three cases in plain language.
 |---|---|---|---|---|
 | 1 | Proof of scaling | Keep `B` fixed at the reference field. | Best orbit margin at large radius and the simplest comparison case. | Highest field burden if the field is pushed high. |
 | 2 | Middle ground | Relax `B` partway between the fixed-field case and the strongest field-relaxation case. | Trades some magnet burden away without giving up too much orbit margin. | Not as simple as constant `B`, and not as aggressive as the strongest falling-field idea. |
-| 3 | Edge-gap constrained | Relax `B` until `rho / (a - r_active)` stays flat by construction. | Keeps the orbit margin tied to the remaining edge gap instead of the whole chamber. | The fusion-active region is allowed to grow only until it starts crowding the edge. |
+| 3 | Transport-limited minimum-`B` | Relax `B` until the chosen `D_perp` closure stops improving fast enough to justify more field reduction. | Lowest magnet burden among the three cases. | Most aggressive on radial confinement, so it is the least forgiving transport branch. |
 
-## Fill-Closure Table
+## Total Quantity Table
 
-This table matches the accepted fill-closure model above, not the older
-whole-chamber `1/a` simplification. Scenario 3 is therefore no longer `0.4 T`
-at `50 m`; it is the edge-gap-constrained value from the new closure.
+This is the 1 TWe plant-level bookkeeping table.
+The values are the same ones expanded in [confinement_time_and_totals.md](/home/arominge/repos/giant_fusion/analysis/confinement_time_and_totals.md).
+The tube length is still set by the conservative wall-loading anchor, so it is
+longer than the earlier 12 km intuition.
+The reference wall-loading ceiling is `3 MW/m^2` average here, with
+`1-3 MW/m^2` still a reasonable planning range for an actively pumped liquid wall.
+The efficiency assumption is `60%`.
 
-The field and orbit relations are:
+| Scenario | Radius | Tube length | Coil mass | Structural mass |
+|---|---|---:|---:|---:|
+| baseline | `2.5 m` | `35368 m` | `5.00 Mt` | `10.00 Mt` |
+| 1 | `50 m` | `1768 m` | `5.00 Mt` | `10.00 Mt` |
+| 2 | `50 m` | `1768 m` | `2.36 Mt` | `3.25 Mt` |
+| 3 | `50 m` | `1768 m` | `1.12 Mt` | `1.06 Mt` |
+
+## Beta Budget Table
+
+This table uses the explicit allocation parameter `eta` from the beta-budget
+note. It is the clean way to let the beta column vary by scenario instead of
+holding it flat.
+
+The allocation law is:
 
 ```text
-A_active = A_req
-r_active = sqrt(A_active / π)
-edge_gap = a - r_active
-rho / (a - r_active) = constant for the constrained case
-p_B = B^2 / (2μ0)
+lambda = a / a0
+B = B0 * lambda^(-eta/4)
+beta = beta0 * lambda^(-(1 - eta)/2)
 ```
 
-Here `p_B` is still the burden proxy. It is not the full coil mass, but it is
-the magnetic-pressure scale that drives support and structural loading.
+with:
 
-| Scenario | Radius | `B` | `r_active` | `fill fraction` | `rho / (a - r_active)` |
+- scenario 1: `eta = 0`
+- scenario 2: `eta = 0.5`
+- scenario 3: `eta = 1`
+
+For the DEMO-like anchor here, `a0 = 2.5 m`, `B0 = 5.86 T`, and `beta0 = 3%`.
+
+| Scenario | Radius | `eta` | `B` | `beta` | `a/rho` factor |
 |---|---|---:|---:|---:|---:|
-| baseline | `2 m` | `5.30 T` | `1.362 m` | `0.464` | `0.00740` |
-| 1 | `50 m` | `5.30 T` | `6.811 m` | `0.0186` | `0.000109` |
-| 2 | `50 m` | `2.37 T` | `34.055 m` | `0.464` | `0.000662` |
-| 3 | `50 m` | `1.99 T` | `48.302 m` | `0.933` | `0.00740` |
+| baseline | `2.5 m` | - | `5.86 T` | `3.0%` | `1.000` |
+| 1 | `50 m` | `0.0` | `5.86 T` | `0.67%` | `20.00` |
+| 2 | `50 m` | `0.5` | `4.03 T` | `1.42%` | `13.75` |
+| 3 | `50 m` | `1.0` | `2.77 T` | `3.0%` | `9.46` |
 
 The important reading is:
 
-- the baseline row is the shared reference point
-- scenario 1 keeps `B` fixed and leaves a very small active fill fraction at large radius
-- scenario 2 is the compromise case between the fixed-field case and the edge-gap-constrained case
-- scenario 3 enforces the edge-gap orbit constraint, so the active plasma nearly fills the chamber but does not exceed it
+- scenario 1 spends the size dividend on beta reduction
+- scenario 2 splits the dividend between field and beta
+- scenario 3 spends the dividend on retaining field, so beta stays at the baseline operating value
+- all three branches still benefit strongly from the larger radius in `a/rho`
+- the support-structure burden falls more slowly than conductor burden, so the structural-to-conductor ratio is highest in the high-field branches
 
 For a real coil mass estimate, the geometry of the coils would still need to be specified.
-For now, `p_B` remains the cleanest high-level burden number.
+For now, `B` and `beta` are the cleanest high-level operating numbers.

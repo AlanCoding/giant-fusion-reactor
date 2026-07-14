@@ -11,6 +11,9 @@ where `r_active = sqrt(A_req / pi)` is the equivalent active-plasma radius.
 The goal is to keep the original power-balance logic, but prevent the model
 from "solving" low-field scenarios by making the fusion-active region occupy
 the entire chamber.
+
+This workbook holds beta at a chosen operating cap. For the more general
+field-versus-beta allocation law, see ``beta_budget_allocation.md``.
 """
 
 from __future__ import annotations
@@ -156,8 +159,8 @@ def svg_line_plot(
 
 @dataclass(frozen=True)
 class ModelParams:
-    a0_m: float = 2.0
-    b0_t: float = 5.3
+    a0_m: float = 2.5
+    b0_t: float = 5.86
     t_keV: float = 15.0
     sigma_v_m3_s: float = 1.0e-21
     e_f_j: float = 2.82e-12
@@ -205,6 +208,7 @@ class Sample:
     a_m: float
     b_t: float
     n_beta: float
+    beta: float
     target_power_per_m: float
     required_area: float
     active_radius: float
@@ -218,6 +222,7 @@ class Sample:
 def compute_sample(params: ModelParams, scenario: Scenario, a_m: float, *, k_edge: float | None = None) -> Sample:
     b_t = scenario.b_t(params, a_m, k_edge=k_edge)
     n_beta = beta_limited_density(b_t, params.t_keV, params.beta)
+    beta = 2 * MU0 * (2 * n_beta * params.t_keV * 1e3 * E_CHARGE) / (b_t * b_t)
     target_power_per_m = params.target_power_per_m0_w * (a_m / params.a0_m)
     required_area_m2 = required_area(target_power_per_m, n_beta, params.sigma_v_m3_s, params.e_f_j)
     active_radius = math.sqrt(required_area_m2 / math.pi)
@@ -230,6 +235,7 @@ def compute_sample(params: ModelParams, scenario: Scenario, a_m: float, *, k_edg
         a_m=a_m,
         b_t=b_t,
         n_beta=n_beta,
+        beta=beta,
         target_power_per_m=target_power_per_m,
         required_area=required_area_m2,
         active_radius=active_radius,
@@ -254,39 +260,29 @@ def generate_assets(params: ModelParams, outdir: Path) -> None:
     }
 
     b_series = [(s.name, s.color, [x.b_t for x in samples[s.name]]) for s in SCENARIOS]
-    fill_series = [(s.name, s.color, [x.fill_fraction for x in samples[s.name]]) for s in SCENARIOS]
-    radius_series = [(s.name, s.color, [x.active_radius for x in samples[s.name]]) for s in SCENARIOS]
+    gap_series = [(s.name, s.color, [x.edge_gap for x in samples[s.name]]) for s in SCENARIOS]
     edge_series = [(s.name, s.color, [x.rho_over_edge_gap for x in samples[s.name]]) for s in SCENARIOS]
     burden_series = [(s.name, s.color, [x.magnet_mass_kg_per_kw for x in samples[s.name]]) for s in SCENARIOS]
 
     svg_line_plot(
         outdir / "11_active_area_B_scaling_fill.svg",
-        "Fusion-Fill Closure: B Scaling",
+        "Fusion-Edge Closure: B Scaling",
         "Minor radius a (m)",
         "B (T)",
         a_values,
         b_series,
     )
     svg_line_plot(
-        outdir / "12_active_area_fill_fraction.svg",
-        "Fusion-Fill Closure: Active Fill Fraction",
+        outdir / "13_active_area_edge_gap.svg",
+        "Fusion-Edge Closure: Edge Gap",
         "Minor radius a (m)",
-        "A_active / (pi a^2)",
+        "a - r_active (m)",
         a_values,
-        fill_series,
-        y_log=False,
-    )
-    svg_line_plot(
-        outdir / "13_active_area_active_radius.svg",
-        "Fusion-Fill Closure: Active Plasma Radius",
-        "Minor radius a (m)",
-        "r_active (m)",
-        a_values,
-        radius_series,
+        gap_series,
     )
     svg_line_plot(
         outdir / "14_active_area_edge_orbit_ratio.svg",
-        "Fusion-Fill Closure: Edge-Gap Orbit Ratio",
+        "Fusion-Edge Closure: Edge-Gap Orbit Ratio",
         "Minor radius a (m)",
         "rho / (a - r_active)",
         a_values,
@@ -294,7 +290,7 @@ def generate_assets(params: ModelParams, outdir: Path) -> None:
     )
     svg_line_plot(
         outdir / "15_active_area_coil_burden.svg",
-        "Fusion-Fill Closure: Estimated Magnet Mass Intensity",
+        "Fusion-Edge Closure: Estimated Magnet Mass Intensity",
         "Minor radius a (m)",
         "kg/kW",
         a_values,
@@ -308,6 +304,7 @@ def report(params: ModelParams, scenario: Scenario, *, edge_ratio_ref: float) ->
     print(scenario.name)
     print(f"  B(a0)             = {ref.b_t:.3f} T")
     print(f"  n_beta(a0)        = {ref.n_beta:.3e} m^-3")
+    print(f"  beta(a0)          = {ref.beta:.3%}")
     print(f"  A_active(a0)      = {ref.required_area:.3e} m^2")
     print(f"  r_active(a0)      = {ref.active_radius:.3f} m")
     print(f"  fill fraction     = {ref.fill_fraction:.3f}")

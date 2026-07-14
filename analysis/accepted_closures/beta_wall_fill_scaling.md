@@ -8,6 +8,7 @@ effectively accepted as the working closure for the active-area problem.
 Under the assumptions of:
 
 - fixed D-T temperature and composition,
+- a DEMO-like baseline with `a0 = 2.5 m` and `B0 = 5.86 T`,
 - fusion-active plasma radius scaling with chamber radius,
 - fixed allowable wall loading,
 - and operation at the same fraction of the beta limit,
@@ -58,13 +59,12 @@ The alignment is:
 - both approaches use volumetric fusion power density
 - both use wall loading as the outer engineering constraint
 - both recognize that beta controls the minimum viable field
-- both need an occupancy or fill-fraction limit
 - both need an orbit margin measured against the active plasma edge, not just the vessel radius
 
 The difference is mostly level of closure:
 
 - the external derivation gives the compact scaling law `B ∝ a^(-1/4)`
-- the local workbook keeps the fill fraction and edge-gap geometry explicit
+- the local workbook keeps the edge-gap geometry explicit and uses beta as the operating pressure ratio
 
 ## Practical reading
 
@@ -72,3 +72,8 @@ This note should be treated as the accepted high-level closure.
 The fill-closure workbook is the detailed implementation of the same idea,
 with an explicit check that the active plasma region does not consume the
 entire chamber.
+
+If you want the field-versus-beta split as an explicit knob, see:
+
+- [analysis/beta_budget_allocation.md](/home/arominge/repos/giant_fusion/analysis/beta_budget_allocation.md)
+- [analysis/beta_budget_workbook.py](/home/arominge/repos/giant_fusion/analysis/beta_budget_workbook.py)
