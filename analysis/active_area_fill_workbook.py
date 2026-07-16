@@ -266,7 +266,7 @@ def generate_assets(params: ModelParams, outdir: Path) -> None:
 
     svg_line_plot(
         outdir / "11_active_area_B_scaling_fill.svg",
-        "Fusion-Edge Closure: B Scaling",
+        "Fusion Tube Scaling: B Scaling",
         "Minor radius a (m)",
         "B (T)",
         a_values,
@@ -274,7 +274,7 @@ def generate_assets(params: ModelParams, outdir: Path) -> None:
     )
     svg_line_plot(
         outdir / "13_active_area_edge_gap.svg",
-        "Fusion-Edge Closure: Edge Gap",
+        "Fusion Tube Scaling: Edge Gap",
         "Minor radius a (m)",
         "a - r_active (m)",
         a_values,
@@ -282,7 +282,7 @@ def generate_assets(params: ModelParams, outdir: Path) -> None:
     )
     svg_line_plot(
         outdir / "14_active_area_edge_orbit_ratio.svg",
-        "Fusion-Edge Closure: Edge-Gap Orbit Ratio",
+        "Fusion Tube Scaling: Edge-Gap Orbit Ratio",
         "Minor radius a (m)",
         "rho / (a - r_active)",
         a_values,
@@ -290,7 +290,7 @@ def generate_assets(params: ModelParams, outdir: Path) -> None:
     )
     svg_line_plot(
         outdir / "15_active_area_coil_burden.svg",
-        "Fusion-Edge Closure: Estimated Magnet Mass Intensity",
+        "Fusion Tube Scaling: Estimated Magnet Mass Intensity",
         "Minor radius a (m)",
         "kg/kW",
         a_values,

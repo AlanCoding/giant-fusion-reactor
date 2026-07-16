@@ -154,7 +154,7 @@ allocation law, see [beta_budget_allocation.md](/home/arominge/repos/giant_fusio
 This is the field path after the radial-loss closure is imposed.
 The low-field branch no longer gets to ignore cross-field transport.
 
-![Fusion-Fill B Scaling](assets/fill_sweep/11_active_area_B_scaling_fill.svg)
+![Fusion Tube Scaling: B Scaling](assets/fill_sweep/11_active_area_B_scaling_fill.svg)
 
 ### Radius-Based Confinement Time
 
@@ -162,13 +162,13 @@ This is the confinement-time proxy based on `a^2 / D_perp`.
 It is the metric that tells you how long a particle stays cross-field trapped
 in the core transport picture.
 
-![Fusion-Fill Cross-Field Confinement Time](assets/fill_sweep/16_active_area_perp_confinement.svg)
+![Fusion Tube Scaling: Cross-Field Confinement Time](assets/fill_sweep/16_active_area_perp_confinement.svg)
 
 ### Magnet Burden
 
 This is the same real-unit coil burden proxy, now evaluated after the transport closure.
 
-![Fusion-Fill Magnet Burden](assets/fill_sweep/15_active_area_coil_burden.svg)
+![Fusion Tube Scaling: Magnet Burden](assets/fill_sweep/15_active_area_coil_burden.svg)
 
 The full turnover and total-quantity bookkeeping is in
 [confinement_time_and_totals.md](/home/arominge/repos/giant_fusion/analysis/confinement_time_and_totals.md).
@@ -200,6 +200,18 @@ The efficiency assumption is `60%`.
 | 2 | `50 m` | `1768 m` | `2.36 Mt` | `3.25 Mt` |
 | 3 | `50 m` | `1768 m` | `1.12 Mt` | `1.06 Mt` |
 
+## Specific Power Table
+
+This repeats the total-quantity table, but expresses the mass columns as
+`W/kg` using the `1 TWe` electric target in the numerator.
+
+| Scenario | Radius | Tube length | Coil burden | Structural burden | Combined burden |
+|---|---|---:|---:|---:|---:|
+| baseline | `2.5 m` | `35368 m` | `200.00 W/kg` | `100.00 W/kg` | `66.67 W/kg` |
+| 1 | `50 m` | `1768 m` | `200.00 W/kg` | `100.00 W/kg` | `66.67 W/kg` |
+| 2 | `50 m` | `1768 m` | `422.95 W/kg` | `307.53 W/kg` | `178.06 W/kg` |
+| 3 | `50 m` | `1768 m` | `894.43 W/kg` | `945.74 W/kg` | `459.68 W/kg` |
+
 ## Beta Budget Table
 
 This table uses the explicit allocation parameter `eta` from the beta-budget
@@ -222,12 +234,12 @@ with:
 
 For the DEMO-like anchor here, `a0 = 2.5 m`, `B0 = 5.86 T`, and `beta0 = 3%`.
 
-| Scenario | Radius | `eta` | `B` | `beta` | `a/rho` factor |
-|---|---|---:|---:|---:|---:|
-| baseline | `2.5 m` | - | `5.86 T` | `3.0%` | `1.000` |
-| 1 | `50 m` | `0.0` | `5.86 T` | `0.67%` | `20.00` |
-| 2 | `50 m` | `0.5` | `4.03 T` | `1.42%` | `13.75` |
-| 3 | `50 m` | `1.0` | `2.77 T` | `3.0%` | `9.46` |
+| Scenario | Radius | `eta` | `B` | `beta` | `a/rho` factor | Confinement time |
+|---|---|---:|---:|---:|---:|---:|
+| baseline | `2.5 m` | - | `5.86 T` | `3.0%` | `1.000` | `0.715 s` |
+| 1 | `50 m` | `0.0` | `5.86 T` | `0.67%` | `20.00` | `1.59 h` |
+| 2 | `50 m` | `0.5` | `4.03 T` | `1.42%` | `13.75` | `45.07 min` |
+| 3 | `50 m` | `1.0` | `2.77 T` | `3.0%` | `9.46` | `21.31 min` |
 
 The important reading is:
 
@@ -236,6 +248,12 @@ The important reading is:
 - scenario 3 spends the dividend on retaining field, so beta stays at the baseline operating value
 - all three branches still benefit strongly from the larger radius in `a/rho`
 - the support-structure burden falls more slowly than conductor burden, so the structural-to-conductor ratio is highest in the high-field branches
+- the confinement-time proxy grows strongly as the field is retained, which is why the constant-field branch has the largest time margin in this table
 
 For a real coil mass estimate, the geometry of the coils would still need to be specified.
 For now, `B` and `beta` are the cleanest high-level operating numbers.
+
+## Stability Issues
+
+The giant tube introduces its own stability questions. The main ones are
+tracked in [giant_tube_stability_issues.md](/home/arominge/repos/giant_fusion/analysis/giant_tube_stability_issues.md).

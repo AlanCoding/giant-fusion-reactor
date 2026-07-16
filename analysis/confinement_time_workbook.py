@@ -341,6 +341,10 @@ def format_mass_mt(x: float) -> str:
     return f"{x:.2f} Mt"
 
 
+def format_power_per_mass(w_per_kg: float) -> str:
+    return f"{w_per_kg:.2f} W/kg"
+
+
 def print_tables(params: ModelParams, baseline: Sample, rows: list[tuple[Scenario, Sample]]) -> None:
     print("Reference assumptions")
     print(f"  a0                     = {params.a0_m:.2f} m")
@@ -384,6 +388,26 @@ def print_tables(params: ModelParams, baseline: Sample, rows: list[tuple[Scenari
             f"{format_mass_mt(sample.coil_mass_mt)} | {format_mass_mt(sample.structure_mass_mt)} |"
         )
 
+    print()
+    print("Specific power table")
+    print("| Scenario | Radius | Tube length | Coil burden | Structural burden | Combined burden |")
+    print("|---|---:|---:|---:|---:|---:|")
+    baseline_total_mass = baseline.coil_mass_mt + baseline.structure_mass_mt
+    print(
+        f"| baseline | {baseline.a_m:.1f} m | {baseline.length_m:.0f} m | "
+        f"{format_power_per_mass(params.electric_output_w / (baseline.coil_mass_mt * 1.0e9))} | "
+        f"{format_power_per_mass(params.electric_output_w / (baseline.structure_mass_mt * 1.0e9))} | "
+        f"{format_power_per_mass(params.electric_output_w / (baseline_total_mass * 1.0e9))} |"
+    )
+    for scenario, sample in rows:
+        total_mass_mt = sample.coil_mass_mt + sample.structure_mass_mt
+        print(
+            f"| {scenario.label} | {sample.a_m:.1f} m | {sample.length_m:.0f} m | "
+            f"{format_power_per_mass(params.electric_output_w / (sample.coil_mass_mt * 1.0e9))} | "
+            f"{format_power_per_mass(params.electric_output_w / (sample.structure_mass_mt * 1.0e9))} | "
+            f"{format_power_per_mass(params.electric_output_w / (total_mass_mt * 1.0e9))} |"
+        )
+
 
 def generate_assets(params: ModelParams, outdir: Path) -> None:
     outdir.mkdir(parents=True, exist_ok=True)
@@ -394,7 +418,7 @@ def generate_assets(params: ModelParams, outdir: Path) -> None:
 
     svg_line_plot(
         outdir / "16_active_area_perp_confinement.svg",
-        "Fusion Edge Closure: Cross-Field Confinement Time",
+        "Fusion Tube Scaling: Cross-Field Confinement Time",
         "Minor radius a (m)",
         "tau_perp (s)",
         a_values,

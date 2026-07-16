@@ -95,6 +95,18 @@ Notes:
 - The lower-field cases reduce burden quadratically in `B`.
 - The tube-length numbers are driven by the `3 MW/m^2` wall-loading ceiling and `60%` conversion efficiency.
 
+## Specific Power Table
+
+This repeats the total-quantity table, but expresses the mass columns as
+`W/kg` using the `1 TWe` electric target in the numerator.
+
+| Scenario | Radius | Tube length | Coil burden | Structural burden | Combined burden |
+|---|---:|---:|---:|---:|---:|
+| baseline | `2.5 m` | `35368 m` | `200.00 W/kg` | `100.00 W/kg` | `66.67 W/kg` |
+| 1 | `50.0 m` | `1768 m` | `200.00 W/kg` | `100.00 W/kg` | `66.67 W/kg` |
+| 2 | `50.0 m` | `1768 m` | `422.95 W/kg` | `307.53 W/kg` | `178.06 W/kg` |
+| 3 | `50.0 m` | `1768 m` | `894.43 W/kg` | `945.74 W/kg` | `459.68 W/kg` |
+
 ## What this says
 
 The important comparison is not the absolute number in one row.
@@ -106,6 +118,18 @@ It is the combination:
 - and lower total mass burden when the field and length both come down.
 
 That is the bookkeeping version of the argument for moving to a much larger machine.
+
+## Area Comparisons
+
+For the two `1 TWe` fusion-plant radiator cases, the equivalent flat-disc
+diameter is still far smaller than the tube length, but the radiator footprint
+is much larger than the tube's lateral cross-section.
+
+- `29.9 km^2` - one `1 TWe` FLiBe radiator, about half of [San Marino](https://en.wikipedia.org/wiki/San_Marino) (`61.2 km^2`); if you flatten it into a disc, the disc diameter is about `6.17 km`, which is about `0.174x` the `35.37 km` tube length, while the disc area is about `54x` the tube's side area.
+- `9.45 km^2` - one `1 TWe` tin radiator, about one-sixth of [San Marino](https://en.wikipedia.org/wiki/San_Marino); flattened disc diameter is about `3.47 km`, or `0.098x` the `35.37 km` tube length, and the disc area is about `17x` the tube's side area.
+- `2,449 km^2` - one `1 TWe` space-solar array at `30%` collection efficiency, about [Luxembourg](https://en.wikipedia.org/wiki/Luxembourg) (`2,586 km^2`).
+- `5.18 million km^2` - combined FLiBe radiator area for the Type I benchmark of `173,549` plants, about `1.6` [Indias](https://en.wikipedia.org/wiki/India) (`3,287,263 km^2` each).
+- `1.64 million km^2` - combined tin radiator area for the same Type I benchmark, about [Iran](https://en.wikipedia.org/wiki/Iran) (`1,648,195 km^2`).
 
 ## Linked workbook
 
