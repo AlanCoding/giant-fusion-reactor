@@ -50,8 +50,8 @@ the result is the familiar weak fourth-root field scaling.
 The current workbook work in this repository is consistent with the same
 underlying structure:
 
-- [analysis/active_area_radius_workbook.py](/home/arominge/repos/giant_fusion/analysis/active_area_radius_workbook.py)
-- [analysis/active_area_fill_workbook.py](/home/arominge/repos/giant_fusion/analysis/active_area_fill_workbook.py)
+- [analysis/scripts/active_area_radius_workbook.py](/home/arominge/repos/giant_fusion/analysis/scripts/active_area_radius_workbook.py)
+- [analysis/scripts/active_area_fill_workbook.py](/home/arominge/repos/giant_fusion/analysis/scripts/active_area_fill_workbook.py)
 - [analysis/active_area_plots.md](/home/arominge/repos/giant_fusion/analysis/active_area_plots.md)
 
 The alignment is:
@@ -75,5 +75,4 @@ entire chamber.
 
 If you want the field-versus-beta split as an explicit knob, see:
 
-- [analysis/beta_budget_allocation.md](/home/arominge/repos/giant_fusion/analysis/beta_budget_allocation.md)
-- [analysis/beta_budget_workbook.py](/home/arominge/repos/giant_fusion/analysis/beta_budget_workbook.py)
+- [analysis/scripts/beta_budget_workbook.py](/home/arominge/repos/giant_fusion/analysis/scripts/beta_budget_workbook.py)

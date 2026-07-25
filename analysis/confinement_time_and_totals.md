@@ -135,5 +135,5 @@ is much larger than the tube's lateral cross-section.
 
 The plot and its generating script are in:
 
-- [analysis/confinement_time_workbook.py](/home/arominge/repos/giant_fusion/analysis/confinement_time_workbook.py)
+- [analysis/scripts/confinement_time_workbook.py](/home/arominge/repos/giant_fusion/analysis/scripts/confinement_time_workbook.py)
 - [analysis/assets/fill_sweep/16_active_area_perp_confinement.svg](/home/arominge/repos/giant_fusion/analysis/assets/fill_sweep/16_active_area_perp_confinement.svg)

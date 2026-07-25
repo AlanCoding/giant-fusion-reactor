@@ -680,7 +680,7 @@ It also makes the calibration point explicit:
 
 The companion workbook and plots are:
 
-- [analysis/active_area_workbook.py](/home/arominge/repos/giant_fusion/analysis/active_area_workbook.py)
+- [analysis/scripts/active_area_workbook.py](/home/arominge/repos/giant_fusion/analysis/scripts/active_area_workbook.py)
 - [analysis/active_area_plots.md](/home/arominge/repos/giant_fusion/analysis/active_area_plots.md)
 
 This is the version to use when you want the scaling argument without sneaking in a radius.

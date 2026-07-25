@@ -12,8 +12,8 @@ The goal is to keep the original power-balance logic, but prevent the model
 from "solving" low-field scenarios by making the fusion-active region occupy
 the entire chamber.
 
-This workbook holds beta at a chosen operating cap. For the more general
-field-versus-beta allocation law, see ``beta_budget_allocation.md``.
+This workbook holds beta at a chosen operating cap and keeps the allocation
+law explicit in the script.
 """
 
 from __future__ import annotations

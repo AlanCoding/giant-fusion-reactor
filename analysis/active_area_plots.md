@@ -146,9 +146,6 @@ The calibration here is deliberately closer to a reactor-grade burn point:
 - `B0 = 5.3 T`
 - `P/L` anchored to a near-future reactor-scale line power
 
-This table is the fixed-beta operating point. For an explicit field-versus-beta
-allocation law, see [beta_budget_allocation.md](/home/arominge/repos/giant_fusion/analysis/beta_budget_allocation.md).
-
 ### B Scaling with Transport Closure
 
 This is the field path after the radial-loss closure is imposed.
