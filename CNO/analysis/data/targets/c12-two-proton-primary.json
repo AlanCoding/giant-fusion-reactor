@@ -1,0 +1,21 @@
+{
+  "id": "c12-two-proton-primary",
+  "purpose": "Primary $^{12}$C+2p inventory case: two initially available protons per carbon nucleus.",
+  "reactant_inventory": {
+    "n_p_per_c12": 2.0,
+    "mass_fractions_if_only_c12_and_h1": {
+      "c12": 0.8571428571,
+      "h1": 0.1428571429
+    }
+  },
+  "physical_form": {
+    "description": "Solid graphite/carbon dispersed in liquid H2 at 20 K; no-void additive-specific-volume reference mixture.",
+    "initial_temperature_k": 20.0,
+    "component_densities_kg_m3": {"solid_carbon": 2200.0, "liquid_h2": 70.8},
+    "mixture_rule": "1/rho0 = w_c/rho_c + w_h/rho_h",
+    "initial_density_kg_m3": 415.3916489
+  },
+  "intended_accounting": "Both sequential captures are inventory-supported per carbon nucleus. Actual C12, N13, and O14 output is calculated from the network; this is not a promise of pure O14 production.",
+  "pusher": "common concentric D-T pusher; specified separately",
+  "source_record": "../../../reactions/c12-p-g-n13.md"
+}

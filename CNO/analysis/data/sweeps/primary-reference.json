@@ -1,0 +1,18 @@
+{
+  "purpose": "Static screening of the one- and two-proton C12 primary inventory cases.",
+  "targets": [
+    "data/targets/c12-one-proton-primary.json",
+    "data/targets/c12-two-proton-primary.json"
+  ],
+  "rate_library": "data/rate-libraries/primary-reaclib-default-2026-06-09.json",
+  "r0_m": [0.1, 0.3, 1.0, 3.0, 10.0, 30.0, 100.0],
+  "rc_m": [0.001, 0.003, 0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0, 100.0],
+  "compression_heating": {
+    "initial_temperature_k": 20.0,
+    "gamma": 1.6666666666666667,
+    "extra_thermal_energy_fraction": 0.30
+  },
+  "temperature_output_floor_keV": 0.000001,
+  "q_mev": {"c12-p-g-n13": 1.943, "n13-p-g-o14": 4.62797},
+  "notes": "Each target card supplies its fixed uncompressed density from 20 K liquid-H2 and solid-carbon component densities using a no-void additive-specific-volume mixture rule. Rc is scanned directly; rows with Rc > R0 are excluded. Ti is derived from the cold isentrope plus the 30% first-pass thermal-energy addition, not scanned independently."
+}

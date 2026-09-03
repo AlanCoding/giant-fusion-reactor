@@ -1,0 +1,23 @@
+{
+  "library": "JINA REACLIB default",
+  "upstream_modified": "2026-06-09",
+  "retrieved": "2026-09-02",
+  "source_url": "https://reaclib.jinaweb.org/difout.php?action=cfreaclib&library=default&rateall=1&cached=&no910=",
+  "upstream_sha256": "bf5bbc8abe45a17bc413d042e149185738d9ed220a6cc91e1219079e80c4da35",
+  "format": "REACLIB1; selected forward entries transcribed from the verified snapshot",
+  "rate_range_note": "The snapshot entries do not declare a validated temperature interval. Outputs are screening values and carry an explicit validity flag until reaction-specific review is added.",
+  "reactions": {
+    "c12-p-g-n13": [
+      {"label": "ls09n", "coefficients": [17.1482, 0.0, -13.692, -0.230881, 4.44362, -3.15898, -0.666667], "t9_min": null, "t9_max": null},
+      {"label": "ls09r", "coefficients": [17.5428, -3.77849, -5.10735, -2.24111, 0.148883, 0.0, -1.5], "t9_min": null, "t9_max": null}
+    ],
+    "n13-p-g-o14": [
+      {"label": "lg06n", "coefficients": [18.1356, 0.0, -15.1676, 0.0955166, 3.0659, -0.507339, -0.666667], "t9_min": null, "t9_max": null},
+      {"label": "lg06r", "coefficients": [10.9971, -6.12602, 1.57122, 0.0, 0.0, 0.0, -1.5], "t9_min": null, "t9_max": null}
+    ]
+  },
+  "references": {
+    "ls09": "Li, Z. et al., Determination of the 12C(p,gamma)13N reaction rates from the 12C(7Li,6He)13N reaction, Science in China G: Physics and Astronomy (2010); REACLIB label page.",
+    "lg06": "Z. H. Li et al., 13N(d,n)14O reaction and the astrophysical 13N(p,gamma)14O reaction, Physical Review C 74, 035801 (2006); REACLIB label page."
+  }
+}
