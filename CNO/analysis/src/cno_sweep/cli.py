@@ -10,6 +10,8 @@ from .io import load_json, load_reaclib_rate
 from .sweep import CompressionHeating, StaticState, compressed_temperature_keV, geometry, primary_sweep_row
 from .time_domain import GrayRadiation, evolve_n14_capture
 from .front import evolve_n14_front
+from .fuel_cycle import evaluate_cycle
+from .reaction_data import load_reaction_database
 
 
 def _target_mass_fractions(target: dict) -> dict[str, float]:
@@ -125,6 +127,30 @@ def run_n14_front(config_path: Path, output_path: Path) -> int:
     return 0
 
 
+def run_fuel_cycle(config_path: Path, output_path: Path, stages_output_path: Path) -> int:
+    config = load_json(config_path)
+    analysis_root = Path(__file__).resolve().parents[2]
+    reaction_database = load_reaction_database(analysis_root / config["reaction_database"])
+    database_metadata = load_json(analysis_root / config["reaction_database"])
+    config.setdefault("hot_stage_ids", database_metadata["hot_stage_ids"])
+    config.setdefault("cycle_reaction_ids", database_metadata["cycle_reaction_ids"])
+    rate_library = analysis_root / config["rate_library"]
+    summaries = []
+    stage_rows = []
+    for capture in config["neutron_capture_efficiencies"]:
+        for makeup_mode in config["tritium_makeup_modes"]:
+            result, stages = evaluate_cycle(config, reaction_database, rate_library, capture, makeup_mode)
+            case_id = f"capture-{capture:g}__tritium-{makeup_mode}"
+            summaries.append({"case_id": case_id, **result.as_dict()})
+            for stage in stages:
+                stage_rows.append({"case_id": case_id, **stage.as_dict()})
+    _write_rows(output_path, summaries)
+    _write_rows(stages_output_path, stage_rows)
+    print(f"wrote {len(summaries)} cycle cases to {output_path}")
+    print(f"wrote {len(stage_rows)} stage rows to {stages_output_path}")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(prog="cno-sweep")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -137,6 +163,10 @@ def main() -> int:
     front = subparsers.add_parser("n14-front", help="run the reduced radial N14 burn-front screen")
     front.add_argument("--config", type=Path, required=True)
     front.add_argument("--output", type=Path, required=True)
+    cycle = subparsers.add_parser("fuel-cycle", help="evaluate the complete D-production-loop D/T ledger")
+    cycle.add_argument("--config", type=Path, required=True)
+    cycle.add_argument("--output", type=Path, required=True)
+    cycle.add_argument("--stages-output", type=Path, required=True)
     args = parser.parse_args()
     if args.command == "primary":
         return run_primary(args.config, args.output)
@@ -144,4 +174,10 @@ def main() -> int:
         return run_n14_time(args.config, args.output)
     if args.command == "n14-front":
         return run_n14_front(args.config, args.output)
+    if args.command == "fuel-cycle":
+        return run_fuel_cycle(args.config, args.output, args.stages_output)
     raise AssertionError("unreachable")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

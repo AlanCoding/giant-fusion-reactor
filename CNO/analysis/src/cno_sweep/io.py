@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from functools import lru_cache
 from pathlib import Path
 
 from .reactivity import ReaclibFit, SumReactivity
@@ -12,6 +13,7 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text())
 
 
+@lru_cache(maxsize=None)
 def load_reaclib_rate(path: Path, reaction_id: str) -> SumReactivity:
     """Load all stored REACLIB contributions for an explicitly named reaction."""
     data = load_json(path)

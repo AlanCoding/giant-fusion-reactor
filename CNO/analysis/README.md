@@ -96,3 +96,115 @@ The [first front-screen result](results/n14-front-screen-2026-09-03.md)
 documents its deliberately provisional gamma-transport boundary.
 
 `notebooks/` and `results/` are reserved for reproducible analysis assets.
+
+## Complete deuterium-loop screen
+
+The first complete-loop calculator covers only the
+[deuterium-production loop](../fuel-cycle/README.md#deuterium-production-loop-only).
+It treats its six hot reactions as six separately configured, D-T-pushed
+targets and normalizes every cost to one successful traversal of the entire
+loop. Run it with:
+
+```bash
+.env/bin/cno-sweep fuel-cycle \
+  --config analysis/data/fuel-cycle/reference.json \
+  --output analysis/results/deuterium-loop-reference.csv \
+  --stages-output analysis/results/deuterium-loop-reference-stages.csv
+```
+
+The first CSV is the D/T cycle figure of merit. The second exposes each
+stage's reactivity, characteristic and hydrodynamic times, burn parameter,
+burn fraction, compression/heating energies, and D-T use. Generated CSV files
+are ignored by Git; the exact reference conclusions are recorded in
+[`RESULTS.md`](RESULTS.md).
+
+Inputs are intentionally editable JSON. In particular, the reference file
+exposes $(R_0,C,T_i)$ independently for every stage, neutron-capture
+efficiency, confinement multiplier, D-T coupling and burn efficiencies,
+uniform-heated mass fraction, auxiliary-DD energy fraction, both DD branches,
+and the treatment of tritium makeup. `tritium_makeup_mode="none"` reports the
+uncovered T deficit. `"dd"` makes that deficit through statistically branched
+DD reactions and charges all deuterons used. The latter is a nuclear-material
+lower bound: it does not yet charge a separate driver for the DD makeup plant.
+
+The underlying desired network and support reactions are structured in
+[`data/reactions/deuterium-production-loop.json`](data/reactions/deuterium-production-loop.json).
+Forward rates come from the selected subset of the pinned JINA REACLIB default
+snapshot in
+[`data/rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json`](data/rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json).
+The subset is reproducibly extracted, after checking the full snapshot's
+SHA-256 digest, by `scripts/extract_deuterium_loop_rates.py`.
+
+### Screening equations and boundaries
+
+For each stoichiometric heavy-ion/light-ion target,
+
+$$
+R_f=R_0C^{-1/3},\qquad
+\tau_h=kR_f/c_s,\qquad
+B=n_{\rm light}\langle\sigma v\rangle\tau_h.
+$$
+
+The constant-state two-reactant depletion equation is integrated exactly. For
+the equal number densities used by the reference target this reduces to
+$f=B/(1+B)$, but the code does not use an exponential burn approximation.
+The useful pusher energy is the actual ideal-gas internal-energy change,
+written without double-counting the cold Fermi sea as
+
+$$
+E_{\rm useful}=\Delta U_{e,0}
+ +(1-f_{\rm DD,heat})\left[\Delta U_i+
+ \left(U_e(n_f,T_e)-U_e(n_f,0)\right)\right].
+$$
+
+and the number of burned pusher pairs is
+
+$$
+N_{DT}=E_{\rm useful}/(\eta_p Q_{DT}).
+$$
+
+If the configured uniformly heated fraction is below one, only that fraction
+is credited with hot-stage reactions; the model does not grant unmodeled burn
+propagation into cold fuel. The electron terms use a fixed-number,
+finite-temperature relativistic Fermi-Dirac EOS, and the ions remain
+classical. Positron pairs, Coulomb and ionization corrections, radiation
+pressure, shocks,
+implosion kinetic losses, charged-particle/gamma transport, and manufacture of
+the assumed target mixtures are not yet modeled. Thus this is an auditable
+zero-D cost screen, not a target-performance prediction.
+
+For each normalized completed loop, the output defines
+
+$$
+F_D=N_{D,\rm consumed}/N_{D,\rm gross},\qquad
+G_D=1/F_D,\qquad
+D_{\rm net}=N_{D,\rm gross}-N_{D,\rm consumed}.
+$$
+
+`d_total_consumed` is also directly the D consumed per completed loop. Positive
+D closure requires $G_D>1$; simultaneous closure additionally requires
+`t_net >= 0` without an uncharged external tritium source.
+
+The broad screening grid used to minimize deuterium expenditure is reproducible
+with:
+
+```bash
+.env/bin/python analysis/scripts/optimize_deuterium_loop.py \
+  --config analysis/data/fuel-cycle/optimization.json \
+  --output analysis/results/deuterium-loop-optimization.csv \
+  --stages-output analysis/results/deuterium-loop-optimization-stages.csv
+```
+
+Its point audit, optimum, and parity decomposition are in
+[`results/deuterium-loop-audit-2026-09-04.md`](results/deuterium-loop-audit-2026-09-04.md).
+That document preserves the historical additive-EOS result. The subsequent
+finite-EOS, temporal-grouping, and expanded-flow audit is in
+[`results/eos-grouping-ledger-audit-2026-09-04.md`](results/eos-grouping-ledger-audit-2026-09-04.md).
+
+The grouped-event calculation is reproduced with:
+
+```bash
+.env/bin/python analysis/scripts/audit_eos_and_grouping.py \
+  --output analysis/results/deuterium-loop-grouped-events.csv \
+  --summary-output analysis/results/deuterium-loop-grouped-summary.csv
+```

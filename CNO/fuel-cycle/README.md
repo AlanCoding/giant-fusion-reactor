@@ -43,6 +43,36 @@ flowchart TD
 
 Every box is an isotope or material inventory. Solid arrows are hot implosion reactions; dotted arrows are cold beta-decay/recovery steps. $^{13}N$ is the deliberate branch point: while it remains hot, $^{13}N(p,\gamma){}^{14}O$ feeds staged CNO; if it is recovered and cooled instead, its beta-plus decay makes $^{13}C$ for the breeder target. The neutron is released into the expanding shot environment and is ultimately moderated/captured by the hydrogen inventory; its oxygen product returns through ${}^{16}O\rightarrow{}^{17}F\rightarrow{}^{17}O$ and rejoins the shared loop at ${}^{14}N$.
 
+## Deuterium-production loop only
+
+This is the same fuel cycle with the staged-CNO energy route removed. It shows
+only the sequence required to repeat one neutron-producing $^{13}C(\alpha,n)$
+shot and recover one deuterium nucleus from its neutron.
+
+```mermaid
+flowchart TD
+    C12[12C] -->|hot implosion: 12C + p → 13N + gamma| N13[13N]
+    N13 -. recover, cool, then beta+ + nu_e .-> C13[13C]
+    He[4He inventory] -->|alpha input| C13
+    C13 -->|hot implosion: 13C + alpha → 16O + n| O16[16O]
+    C13 -->|same reaction: neutron output| n[fast neutron]
+    n -->|moderates, then n + p → D + gamma| D[2H / D output]
+    H2[H2 capture inventory] -->|p input| D
+    O16 -->|hot implosion: 16O + p → 17F + gamma| F17[17F]
+    F17 -. recover, cool, then beta+ + nu_e .-> O17[17O]
+    O17 -->|hot implosion: 17O + p → 14N + alpha| N14[14N]
+    O17 -->|alpha = 4He output| He
+    N14 -->|hot implosion: 14N + p → 15O + gamma| O15[15O]
+    O15 -. recover, cool, then beta+ + nu_e .-> N15[15N]
+    N15 -->|hot implosion: 15N + p → 12C + alpha| C12
+    N15 -->|alpha = 4He output| He
+```
+
+Solid arrows are implosion reactions; dotted arrows are post-shot recovery and
+beta-plus-decay waits. The $^{13}N\rightarrow{}^{13}C$ decay is the longest
+required decay wait. The external hydrogen inventory receives the neutron and
+creates the D output; it is the sole D-breeding step in this diagram.
+
 ## Candidate pathways
 
 - [Staged CNO hydrogen burning](staged-cno.md) restores its CNO catalyst but does not produce surplus deuterium.

@@ -10,11 +10,14 @@ SPEED_OF_LIGHT = 299_792_458.0  # m s^-1, exact
 
 # Atomic mass numbers and fully stripped nuclear charges for the current model.
 NUCLIDES = {
+    "n": (1.0, 0),
     "h1": (1.0, 1),
     "d": (2.0, 1),
     "t": (3.0, 1),
+    "he3": (3.0, 2),
     "he4": (4.0, 2),
     "c12": (12.0, 6),
+    "c13": (13.0, 6),
     "n13": (13.0, 7),
     "o14": (14.0, 8),
     "n14": (14.0, 7),
@@ -23,4 +26,5 @@ NUCLIDES = {
     "o16": (16.0, 8),
     "f17": (17.0, 9),
     "o17": (17.0, 8),
+    "f18": (18.0, 9),
 }

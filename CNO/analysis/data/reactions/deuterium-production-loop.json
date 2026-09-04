@@ -1,0 +1,44 @@
+{
+  "description": "One completed desired deuterium-production loop plus driver/heater support reactions",
+  "source_notes": [
+    "Hot-reaction Q values are from the pinned JINA REACLIB snapshot selected in ../rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json.",
+    "Decay half-lives are from NNDC ENSDF: 13N evaluated August 2024, 17F beta+ decay evaluation with 2021 cutoff, and adopted 15O levels.",
+    "Beta-decay energies are intentionally null: decay particles are material-bookkeeping entries, while their recoverable energy requires spectrum and transport data.",
+    "The loop selects desired channels only. Competing N15(p,gamma)O16 and O17(p,gamma)F18 rates are present in the rate library but are not yet integrated into the stage yield."
+  ],
+  "cycle_reaction_ids": [
+    "c12-p-g-n13",
+    "n13-beta-c13",
+    "c13-a-n-o16",
+    "n-p-g-d",
+    "o16-p-g-f17",
+    "f17-beta-o17",
+    "o17-p-a-n14",
+    "n14-p-g-o15",
+    "o15-beta-n15",
+    "n15-p-a-c12"
+  ],
+  "hot_stage_ids": [
+    "c12-p-g-n13",
+    "c13-a-n-o16",
+    "o16-p-g-f17",
+    "o17-p-a-n14",
+    "n14-p-g-o15",
+    "n15-p-a-c12"
+  ],
+  "reactions": [
+    {"id": "c12-p-g-n13", "reactants": {"c12": 1, "h1": 1}, "products": {"n13": 1, "gamma": 1}, "process": "hot", "q_mev": 1.94300, "rate_id": "c12-p-g-n13"},
+    {"id": "n13-beta-c13", "reactants": {"n13": 1}, "products": {"c13": 1, "eplus": 1, "nu_e": 1}, "process": "cold_decay", "q_mev": null, "half_life_s": 597.504, "half_life_source": "https://www.nndc.bnl.gov/ensnds/13/C/ec_decay.pdf"},
+    {"id": "c13-a-n-o16", "reactants": {"c13": 1, "he4": 1}, "products": {"o16": 1, "n": 1}, "process": "hot", "q_mev": 2.21561, "rate_id": "c13-a-n-o16"},
+    {"id": "n-p-g-d", "reactants": {"n": 1, "h1": 1}, "products": {"d": 1, "gamma": 1}, "process": "blanket", "q_mev": 2.22457, "rate_id": "n-p-g-d"},
+    {"id": "o16-p-g-f17", "reactants": {"o16": 1, "h1": 1}, "products": {"f17": 1, "gamma": 1}, "process": "hot", "q_mev": 0.60027, "rate_id": "o16-p-g-f17"},
+    {"id": "f17-beta-o17", "reactants": {"f17": 1}, "products": {"o17": 1, "eplus": 1, "nu_e": 1}, "process": "cold_decay", "q_mev": null, "half_life_s": 64.385, "half_life_source": "https://www.nndc.bnl.gov/ensnds/17/O/ec_decay.pdf"},
+    {"id": "o17-p-a-n14", "reactants": {"o17": 1, "h1": 1}, "products": {"n14": 1, "he4": 1}, "process": "hot", "q_mev": 1.19182, "rate_id": "o17-p-a-n14"},
+    {"id": "n14-p-g-o15", "reactants": {"n14": 1, "h1": 1}, "products": {"o15": 1, "gamma": 1}, "process": "hot", "q_mev": 7.29680, "rate_id": "n14-p-g-o15"},
+    {"id": "o15-beta-n15", "reactants": {"o15": 1}, "products": {"n15": 1, "eplus": 1, "nu_e": 1}, "process": "cold_decay", "q_mev": null, "half_life_s": 122.24, "half_life_source": "https://www.nndc.bnl.gov/ensnds/15/O/adopted.pdf"},
+    {"id": "n15-p-a-c12", "reactants": {"n15": 1, "h1": 1}, "products": {"c12": 1, "he4": 1}, "process": "hot", "q_mev": 4.96600, "rate_id": "n15-p-a-c12"},
+    {"id": "d-d-p-t", "reactants": {"d": 2}, "products": {"h1": 1, "t": 1}, "process": "auxiliary", "q_mev": 4.03266, "rate_id": "d-d-p-t"},
+    {"id": "d-d-n-he3", "reactants": {"d": 2}, "products": {"n": 1, "he3": 1}, "process": "auxiliary", "q_mev": 3.26890, "rate_id": "d-d-n-he3"},
+    {"id": "d-t-n-he4", "reactants": {"d": 1, "t": 1}, "products": {"n": 1, "he4": 1}, "process": "pusher", "q_mev": 17.5890, "rate_id": "d-t-n-he4"}
+  ]
+}

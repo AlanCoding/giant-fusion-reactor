@@ -1,0 +1,34 @@
+{
+  "description": "Transparent first complete-loop screen; not an optimized target design",
+  "reaction_database": "data/reactions/deuterium-production-loop.json",
+  "rate_library": "data/rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json",
+  "neutron_capture_efficiencies": [1.0, 0.8],
+  "tritium_makeup_modes": ["none", "dd"],
+  "model": {
+    "initial_temperature_k": 20.0,
+    "confinement_multiplier": 1.0,
+    "electron_temperature_ratio": 1.0,
+    "uniform_heating_fraction": 1.0,
+    "thermal_energy_multiplier": 1.0,
+    "compression_work_multiplier": 1.0,
+    "pusher_coupling_efficiency": 0.1,
+    "pusher_burn_fraction": 1.0,
+    "pusher_unburned_recovery_efficiency": 1.0,
+    "pusher_neutron_capture_efficiency": 0.0,
+    "auxiliary_heater_fraction": 0.0,
+    "auxiliary_dd_deposition_efficiency": 0.8,
+    "auxiliary_tritium_dt_burn_fraction": 0.0,
+    "auxiliary_neutron_capture_efficiency": 0.0,
+    "max_auxiliary_d_number_fraction": 0.1,
+    "dd_tritium_branch_fraction": 0.5,
+    "makeup_dd_neutron_capture_efficiency": 0.8
+  },
+  "stages": [
+    {"reaction_id": "c12-p-g-n13", "r0_m": 10.0, "compression_ratio": 1.0e7, "rho0_kg_m3": 500.0, "ion_temperature_keV": 100.0},
+    {"reaction_id": "c13-a-n-o16", "r0_m": 10.0, "compression_ratio": 1.0e7, "rho0_kg_m3": 500.0, "ion_temperature_keV": 300.0},
+    {"reaction_id": "o16-p-g-f17", "r0_m": 10.0, "compression_ratio": 1.0e7, "rho0_kg_m3": 500.0, "ion_temperature_keV": 300.0},
+    {"reaction_id": "o17-p-a-n14", "r0_m": 10.0, "compression_ratio": 1.0e7, "rho0_kg_m3": 500.0, "ion_temperature_keV": 100.0},
+    {"reaction_id": "n14-p-g-o15", "r0_m": 10.0, "compression_ratio": 1.0e7, "rho0_kg_m3": 500.0, "ion_temperature_keV": 100.0},
+    {"reaction_id": "n15-p-a-c12", "r0_m": 10.0, "compression_ratio": 1.0e7, "rho0_kg_m3": 500.0, "ion_temperature_keV": 30.0}
+  ]
+}
