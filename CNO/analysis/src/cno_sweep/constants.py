@@ -6,6 +6,7 @@ BOLTZMANN = 1.380_649e-23  # J K^-1, exact
 KEV_TO_KELVIN = 1.160_451_812e7
 KEV_TO_JOULE = 1.602_176_634e-16
 MEV_TO_JOULE = 1.602_176_634e-13
+SPEED_OF_LIGHT = 299_792_458.0  # m s^-1, exact
 
 # Atomic mass numbers and fully stripped nuclear charges for the current model.
 NUCLIDES = {

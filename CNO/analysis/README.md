@@ -70,4 +70,29 @@ not scanned independently. The CSV marks every row as a screening result because
 snapshot does not state a validated temperature interval and the EOS closure
 is deliberately provisional.
 
+The first time-domain radiation benchmark is $^{14}$N$(p,\gamma)^{15}$O:
+
+```bash
+.env/bin/cno-sweep n14-time \
+  --config analysis/data/sweeps/n14-radiation-benchmark.json \
+  --output analysis/results/n14-radiation-benchmark.csv
+```
+
+It evolves fuel density, burn, a gray gamma-photon reservoir, optical depth,
+photon number density, deposited photon energy, and escaped photon energy.
+The [seeded-burn model](seeded-burn-model.md) defines the new boundary between
+an assumed D-T ignition seed and the question of self-sustained CNO burn.
+The next [central-ignitor burn-front screen](burn-front-screen.md) replaces
+whole-core uniform heating with a hot-spot-plus-cold-shell criterion.
+Run its first $^{14}$N reference sweep with:
+
+```bash
+.env/bin/cno-sweep n14-front \
+  --config analysis/data/sweeps/n14-front-reference.json \
+  --output analysis/results/n14-front-reference.csv
+```
+
+The [first front-screen result](results/n14-front-screen-2026-09-03.md)
+documents its deliberately provisional gamma-transport boundary.
+
 `notebooks/` and `results/` are reserved for reproducible analysis assets.

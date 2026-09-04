@@ -44,6 +44,7 @@ and the two REACLIB contributions for each reaction:
 | --- | --- | --- |
 | $^{12}$C$(p,\gamma)^{13}$N | `ls09n`, `ls09r` | Li, Z. et al., experimental rate evaluation, 2010. |
 | $^{13}$N$(p,\gamma)^{14}$O | `lg06n`, `lg06r` | Z. H. Li et al., *Physical Review C* 74, 035801 (2006). |
+| $^{14}$N$(p,\gamma)^{15}$O | `im05n`, `im05r` | REACLIB-selected forward contributions; source-label bibliography pending. |
 
 These coefficients permit a real first numerical screen. They do **not** by
 themselves establish fitness at every proposed implosion temperature; the

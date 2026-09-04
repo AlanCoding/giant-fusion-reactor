@@ -8,6 +8,8 @@ from cno_sweep.network import integrate_primary_network
 from cno_sweep.plasma import ideal_fully_ionized_sound_speed, number_densities
 from cno_sweep.reactivity import ConstantReactivity, ReaclibFit, ReactivityError
 from cno_sweep.sweep import CompressionHeating, StaticState, compressed_temperature_keV, geometry
+from cno_sweep.time_domain import GrayRadiation, evolve_n14_capture
+from cno_sweep.front import evolve_n14_front
 
 
 class GeometryTests(unittest.TestCase):
@@ -57,6 +59,35 @@ class UnitTests(unittest.TestCase):
         two = load_json(root / "c12-two-proton-primary.json")
         self.assertAlmostEqual(one["physical_form"]["initial_density_kg_m3"], 663.9821616)
         self.assertAlmostEqual(two["physical_form"]["initial_density_kg_m3"], 415.3916489)
+
+
+class TimeDomainTests(unittest.TestCase):
+    def test_gray_radiation_tracks_generated_energy(self) -> None:
+        rate = ConstantReactivity(1e-24)
+        rows = evolve_n14_capture(
+            1.0, 0.1, 500.0, {"n14": 14.0 / 15.0, "h1": 1.0 / 15.0},
+            CompressionHeating(20.0), rate, GrayRadiation(7.2968, 0.002), 7.2968, hydro_times=0.1, steps=10,
+        )
+        self.assertEqual(len(rows), 11)
+        self.assertGreaterEqual(rows[-1].nuclear_energy_generated_j, 0.0)
+        self.assertGreaterEqual(rows[0].photon_number_density_m3, 0.0)
+        self.assertGreaterEqual(rows[-1].photon_energy_deposited_j + rows[-1].photon_energy_escaped_j + rows[-1].photon_energy_j, 0.0)
+
+    def test_seed_energy_raises_initial_temperature(self) -> None:
+        common = dict(
+            r0_m=1.0, rc_m=0.1, rho0_kg_m3=500.0, mass_fractions={"n14": 14.0 / 15.0, "h1": 1.0 / 15.0},
+            heating=CompressionHeating(20.0), rate=ConstantReactivity(0.0), radiation=GrayRadiation(7.2968, 0.002),
+            q_mev=7.2968, hydro_times=0.01, steps=1,
+        )
+        cold = evolve_n14_capture(**common)
+        seeded = evolve_n14_capture(**common, seed_deposited_energy_j=1e12)
+        self.assertGreater(seeded[0].ion_temperature_keV, cold[0].ion_temperature_keV)
+
+    def test_front_keeps_hotspot_and_shell_distinct(self) -> None:
+        rows = evolve_n14_front(1.0, 0.1, 500.0, {"n14": 14.0 / 15.0, "h1": 1.0 / 15.0}, CompressionHeating(20.0), ConstantReactivity(0.0), GrayRadiation(7.2968, 0.002), 7.2968, 0.1, 30.0, 10.0, zones=4, hydro_times=0.01, steps=1)
+        self.assertEqual(len(rows), 8)
+        self.assertGreater(rows[0].ion_temperature_keV, rows[1].ion_temperature_keV)
+        self.assertGreater(rows[0].active_front_radius_m, 0.0)
 
 
 class NetworkTests(unittest.TestCase):

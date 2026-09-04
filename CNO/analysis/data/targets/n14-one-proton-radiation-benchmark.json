@@ -1,0 +1,16 @@
+{
+  "id": "n14-one-proton-radiation-benchmark",
+  "purpose": "Single-capture radiation/burn benchmark for 14N(p,gamma)15O.",
+  "reactant_inventory": {
+    "n_p_per_n14": 1.0,
+    "mass_fractions_if_only_n14_and_h1": {"n14": 0.9333333333, "h1": 0.0666666667}
+  },
+  "physical_form": {
+    "description": "Solid nitrogen / liquid H2 no-void additive-specific-volume reference mixture.",
+    "initial_temperature_k": 20.0,
+    "component_densities_kg_m3": {"solid_nitrogen_reference": 800.0, "liquid_h2": 70.8},
+    "mixture_rule": "1/rho0 = w_n/rho_n + w_h/rho_h",
+    "initial_density_kg_m3": 471.8437096
+  },
+  "notes": "The nitrogen component density is the existing project reference value. Replace with a cryogenic solid-N2 EOS when target materials are refined."
+}

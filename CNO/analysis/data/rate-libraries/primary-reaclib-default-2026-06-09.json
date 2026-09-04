@@ -14,10 +14,17 @@
     "n13-p-g-o14": [
       {"label": "lg06n", "coefficients": [18.1356, 0.0, -15.1676, 0.0955166, 3.0659, -0.507339, -0.666667], "t9_min": null, "t9_max": null},
       {"label": "lg06r", "coefficients": [10.9971, -6.12602, 1.57122, 0.0, 0.0, 0.0, -1.5], "t9_min": null, "t9_max": null}
+    ],
+    "n14-p-g-o15": [
+      {"label": "im05n", "coefficients": [17.01, 0.0, -15.193, -0.161954, -7.52123, -0.987565, -0.666667], "t9_min": null, "t9_max": null},
+      {"label": "im05n", "coefficients": [20.1169, 0.0, -15.193, -4.63975, 9.73458, -9.55051, 0.333333], "t9_min": null, "t9_max": null},
+      {"label": "im05r", "coefficients": [7.65444, -2.998, 0.0, 0.0, 0.0, 0.0, -1.5], "t9_min": null, "t9_max": null},
+      {"label": "im05r", "coefficients": [6.73578, -4.891, 0.0, 0.0, 0.0, 0.0, 0.0682], "t9_min": null, "t9_max": null}
     ]
   },
   "references": {
     "ls09": "Li, Z. et al., Determination of the 12C(p,gamma)13N reaction rates from the 12C(7Li,6He)13N reaction, Science in China G: Physics and Astronomy (2010); REACLIB label page.",
-    "lg06": "Z. H. Li et al., 13N(d,n)14O reaction and the astrophysical 13N(p,gamma)14O reaction, Physical Review C 74, 035801 (2006); REACLIB label page."
+    "lg06": "Z. H. Li et al., 13N(d,n)14O reaction and the astrophysical 13N(p,gamma)14O reaction, Physical Review C 74, 035801 (2006); REACLIB label page.",
+    "im05": "REACLIB source label for the selected 14N(p,gamma)15O contributions; bibliographic metadata still to be added."
   }
 }

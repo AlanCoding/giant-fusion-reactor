@@ -8,6 +8,7 @@ The [initial handoff](SEED.md) preserves the full project brief. This repository
 
 - [Architecture](architecture.md): reactor philosophy and collection-limited scaling.
 - [Cryogenic target architecture](target-architecture.md): shared core, D-T pusher, and material-state assumptions.
+- [Implosion physics](implosion/README.md): shared ignition, burn, transport, and propagation learning notes.
 - [Fuel cycle](fuel-cycle/README.md): the two candidate pathways, isotope economy, and expandable fuel branches.
 - [Model](model.md): the deliberately simple one-zone screening model.
 - [Reactions](reactions/README.md): one record per important hot reaction.

@@ -1,0 +1,17 @@
+{
+  "purpose": "Reduced radial hot-spot/cold-shell propagation screen for 14N(p,gamma)15O.",
+  "target": "data/targets/n14-one-proton-radiation-benchmark.json",
+  "rate_library": "data/rate-libraries/primary-reaclib-default-2026-06-09.json",
+  "compression_heating": {"initial_temperature_k": 20.0, "gamma": 1.6666666666666667, "extra_thermal_energy_fraction": 0.30},
+  "geometries": [{"id": "ten-metre-at-1000-g-cc", "r0_m": 10.0, "rc_m": 0.779}],
+  "q_mev": 7.2968,
+  "mean_photon_energy_mev": 7.2968,
+  "mass_energy_absorption_m2_kg": 0.002,
+  "hotspot_radius_fraction": [0.01, 0.03, 0.10],
+  "hotspot_temperature_keV": [30.0, 50.0, 100.0],
+  "activation_temperature_keV": 10.0,
+  "zones": 16,
+  "hydro_times": 5.0,
+  "steps": 1000,
+  "notes": "The hotspot is a prescribed D-T-driver outcome. Gamma deposition is one-way outward gray attenuation, not a gamma transport solution. The 10 keV activation threshold is a reporting coordinate, not an ignition criterion."
+}

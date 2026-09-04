@@ -1,0 +1,17 @@
+{
+  "purpose": "First one-zone time-domain radiation/burn benchmark for 14N(p,gamma)15O.",
+  "target": "data/targets/n14-one-proton-radiation-benchmark.json",
+  "rate_library": "data/rate-libraries/primary-reaclib-default-2026-06-09.json",
+  "compression_heating": {"initial_temperature_k": 20.0, "gamma": 1.6666666666666667, "extra_thermal_energy_fraction": 0.30},
+  "geometries": [
+    {"id": "three-metre-at-1000-g-cc", "r0_m": 3.0, "rc_m": 0.234},
+    {"id": "ten-metre-at-1000-g-cc", "r0_m": 10.0, "rc_m": 0.779}
+  ],
+  "q_mev": 7.2968,
+  "mean_photon_energy_mev": 7.2968,
+  "mass_energy_absorption_m2_kg": [0.0005, 0.002, 0.01],
+  "seed_deposited_energy_j": [0.0, 1e15, 1e17, 1e19, 1e21],
+  "hydro_times": 5.0,
+  "steps": 2000,
+  "notes": "The opacity values are an explicit sensitivity band, not a fitted C/H/N gamma-opacity claim. Seed energy is a uniform-equivalent deposited D-T-driver energy in the 0-D core, not a pusher coupling claim. Replace both with geometry- and spectrum-resolved transport in 1-D."
+}

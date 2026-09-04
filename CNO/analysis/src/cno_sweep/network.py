@@ -18,6 +18,25 @@ class PrimaryProducts:
     second_captures_m3: float
 
 
+def bimolecular_consumption(a: float, b: float, rate_m3_s: float, interval_s: float) -> float:
+    """Exact reacted amount for A+B -> products at constant density/state."""
+    if min(a, b, rate_m3_s, interval_s) < 0:
+        raise ValueError("reaction inputs must be non-negative")
+    if rate_m3_s == 0.0 or interval_s == 0.0 or a == 0.0 or b == 0.0:
+        return 0.0
+    difference = b - a
+    if abs(difference) <= max(a, b) * 1e-14:
+        remaining_a = a / (1.0 + rate_m3_s * a * interval_s)
+    elif difference > 0.0:
+        attenuation = exp(-difference * rate_m3_s * interval_s)
+        remaining_a = a * difference * attenuation / (b - a * attenuation)
+    else:
+        attenuation = exp(difference * rate_m3_s * interval_s)
+        remaining_b = b * (-difference) * attenuation / (a - b * attenuation)
+        remaining_a = remaining_b - difference
+    return min(a, b, max(0.0, a - remaining_a))
+
+
 def integrate_primary_network(
     c12_m3: float,
     proton_m3: float,
@@ -42,41 +61,19 @@ def integrate_primary_network(
     initial_protons = proton_m3
     dt = dwell_s / steps
 
-    def consume_pair(a: float, b: float, rate: float, interval: float) -> float:
-        """Exact depletion of A+B -> products at fixed rate over one interval.
-
-        Returning the reacted amount instead of an Euler derivative guarantees
-        that no substep consumes more of either reactant than exists, even for
-        the intentionally extreme high-compression rows in this screen.
-        """
-        if rate == 0.0 or interval == 0.0 or a == 0.0 or b == 0.0:
-            return 0.0
-        difference = b - a
-        if abs(difference) <= max(a, b) * 1e-14:
-            remaining_a = a / (1.0 + rate * a * interval)
-        elif difference > 0.0:
-            attenuation = exp(-difference * rate * interval)
-            remaining_a = a * difference * attenuation / (b - a * attenuation)
-        else:
-            # Exchange labels to use the B>A solution, then reconstruct A.
-            attenuation = exp(difference * rate * interval)
-            remaining_b = b * (-difference) * attenuation / (a - b * attenuation)
-            remaining_a = remaining_b - difference
-        return min(a, b, max(0.0, a - remaining_a))
-
     for _ in range(steps):
         c12, n13, o14, proton = state
         # Strang splitting: half first capture, full second capture, half
         # first capture. Each elementary update is exact and bounded.
-        first_a = consume_pair(c12, proton, c12_p_rate_m3_s, dt / 2.0)
+        first_a = bimolecular_consumption(c12, proton, c12_p_rate_m3_s, dt / 2.0)
         c12 -= first_a
         n13 += first_a
         proton -= first_a
-        second = consume_pair(n13, proton, n13_p_rate_m3_s, dt)
+        second = bimolecular_consumption(n13, proton, n13_p_rate_m3_s, dt)
         n13 -= second
         o14 += second
         proton -= second
-        first_b = consume_pair(c12, proton, c12_p_rate_m3_s, dt / 2.0)
+        first_b = bimolecular_consumption(c12, proton, c12_p_rate_m3_s, dt / 2.0)
         c12 -= first_b
         n13 += first_b
         proton -= first_b
