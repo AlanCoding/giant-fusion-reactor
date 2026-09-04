@@ -4,3 +4,4 @@ __pycache__/
 analysis/results/*.csv
 !analysis/results/.gitkeep
 !analysis/results/*.md
+codex-gpt-5/results/*.csv

@@ -55,6 +55,53 @@ $$
 This is a normalization, not a claim of a blackbody spectrum or uniform core
 deposition.
 
+### What a completely burned pusher implies
+
+The 100-keV value used in the N14 rate screen is a prescribed *seeded fuel
+burn-zone temperature*. It is not a D–T X-ray temperature. A distinct,
+optimistic radiation-equilibrium estimate can be made for a nearly completely
+burned pusher at its stated 250 g/cm³ compressed density. Its full D–T energy
+density is
+
+u_DT = rho_DT × epsilon_DT = 8.50×10¹⁹ J/m³.
+
+If that energy were trapped and equilibrated as radiation in the pusher volume,
+then T_rad = (u/a)^(1/4) gives 49.9 keV. Promptly available pusher heating is
+more conservatively the 3.5-MeV alpha share, 3.5/17.6 of the total: its
+blackbody-equivalent ceiling is 33.3 keV.
+
+That radiation-equivalent temperature is **not** the temperature of the
+alpha-heated plasma. With 100% D–T burn and neutron escape, one reaction leaves
+one He-4 ion and two electrons. Sharing the 3.5-MeV alpha energy among those
+three species gives a much hotter plasma. Treating the He ion as nonrelativistic
+and the electrons with a relativistic Maxwell–Juttner energy distribution,
+
+3/2 kT_i + 2 u_e(T_e) = 3.5 MeV,
+
+with a common equilibrated temperature, gives kT_e approximately 0.56 MeV.
+The naive nonrelativistic three-particle estimate would give 0.78 MeV; it is
+too high because the electrons are mildly relativistic. This is the appropriate
+first-pass **thermal bremsstrahlung spectral temperature**: an optically thin
+thermal X-ray spectrum has an exponential scale of order 0.5 MeV, not 33 keV.
+
+| Quantity after complete D–T burn, neutron energy excluded | First-pass value |
+| --- | ---: |
+| Equilibrated alpha-heated He/electron plasma temperature | kT about 0.56 MeV |
+| Optically thin thermal-bremsstrahlung spectral scale | kT_e about 0.56 MeV |
+| Alpha-energy blackbody-equivalent radiation temperature | 33.3 keV |
+
+| Assumed trapped radiation inventory in fully burned 250 g/cm³ D–T | Radiation-equivalent temperature |
+| --- | ---: |
+| Alpha share only: 3.5/17.6 of D–T Q | 33.3 keV |
+| All 17.6 MeV per D–T pair, including neutron energy | 49.9 keV |
+
+The 0.56-MeV plasma temperature and the 33.3-keV radiation-equivalent
+temperature answer different questions. Neither alone predicts the inward
+fluence: that requires the time-dependent conversion of alpha-heated D–T
+plasma to radiation, its optical depth and escape, pusher expansion, and any
+added radiation case/ablator. In particular, the 14.1-MeV neutron share cannot
+be treated as prompt X-ray drive.
+
 | D–T shell | 0.1% radiation conversion | 1% radiation conversion | 10% radiation conversion |
 | --- | ---: | ---: | ---: |
 | 1 cm | 3.94 keV | 7.01 keV | 12.5 keV |

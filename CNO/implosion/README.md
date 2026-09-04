@@ -16,6 +16,20 @@ compression ledger](dt-pusher.md). It uses this N14/H reference core to put
 absolute shell masses, radiation-temperature normalizations, and X-ray path
 lengths on the pusher question.
 
+The [ten-percent ignition budget](ten-percent-ignition-budget.md) resets the
+screen around a hard driver-energy constraint, compares N14 capture with the
+charged-product N15 return reaction, and frames the layered-bootstrap test.
+
+The [reference D-breeder target card](reference-d-breeder-target.md) puts the
+same assumptions into absolute core and pusher radii, shell masses, and an
+explicit D/T balance.
+
+The active N14 decision records are the
+[N14 compression and D–T tradeoff](../codex-gpt-5/results/n14-steady-cycle-tradeoff-2026-09-04.md)
+
+[N14 plate cooker: first 1-D screen](../codex-gpt-5/results/n14-plate-cooker-2026-09-04.md)
+and its [steady-cycle D correction](../codex-gpt-5/results/n14-steady-cycle-tradeoff-2026-09-04.md): together they separate gamma-locality from full-cycle isotope economics.
+
 ## The minimum 0-D ignition ledger
 
 For a homogeneous zone, the quantities that determine a first burn screen

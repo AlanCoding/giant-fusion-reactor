@@ -49,6 +49,8 @@ Every box is an isotope or material inventory. Solid arrows are hot implosion re
 - [Catalytic deuterium breeder](deuterium-breeder.md) is more complex, but may close the isotope economy.
 - [13N branch control](n13-branch-control.md) defines the target-design fork between $^{14}O$ energy-path production and $^{13}C$ breeder feed.
 - [Lithium and tritium](lithium.md) begins the resource-bottleneck analysis for the complete $p \rightarrow D \rightarrow He$ route.
+- [D–T / deuterium economy](dt-deuterium-economy.md) makes the breeder neutron, D–T pusher, and lithium-T counts explicit under a driver-energy budget.
+- [Reactions required for steady D production](d-production-reaction-catalog.md) lists every hot reaction and cold recovery step that must close before one breeder neutron becomes repeatable D output.
 
 ## Closure criterion
 
