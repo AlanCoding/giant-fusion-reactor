@@ -124,14 +124,14 @@ It is a D breeder, not a T breeder. Its decisive metric is the source-to-recover
 ### Breeder-shot topology
 
 ```mermaid
-flowchart LR
+flowchart TD
     C13[Stored 13C] --> Core[13C + 4He reactive core]
     He[Recovered 4He inventory] --> Core
     DT[Solid D-T pusher] -->|implodes| Core
-    Core -->|13C(alpha,n)16O| O16[16O: return network]
-    Core -->|13C(alpha,n)16O| n[fast neutron]
+    Core -->|13C alpha,n 16O| O16[16O: return network]
+    Core -->|13C alpha,n 16O| n[fast neutron]
     n -->|traverses pusher| H2[clean liquid-H2 capture mantle]
-    H2 -->|n(p,gamma)D| D[D recovered after cooling]
+    H2 -->|n p,gamma D| D[D recovered after cooling]
     O16 --> Return[O16 -> 17F -> 17O -> 14N -> 15O -> 15N -> 12C]
 ```
 
