@@ -14,6 +14,10 @@ candidate fuel balls can use the same reaction record.
   chosen reaction by reaction rather than silently inherited from prose.
 - `rate-libraries/`: a pinned, downloaded evaluated-rate library and its
   manifest. Do not put a hand-copied fit into a reaction card.
+- `neutron-transport/`: compact MF=3 neutron cross sections extracted from a
+  checksum-verified official ENDF archive. The committed card records its
+  source URL and archive digest; `../scripts/extract_light_neutron_cross_sections.py`
+  performs the reproducible extraction.
 
 ## Entry rule
 
@@ -33,4 +37,3 @@ selected shell EOS explicit rather than assuming them.
   The rate-adapter, not an input card, must make the conversion to
   $\langle\sigma v\rangle$ in $\mathrm{m^3\,s^{-1}}$ explicit and tested.
 - A target composition supplies *mass fractions*, which must sum to one.
-

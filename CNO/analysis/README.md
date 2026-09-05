@@ -40,8 +40,7 @@ The [next-stage plan](next-stage.md) sequences rate ingestion, a stated EOS appr
 
 ## Python model package
 
-`analysis/` is a small installable Python package with no third-party runtime
-dependencies. It currently provides SI-only geometry, an explicitly
+`analysis/` is a small installable Python package. It currently provides SI-only geometry, an explicitly
 provisional ideal fully-ionized sound-speed closure, a REACLIB seven-parameter
 rate adapter, and a finite-proton coupled primary network. It does **not** ship
 invented reaction fits.
@@ -207,4 +206,18 @@ The grouped-event calculation is reproduced with:
 .env/bin/python analysis/scripts/audit_eos_and_grouping.py \
   --output analysis/results/deuterium-loop-grouped-events.csv \
   --summary-output analysis/results/deuterium-loop-grouped-summary.csv
+```
+
+The fixed three-oven neutron-recovery, H-blanket, pusher-state, and
+energy-deposition audit is in
+[`results/neutron-recovery-and-deposition-audit-2026-09-04.md`](results/neutron-recovery-and-deposition-audit-2026-09-04.md).
+Reproduce its generated CSVs with:
+
+```bash
+.env/bin/python analysis/scripts/audit_neutron_recovery.py \
+  --cross-sections analysis/data/neutron-transport/endfb-viii0-light-mf3.json \
+  --sweep-output analysis/results/neutron-recovery-sweep.csv \
+  --burn-state-output analysis/results/neutron-pusher-state-sweep.csv \
+  --deposition-output analysis/results/three-oven-deposition.csv \
+  --histories 5000
 ```

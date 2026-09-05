@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Reproducible first-pass static implosion screening for the CNO study"
 requires-python = ">=3.11"
 dependencies = [
+  "endf-parserpy>=0.17",
   "numpy>=2.0",
   "scipy>=1.14",
 ]
