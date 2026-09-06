@@ -4,6 +4,38 @@
 
 Analysis remains deliberately transparent and reproducible. The first deliverable is a static implosion sweep, not a time-dependent simulation.
 
+## Active v2 model: N15 secondary pusher
+
+The D-T-pushed TOFEL-0D result is frozen in the
+[`archive/tofel-0d-2026-09-04/`](archive/tofel-0d-2026-09-04/README.md)
+directory and at Git commit `817fc3b`. New development is separate and uses
+the model name **N15 Secondary Pusher 0-D v0.1**.
+
+Its first audit treats an accelerator-lit D-T kernel as a fixed starter for an
+uncompressed p+N15 secondary. It includes finite two-reactant depletion,
+composition-dependent density and sound speed, proton enrichment,
+bremsstrahlung, an explicitly optimistic gray photon-trapping bound, a leaky
+self-heating box, cold charged-product stopping bounds, and N14/N15/D/T batch
+accounting. It does not yet claim radial ignition or a propagating burn front.
+
+Read the complete
+[`N15 Secondary-Pusher v0.1 audit`](results/n15-secondary-pusher-v0.1-2026-09-05.md)
+and reproduce its tables and plots with:
+
+```bash
+MPLCONFIGDIR=/tmp/cno-matplotlib \
+.env/bin/python analysis/scripts/audit_n15_pusher.py \
+  --config analysis/data/n15-pusher/reference.json \
+  --output-directory analysis/results/n15-pusher-v0.1
+```
+
+The present gate is deliberately strict: optically thin p+N15 fails the
+radiation balance, while the gray trapped-radiation bound becomes favorable
+only for a target tens of metres across. Hot-plasma product stopping, spectral
+radiation diffusion, and a D-T-to-p+N15 radial front must be modeled before
+the batch-normalized D-T reduction can enter the cycle-closure ledger as a
+physical result.
+
 ## Phase 1: static implosion sweep
 
 For each reaction and target composition, scan the target in this order:

@@ -1,0 +1,28 @@
+{
+  "archive_name": "TOFEL-0D",
+  "archive_date": "2026-09-04",
+  "git_commit": "817fc3b",
+  "scope": "deuterium-production loop with D-T pushers and three beta-separated hot events",
+  "six_implosion_finite_eos": {
+    "pusher_dt_pairs_per_cycle": 0.545870,
+    "g_d": 0.526388
+  },
+  "three_oven_conservative_deposition": {
+    "pusher_dt_pairs_per_cycle": 0.3153395206574428,
+    "g_d_old_neutron_assumptions": 0.7942370267546086,
+    "required_eta_dt_plus_eta_dd_for_parity": 1.8288148662269572
+  },
+  "three_oven_transport_deposition": {
+    "pusher_dt_pairs_per_cycle": 0.22290091020593997,
+    "g_d_static_unburned_pusher_colocated_dd": 0.8973608150301804,
+    "g_d_static_unburned_pusher_separate_dd": 1.0973077006304062
+  },
+  "frozen_assumptions": [
+    "unit pusher coupling",
+    "complete D-T pusher burn",
+    "fixed three-oven core geometries",
+    "recoverable unburned isotope carryover",
+    "no time-resolved D-T burn front",
+    "no real ablator or structural pusher material"
+  ]
+}

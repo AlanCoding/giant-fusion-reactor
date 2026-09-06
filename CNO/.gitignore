@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 analysis/results/*.csv
+analysis/results/**/*.csv
 !analysis/results/.gitkeep
 !analysis/results/*.md
 codex-gpt-5/results/*.csv

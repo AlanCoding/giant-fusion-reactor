@@ -57,8 +57,8 @@ time. These “baby” models cannot design the machinery, but they are very goo
 at catching impossible reaction times, missing fuel flows, double-counted
 energy, and architectures that spend D-T repeatedly for no reason.
 
-The current simulation family is named the **Three-Oven Finite-EOS Ledger
-(TOFEL-0D)**. It combines:
+The now-archived D-T-pusher simulation family is named the **Three-Oven
+Finite-EOS Ledger (TOFEL-0D)**. It combines:
 
 - finite-temperature, fixed-electron-number Fermi-Dirac energetics;
 - coupled isotope rate equations inside each hot event;
@@ -70,6 +70,43 @@ The current simulation family is named the **Three-Oven Finite-EOS Ledger
 
 “Oven” means one hot compressed event. It does not imply a literal kitchen
 oven or a conventional steady-burning reactor.
+
+## Current v2 direction: an N15 secondary pusher
+
+The D-T-pusher result has now been frozen in the
+[TOFEL-0D archive](analysis/archive/tofel-0d-2026-09-04/README.md). The new
+model family, **N15 Secondary Pusher 0-D**, asks a different question: can a
+small, accelerator-lit D-T kernel ignite a much larger uncompressed layer of
+protons and internally manufactured N15?
+
+$$
+p+{}^{15}\mathrm N\rightarrow{}^{12}\mathrm C+\alpha+4.966\ \mathrm{MeV}.
+$$
+
+This is not N15 mixed into the old D-T shell. D-T remains the starter; stored
+N15 is the secondary energy carrier. Nearly all of the N15 reaction energy is
+born in charged products, so it is much better suited to local heating than
+the neutron-dominated D-T yield. It is also much slower, carries a severe
+high-Z bremsstrahlung burden, and must first be manufactured by the slow
+N14(p,gamma)O15 step and beta decay. The model therefore charges N14, N15,
+D, and T explicitly instead of treating N15 as an external fuel.
+
+The first v0.1 necessary-condition screen finds a narrow reason to continue:
+one internally available terminal N15 burn carries 4.966 MeV per completed
+cycle, compared with 3.921 MeV in the archived transport-estimated ideal
+pusher budget. That slim margin demands at least 78.95% secondary-to-core
+coupling even at complete N15 burn. Optically thin radiation losses also
+extinguish the burn. Only an optimistic trapped-radiation calculation reaches
+the required burn fraction, using an uncompressed target about 60 m in radius
+and hundreds of millions of kilograms in mass. The claimed many-order
+reduction in D-T use is therefore conditional on a sub-metre D-T-lit hot
+region actually launching a front through that enormous target—a result the
+zero-dimensional model does not establish.
+
+See the [N15 Secondary-Pusher v0.1 audit](analysis/results/n15-secondary-pusher-v0.1-2026-09-05.md)
+for the equations, tables, plots, isotope ledger, and exact reproduction
+command. The next gate is a radial, spectral radiation and charged-product
+transport calculation, not another broad scalar optimization.
 
 ## How the simulations evolved
 
@@ -234,10 +271,11 @@ system needs substantial margin above one after these effects are included.
 
 ## Model provenance and supervision
 
-The current TOFEL-0D implementation and the finite-EOS, grouping, material-flow,
-neutron-transport, and deposition audits were produced by **OpenAI Codex,
-based on GPT-5**. This work was supervised by the human project lead and by
-**GPT-5.6 Sol (web), high reasoning effort**. Numerical conclusions are kept
+The TOFEL-0D implementation, its finite-EOS, grouping, material-flow,
+neutron-transport, and deposition audits, and the first N15 Secondary Pusher
+0-D implementation were produced by **OpenAI Codex, based on GPT-5**. This
+work was supervised by the human project lead and by **GPT-5.6 Sol (web), high
+reasoning effort**. Numerical conclusions are kept
 with reproducible inputs, source provenance, scripts, tests, and explicit
 model boundaries so that neither human nor AI judgment has to be accepted on
 authority alone.
@@ -258,7 +296,7 @@ computational brief that redirected the work is [SEED2.md](SEED2.md).
 
 ## Current question
 
-Can large, inertially confined targets turn ordinary hydrogen into the dominant
-fuel while scarce D-T acts as a recyclable compression and ignition reagent—and
-can they still do it after realistic heating, burn-front, transport, recovery,
+Can internally manufactured N15 turn a small, scarce-D-T ignition event into a
+much larger proton-powered pulse—and can that pulse close the engineered CNO
+and deuterium ledgers after realistic heating, burn-front, transport, recovery,
 and driver losses are charged honestly?
