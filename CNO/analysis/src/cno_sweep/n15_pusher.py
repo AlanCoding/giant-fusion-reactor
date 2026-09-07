@@ -181,6 +181,26 @@ def self_heating_temperature_ceiling_keV(
     return nitrogen_burn_fraction * deposited_q_mev * 1000.0 / (12.0 + 3.0 * proton_ratio)
 
 
+def secondary_coupling_required(
+    target_seed_energy_mev_per_cycle: float,
+    external_n15_burns_per_cycle: float,
+    q_mev: float = Q_PN15_MEV,
+) -> float:
+    """Energy-transfer fraction required from successful external N15 burns.
+
+    This is normalized per *successful* reaction. A partial shot burn changes
+    loaded inventory and starter amortization, not Q released by each N15 that
+    actually burns.
+    """
+    if target_seed_energy_mev_per_cycle < 0.0:
+        raise ValueError("target seed energy cannot be negative")
+    if external_n15_burns_per_cycle < 0.0 or q_mev <= 0.0:
+        raise ValueError("external N15 burns must be nonnegative and Q positive")
+    if external_n15_burns_per_cycle == 0.0:
+        return inf if target_seed_energy_mev_per_cycle else 0.0
+    return target_seed_energy_mev_per_cycle / (external_n15_burns_per_cycle * q_mev)
+
+
 def bremsstrahlung_power_w_m3(
     mixture: PN15Mixture,
     temperature_keV: float,

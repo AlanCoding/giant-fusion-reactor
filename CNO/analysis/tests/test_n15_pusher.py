@@ -10,6 +10,7 @@ from cno_sweep.n15_pusher import (
     fixed_temperature_burn,
     fusion_power_w_m3,
     mixture_state,
+    secondary_coupling_required,
     self_heating_temperature_ceiling_keV,
     thermal_energy_mev_per_initial_n15,
 )
@@ -52,6 +53,13 @@ class N15PusherTests(unittest.TestCase):
         small = dt_heated_pn15_volume_ratio(0.08, 3.0, 120.0)
         large = dt_heated_pn15_volume_ratio(0.30, 3.0, 120.0)
         self.assertAlmostEqual(small, large)
+
+    def test_secondary_coupling_uses_successful_external_burns_once(self) -> None:
+        self.assertAlmostEqual(
+            secondary_coupling_required(2.547047737319041, 1.0),
+            0.5128972487553445,
+        )
+        self.assertEqual(secondary_coupling_required(0.0, 0.0), 0.0)
 
 
 if __name__ == "__main__":

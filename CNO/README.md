@@ -91,22 +91,47 @@ high-Z bremsstrahlung burden, and must first be manufactured by the slow
 N14(p,gamma)O15 step and beta decay. The model therefore charges N14, N15,
 D, and T explicitly instead of treating N15 as an external fuel.
 
-The first v0.1 necessary-condition screen finds a narrow reason to continue:
-one internally available terminal N15 burn carries 4.966 MeV per completed
-cycle, compared with 3.921 MeV in the archived transport-estimated ideal
-pusher budget. That slim margin demands at least 78.95% secondary-to-core
-coupling even at complete N15 burn. Optically thin radiation losses also
-extinguish the burn. Only an optimistic trapped-radiation calculation reaches
-the required burn fraction, using an uncompressed target about 60 m in radius
-and hundreds of millions of kilograms in mass. The claimed many-order
-reduction in D-T use is therefore conditional on a sub-metre D-T-lit hot
-region actually launching a front through that enormous target—a result the
-zero-dimensional model does not establish.
+The current **v0.4 layered pressure-driver model** replaces an assumed scalar
+coupling efficiency with explicit zero-dimensional momentum dynamics. Its
+radial order is a cold CNO core, a hot p+N15 pressure chamber, a disposable
+inert tamper, and vacuum. The core and tamper are two moving pistons. Driver
+pressure accelerates the core inward and the tamper outward while cold
+electron pressure resists compression. A D-T allowance is then used as a late
+match in the compressed core.
 
-See the [N15 Secondary-Pusher v0.1 audit](analysis/results/n15-secondary-pusher-v0.1-2026-09-05.md)
-for the equations, tables, plots, isotope ledger, and exact reproduction
-command. The next gate is a radial, spectral radiation and charged-product
-transport calculation, not another broad scalar optimization.
+For the difficult middle oven, the first self-consistent point on the tested
+radius grid has:
+
+- a 500 m initial CNO-core radius;
+- a 62.7 m p+N15 layer;
+- a 10.6 m, 19,000 kg/m3 reference tamper;
+- a 573.3 m total initial radius;
+- one-million-fold density compression;
+- 52.4% endpoint completion per attempt;
+- 0.588 p+N15 burns and 0.150 D-T burns per successful endpoint reaction.
+
+The 0.150 D-T allowance is below the conservative simple-ledger parity ceiling
+of 0.238 D-T pairs per completed cycle. If the other two ovens fit inside the
+remaining N15 budget without needing more D-T, that ledger gives $G_D=1.493$.
+This is therefore an **absurd-but-concrete single-oven reference**, not yet a
+balanced three-oven plant.
+
+The reference uses a tamper mass four times the effective inward-moving mass.
+The planar two-mass estimate would give 89.4% of fixed-wall impulse, but the
+actual spherical calculation gives about 69.7% at the chosen compression
+trigger because the outer area grows and energy remains in the hot driver.
+The tamper still provides enough momentum leverage to reach the trigger.
+
+See the [v0.4 layered-driver reference](analysis/results/n15-layered-reference-v0.4-2026-09-06.md)
+for its pressure equations, radii, masses, energy ledger, and radius sweep.
+The [v0.3 dynamic-preheat audit](analysis/results/n15-dynamic-preheat-v0.3-2026-09-06.md)
+still provides the underlying core requirements and preheating calculation,
+but its 566 m and 929 m whole-system radii are withdrawn because they came
+from a prescribed coupling fraction rather than momentum mechanics. The
+[v0.2 clean-separation audit](analysis/results/n15-secondary-pusher-v0.2-clean-separation-2026-09-06.md)
+retains the corrected static energy ledger, while the superseded
+[v0.1 audit](analysis/results/n15-secondary-pusher-v0.1-2026-09-05.md) retains
+the early reaction-rate, radiation, stopping, and starter-size screens.
 
 ## How the simulations evolved
 
@@ -228,6 +253,21 @@ The full cross-section, H-blanket, pusher-state, deposition, and double-counting
 audit is in the
 [neutron-recovery and deposition report](analysis/results/neutron-recovery-and-deposition-audit-2026-09-04.md).
 
+### 7. N15 became the main pressure driver
+
+The v2 architecture removes the terminal N15 reaction from the old first oven
+and spends it exactly once as a stored pulse fuel. A hot p+N15 layer now pushes
+between the CNO core and an inert tamper. The first implementation again used
+a scalar energy-transfer fraction; v0.4 replaced that fraction with two-piston
+pressure and momentum equations.
+
+With a 4:1 tamper/effective-inner mass ratio and 0.150 D-T burns reserved per
+completed cycle, the hard middle oven first closes on the tested grid at a
+500 m initial core radius and a 573.3 m total radius. It is the first concrete
+radius-first reference. It is still conditional on igniting the p+N15 layer
+and depositing the D-T late-match energy in the compressed core at the right
+time.
+
 ## Present interpretation
 
 The project has moved from a clear failure to a narrow and conditional route
@@ -243,14 +283,19 @@ to material parity:
   the already neutron-thick D-T pusher.
 - Product self-heating at the modeled core columns can move the fixed material
   ledger above one.
-- Pusher burn-front transport, realistic coupling, and real target structures
-  can still erase that margin.
+- An inert tamper gives real momentum leverage, although a spherical 4:1
+  calculation reaches only about 70% of the fixed-wall impulse at the trigger.
+- The first explicit layered calculation gives a 500 m-core single-oven
+  reference with a conditional $G_D=1.493$ budget.
+- Pusher ignition, burn-front transport, local D-T-neutron deposition, and real
+  target structures can still erase that margin.
 
-The most meaningful next simulation is not another broad scalar optimization.
-It is a radial, time-dependent model coupling D-T burn, neutron birth and
-slowing, shell conversion to He-4, disassembly, and the external H blanket.
-After that, heterogeneous core heating and steady multi-batch isotope recovery
-need equally explicit treatment.
+The most meaningful next work is not another broad scalar optimization. First,
+the p+N15 burn must be launched from a finite D-T starter rather than appearing
+uniformly throughout a 63 m layer. Second, the late-match neutron energy must
+be placed in space and time rather than assigned a whole-assembly deposition
+fraction. The easier two ovens can then be put through the same pressure model
+and the N15/D/T inventories rebalanced as one plant.
 
 ## What this does not yet prove
 

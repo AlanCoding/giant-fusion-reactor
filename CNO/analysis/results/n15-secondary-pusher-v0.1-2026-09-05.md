@@ -1,5 +1,13 @@
 # N15 Secondary-Pusher v0.1 Audit
 
+> **Superseded on 2026-09-06.** This first audit compared external N15 energy
+> against an archived target calculation that had already counted the same
+> N15 reaction as heat inside oven 1. Its 78.95%/96.72% coupling claims and
+> resulting global energy comparison are withdrawn. The p+N15 reaction-rate,
+> burn-time, radiation, stopping, and isolated-starter screens remain useful.
+> Use the [v0.2 clean-separation audit](n15-secondary-pusher-v0.2-clean-separation-2026-09-06.md)
+> for cycle energy bookkeeping.
+
 [← Analysis](../README.md) · [Archived TOFEL-0D result](../archive/tofel-0d-2026-09-04/README.md)
 
 ## Executive result
