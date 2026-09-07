@@ -1,0 +1,46 @@
+{
+  "model_name": "N15 Complete-Cycle Layered Reference 0-D v0.5",
+  "number_of_implosions": 3,
+  "maximum_initial_outer_radius_m": 834.0806587970986,
+  "relative_shots_for_equal_throughput": {
+    "stage-1-c12-to-n13": 0.44346144546272526,
+    "stage-2-c13-to-f17": 1.0,
+    "stage-3-o17-to-o15": 0.844655249245975
+  },
+  "n15_burns_per_completed_cycle": 1.0,
+  "n15_loaded_per_completed_cycle": 1.25,
+  "n15_recovered_unburned_per_completed_cycle": 0.25,
+  "driver_protons_loaded_per_completed_cycle": 1.0,
+  "driver_protons_burned_per_completed_cycle": 1.0,
+  "driver_protons_recovered_unburned_per_completed_cycle": 0.0,
+  "dt_late_match_burns_per_completed_cycle": 0.15,
+  "fixed_starter_dt_burns_per_completed_cycle": 4.7264298075272e-10,
+  "dt_total_burns_per_completed_cycle": 0.15000000047264297,
+  "fixed_dt_starter_mass_per_implosion_kg": 28.27433388230813,
+  "deuterium_ledger": {
+    "dt_d_consumed": 0.15000000047264297,
+    "dd_d_consumed_for_tritium": 0.6000000018905719,
+    "total_d_consumed": 0.7500000023632148,
+    "desired_neutron_d_produced": 1.0,
+    "dd_neutron_d_produced": 0.12000000037811438,
+    "gross_d_produced": 1.1200000003781143,
+    "net_d": 0.36999999801489947,
+    "g_d": 1.4933333291320625,
+    "tritium_produced_and_consumed": 0.15000000047264297,
+    "dt_neutrons_produced": 0.15000000047264297,
+    "dd_neutrons_produced": 0.15000000047264297,
+    "desired_neutrons_produced": 1.0
+  },
+  "complete_net_nuclear_flow": {
+    "gamma": 4.1200000003781145,
+    "h1": -5.969999999905472,
+    "eplus": 3.0,
+    "nu_e": 3.0,
+    "n": 0.18000000056717158,
+    "he4": 1.150000000472643,
+    "d": 0.3699999980148996,
+    "he3": 0.15000000047264297
+  },
+  "baryon_number_residual": -3.3306690738754696e-16,
+  "charge_residual": -3.885780586188048e-16
+}

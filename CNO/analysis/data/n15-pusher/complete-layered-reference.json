@@ -1,0 +1,54 @@
+{
+  "model_name": "N15 Complete-Cycle Layered Reference 0-D v0.5",
+  "rate_library": "../rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json",
+  "reaction_database": "../reactions/deuterium-production-loop.json",
+  "initial_density_kg_m3": 500.0,
+  "pusher_proton_ratio": 0.8,
+  "pusher_n15_burn_fraction": 0.8,
+  "tamper_to_effective_inner_mass_ratio": 4.0,
+  "tamper_density_kg_m3": 19000.0,
+  "driver_mass_fraction_on_each_boundary": 0.5,
+  "driver_gamma": 1.6666666666666667,
+  "shock_thermalization_fraction": 1.0,
+  "expansion_end_density_fraction": 0.5,
+  "dt_alpha_energy_mev": 3.52,
+  "dt_neutron_energy_mev": 14.069,
+  "dt_neutron_core_deposition_fraction": 0.92865,
+  "desired_neutron_to_d_efficiency": 1.0,
+  "dd_neutron_to_d_efficiency": 0.8,
+  "fixed_dt_starter_radius_m": 0.3,
+  "fixed_dt_starter_density_kg_m3": 250.0,
+  "electron_eos": {
+    "density_points": 22,
+    "temperature_points": 38
+  },
+  "stages": [
+    {
+      "id": "stage-1-c12-to-n13",
+      "fuel_radius_m": 750.0,
+      "n15_burns_per_completed_cycle": 0.16,
+      "dt_burns_per_completed_cycle": 0.02
+    },
+    {
+      "id": "stage-2-c13-to-f17",
+      "fuel_radius_m": 740.0,
+      "n15_burns_per_completed_cycle": 0.56,
+      "dt_burns_per_completed_cycle": 0.10
+    },
+    {
+      "id": "stage-3-o17-to-o15",
+      "fuel_radius_m": 775.0,
+      "n15_burns_per_completed_cycle": 0.28,
+      "dt_burns_per_completed_cycle": 0.03
+    }
+  ],
+  "notes": [
+    "The three N15 allocations sum to exactly one terminal N15 burn per completed catalyst cycle.",
+    "The three D-T allocations sum to 0.15 burn per completed catalyst cycle.",
+    "The proton ratio equals the 80% N15 burn fraction, so the loaded driver has exactly enough protons for the modeled burn.",
+    "The 4:1 tamper ratio is fixed as the selected mass-versus-momentum reference.",
+    "The fixed 0.3-m D-T starter is charged by physical mass in addition to the normalized late-match ledger; at these batch sizes its normalized isotope cost is negligible.",
+    "Unburned driver and reaction fuel are recovered and retried.",
+    "Driver ignition and the stated D-T energy-deposition fraction are fixed premises of this reference calculation."
+  ]
+}

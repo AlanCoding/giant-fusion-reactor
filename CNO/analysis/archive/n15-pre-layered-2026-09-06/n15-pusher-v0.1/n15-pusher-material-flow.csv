@@ -1,0 +1,6 @@
+step,protons,o17,n14,o15,n15,c12,he4,eplus,nu_e,role
+O17+p->N14+alpha,-1,-1,1,0,0,0,1,0,0,creates the internal N14 carrier precursor
+N14+p->O15+gamma,-1,0,-1,1,0,0,0,0,0,slow manufacture step; not the pusher burn
+O15 beta+->N15,0,0,0,-1,1,0,0,1,1,"cold wait, recovery, and storage"
+withdraw/store N15,0,0,0,0,0,0,0,0,0,inventory transfer only; no free isotope production
+N15+p->C12+alpha pusher,-1,0,0,0,-1,1,1,0,0,releases 4.966 MeV and returns catalyst to C12

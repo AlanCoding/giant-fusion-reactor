@@ -1,0 +1,57 @@
+{
+  "model_name": "N15 Secondary Pusher 0-D v0.3 dynamic preheat",
+  "rate_library": "../../data/rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json",
+  "reaction_database": "../../data/reactions/deuterium-production-loop.json",
+  "initial_density_kg_m3": 500.0,
+  "target_radii_m": [350, 400, 450, 475, 500, 550, 600, 700, 800, 1000],
+  "external_n15_fractions": [0.85, 0.90, 0.95, 0.98, 1.0],
+  "expansion_end_density_fraction": 0.5,
+  "electron_eos": {
+    "density_points": 18,
+    "temperature_points": 30
+  },
+  "ovens": [
+    {
+      "id": "oven-1-c12-to-n13",
+      "trigger_compression_ratio": 100000.0,
+      "completion_reaction": "c12-p-g-n13",
+      "trigger_candidates": [[10, 0.01], [10, 0.05], [10, 0.20], [20, 0.01], [20, 0.20], [30, 0.20]]
+    },
+    {
+      "id": "oven-2-c13-to-f17",
+      "trigger_compression_ratio": 1000000.0,
+      "completion_reaction": "o16-p-g-f17",
+      "trigger_candidates": [[40, 0.05], [40, 0.20], [60, 0.05], [60, 0.20], [80, 0.20]]
+    },
+    {
+      "id": "oven-3-o17-to-o15",
+      "trigger_compression_ratio": 300000.0,
+      "completion_reaction": "n14-p-g-o15",
+      "trigger_candidates": [[20, 0.05], [20, 0.20], [30, 0.05], [30, 0.20], [40, 0.20]]
+    }
+  ],
+  "pusher_screen": {
+    "nitrogen_burn_fraction": 0.8,
+    "whole_target_geometric_coefficient": 0.3,
+    "proton_ratio_values": [1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5],
+    "temperature_values_keV": [120, 140, 160, 180, 200, 220],
+    "radius_values_m": [20, 30, 40, 50, 75, 100],
+    "expansion_loss_multiplier": 1.0,
+    "minimum_peak_temperature_gain": 1.02
+  },
+  "deposition_fractions": {
+    "n15-p-a-c12": 1.0,
+    "c12-p-g-n13": 0.9999996725,
+    "c13-a-n-o16": 0.9999999507,
+    "o16-p-g-f17": 0.9999999814,
+    "o17-p-a-n14": 1.0,
+    "n14-p-g-o15": 0.9999998348
+  },
+  "notes": [
+    "Compression is an ODE output, not an imposed final value.",
+    "The pusher is cold until the configured trigger compression; the trigger temperature and remaining inward kinetic margin are scanned.",
+    "Target burn continues through homologous disassembly until density falls to half its stagnation value.",
+    "Escaping target bremsstrahlung is disabled in this trapped-radiation bound; the p+N15 pusher uses gray trapped bremsstrahlung and a leaky-box expansion term.",
+    "The grid is a coarse feasibility search, not a converged engineering optimum."
+  ]
+}

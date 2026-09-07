@@ -1,10 +1,12 @@
 """Two-piston zero-D pressure driver with an external inertial tamper.
 
-This is the first momentum-resolved replacement for an imposed pusher
-coupling.  A cold, homologous CNO sphere is the inner piston; a lumped inert
-tamper is the outer piston; and a uniform ideal-gas p+N15 chamber lies between
-them.  The driver burn is deposited instantaneously, so this is an optimistic
-burn/handoff bound rather than a radial ignition model.
+The central object is a filled, cold, homologously contracting reaction-fuel
+sphere. A uniform ideal-gas p+N15 driver layer surrounds it, followed by a
+lumped inert tamper. The equations treat the fuel surface and tamper as two
+moving pressure boundaries; “boundary” does not mean that the filled fuel
+sphere is a hollow mechanical piston. The driver burn is deposited
+instantaneously, so this is an optimistic burn/handoff bound rather than a
+radial ignition model.
 """
 
 from __future__ import annotations

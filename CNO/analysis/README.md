@@ -8,76 +8,27 @@ zero-dimensional implosion and disassembly model.
 
 ## Active v2 model: N15 secondary pusher
 
-The D-T-pushed TOFEL-0D result is frozen in the
-[`archive/tofel-0d-2026-09-04/`](archive/tofel-0d-2026-09-04/README.md)
-directory and at Git commit `817fc3b`. New development is separate and uses
-the model family name **N15 Secondary Pusher 0-D**. The active calculation is
-**v0.4 layered pressure driver**.
+The active model family is **N15 Secondary Pusher 0-D**. Its current
+[complete-cycle reference](results/n15-complete-cycle-reference-v0.5-2026-09-06.md)
+contains three separate physical implosions. Across them, the N15 driver burns
+sum to exactly one terminal reaction, the D-T late matches sum to 0.15 burn,
+all catalyst intermediates close, replacement tritium closes, and the net D
+balance is +0.37 per completed cycle.
 
-The pusher-physics audit treats an accelerator-lit D-T kernel as a fixed starter for an
-uncompressed p+N15 secondary. It includes finite two-reactant depletion,
-composition-dependent density and sound speed, proton enrichment,
-bremsstrahlung, an explicitly optimistic gray photon-trapping bound, a leaky
-self-heating box, cold charged-product stopping bounds, and N14/N15/D/T batch
-accounting. It does not yet claim radial ignition or a propagating burn front.
-Its first global energy comparison accidentally retained N15 heating inside
-the old first oven while also using that N15 as an external pusher. That v0.1
-comparison is superseded.
-
-Read the current
-[`v0.4 layered-driver reference`](results/n15-layered-reference-v0.4-2026-09-06.md).
-It makes p+N15 pressure accelerate a cold CNO core inward against an inert
-tamper, then applies a bounded D-T late match. Its first self-consistent grid
-point for the difficult middle oven is a 500 m core and 573.3 m total initial
-radius. Reproduce its radius and tamper sweeps with:
+The three initial outside radii are 815.1 m, 831.6 m, and 834.1 m. Each target
+has a filled reaction-fuel sphere, a p+N15 driver layer, and a 4:1 inert tamper.
+Reproduce the geometry, burn, and expanded material ledger with:
 
 ```bash
-.env/bin/python analysis/scripts/audit_layered_reference.py \
-  --config analysis/data/n15-pusher/layered-reference.json \
-  --output-directory analysis/results/n15-pusher-v0.4
-```
-
-The previous
-[`v0.3 dynamic-preheat audit`](results/n15-dynamic-preheat-v0.3-2026-09-06.md)
-remains the current target-preheating model. It makes achieved compression
-respond to cold electron work, late heating, nuclear preheat, and
-pressure-driven disassembly. Its target requirements remain useful, but its
-566 m and 929 m whole-system radii are withdrawn because v0.3 prescribed a
-coupling fraction instead of calculating pusher and tamper momentum. Reproduce
-its tables with:
-
-```bash
-MPLCONFIGDIR=/tmp/cno-matplotlib \
-.env/bin/python analysis/scripts/optimize_n15_dynamic_system.py \
-  --config analysis/data/n15-pusher/dynamic-preheat.json \
-  --output-directory analysis/results/n15-pusher-v0.3
-```
-
-The corrected static
-[`v0.2 clean-separation audit`](results/n15-secondary-pusher-v0.2-clean-separation-2026-09-06.md)
-remains useful as an energy-only comparison. Reproduce it with:
-
-```bash
-MPLCONFIGDIR=/tmp/cno-matplotlib \
-.env/bin/python analysis/scripts/audit_n15_clean_separation.py \
-  --config analysis/data/n15-pusher/clean-separation.json \
-  --output-directory analysis/results/n15-pusher-v0.2
-```
-
-The superseded v0.1 report retains useful pusher reaction-rate, radiation,
-stopping, and starter screens. Reproduce those with:
-
-```bash
-MPLCONFIGDIR=/tmp/cno-matplotlib \
-.env/bin/python analysis/scripts/audit_n15_pusher.py \
-  --config analysis/data/n15-pusher/reference.json \
-  --output-directory analysis/results/n15-pusher-v0.1
+.env/bin/python analysis/scripts/build_complete_layered_reference.py \
+  --config analysis/data/n15-pusher/complete-layered-reference.json \
+  --output-directory analysis/results/n15-complete-layered-v0.5
 ```
 
 The present gates remain strict. The p+N15 chamber is assumed to release its
 allocated energy uniformly and instantaneously, rather than proving ignition
-and radial propagation from a fixed starter. The v0.4 late match also assigns
-92.865% of D-T neutron energy to the compressed core at the useful time; the
+and radial propagation from a fixed starter. The late match also assigns
+92.865% of D-T neutron energy to the compressed fuel at the useful time; the
 older transport audit established whole-assembly deposition, not that spatial
 and temporal result. Those two effects must be resolved before the conditional
 D-T reduction becomes a physical cycle-closure result.
