@@ -3,9 +3,10 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cno-static-sweep"
-version = "0.1.0"
-description = "Reproducible first-pass static implosion screening for the CNO study"
+name = "giant-fusion-cno"
+version = "0.2.0"
+description = "Auditable zero-dimensional physics and bookkeeping tools for engineered CNO cycles"
+readme = "LIBRARY.md"
 requires-python = ">=3.11"
 dependencies = [
   "endf-parserpy>=0.17",
@@ -14,8 +15,19 @@ dependencies = [
   "scipy>=1.14",
 ]
 
+[project.optional-dependencies]
+notebook = [
+  "ipykernel>=6",
+  "jupyterlab>=4",
+  "pandas>=2",
+]
+test = []
+
 [project.scripts]
 cno-sweep = "cno_sweep.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+cno_sweep = ["resources/**/*.json"]

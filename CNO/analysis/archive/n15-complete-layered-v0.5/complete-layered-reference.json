@@ -1,7 +1,7 @@
 {
   "model_name": "N15 Complete-Cycle Layered Reference 0-D v0.5",
-  "rate_library": "../rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json",
-  "reaction_database": "../reactions/deuterium-production-loop.json",
+  "rate_library": "../../data/rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json",
+  "reaction_database": "../../data/reactions/deuterium-production-loop.json",
   "initial_density_kg_m3": 500.0,
   "pusher_proton_ratio": 0.8,
   "pusher_n15_burn_fraction": 0.8,

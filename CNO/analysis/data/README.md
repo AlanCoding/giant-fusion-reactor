@@ -1,5 +1,11 @@
 # Phase-1 Input Data
 
+> **Roman refactor note:** reusable, versioned reaction rates, reaction
+> ledgers, and neutron cross sections are also shipped inside the Python
+> package and should be accessed in new notebooks through
+> `cno_sweep.dataset_path()` or the built-in loaders. This directory remains
+> the source for historical script configurations and target cards.
+
 [← Analysis plan](../README.md) · [Phase-1 specification](../phase-1-static-sweep.md)
 
 This directory is the committed source of truth for a static-sweep run.  It

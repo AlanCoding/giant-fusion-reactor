@@ -1,5 +1,11 @@
 # Fuel Cycle
 
+> **Architecture transition:** [ROMAN_REFACTOR.md](../ROMAN_REFACTOR.md) is now
+> the controlling mainline design. Historical combined-stage and D-T-pusher
+> descriptions below are retained for bookkeeping provenance and must not be
+> read as the active chamber layout. The active baseline uses five separate
+> central chemistries plus distributed N15+p Trajan mantles.
+
 [← Study navigation](../README.md)
 
 The study keeps two pathways alive until quantitative modeling can eliminate one. The strategic test is not merely net nuclear energy: the full cycle must make enough deuterium to cover any non-negligible D-T ignition and compression demand.

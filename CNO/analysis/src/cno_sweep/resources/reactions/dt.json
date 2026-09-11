@@ -1,0 +1,31 @@
+{
+  "id": "d-t-n-he4",
+  "record": "../../../reactions/dt.md",
+  "function": "dt-pusher",
+  "reaction": {
+    "reactants": ["d", "t"],
+    "products": ["he4", "n"],
+    "q_mev": 17.6,
+    "identical_reactants": false
+  },
+  "rate": {
+    "status": "missing",
+    "required_source": "evaluated D-T thermonuclear reactivity, valid over the selected ion-temperature grid",
+    "library_ref": null,
+    "fit_ref": null
+  },
+  "branches": {
+    "status": "pending",
+    "required_channels": ["d-d", "t-t", "core-material interactions"]
+  },
+  "state_model": {
+    "initial_temperature_k": 19.0,
+    "initial_density_kg_m3": 250.0,
+    "density_status": "provisional; replace with selected D-T-mixture EOS",
+    "ion_temperature_keV": [3.0, 5.0, 10.0, 20.0, 30.0],
+    "electron_temperature_rule": "equal-to-ion-temperature-initially",
+    "sound_speed_model": null
+  },
+  "target_ref": null,
+  "notes": "The pusher has its own geometry and coupling problem. This card is only the common hot-reaction input needed to screen its local burn state."
+}

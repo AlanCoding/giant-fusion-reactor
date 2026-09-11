@@ -11,11 +11,12 @@ archive boundary are preserved by Git commit:
 817fc3b Some finishing touches
 ```
 
-The principal reports in that snapshot are:
+The principal reports are now stored beside this README:
 
-- `analysis/results/eos-grouping-ledger-audit-2026-09-04.md`
-- `analysis/results/neutron-recovery-and-deposition-audit-2026-09-04.md`
-- `analysis/results/deuterium-loop-audit-2026-09-04.md`
+- `eos-grouping-ledger-audit-2026-09-04.md`
+- `neutron-recovery-and-deposition-audit-2026-09-04.md`
+- `deuterium-loop-audit-2026-09-04.md`
+- `first-complete-deuterium-loop-result.md`
 
 To inspect or rerun the exact archived tree without disturbing current work:
 
@@ -42,4 +43,3 @@ That favorable result was conditional on unit pusher coupling, complete D-T
 burn, extremely large compressed targets, recoverable carryover inventories,
 and no time-resolved pusher burn front. It was a screening milestone, not a
 reactor closure claim.
-

@@ -1,0 +1,469 @@
+{
+  "library": "JINA REACLIB default",
+  "upstream_modified": "2026-06-09",
+  "retrieved": "2026-09-02",
+  "source_url": "https://reaclib.jinaweb.org/difout.php?action=cfreaclib&library=default&rateall=1&cached=&no910=",
+  "upstream_sha256": "bf5bbc8abe45a17bc413d042e149185738d9ed220a6cc91e1219079e80c4da35",
+  "format": "REACLIB1; selected forward entries extracted by analysis/scripts/extract_deuterium_loop_rates.py",
+  "rate_range_note": "The snapshot does not declare validity intervals. These rates are screening inputs; high-temperature use needs reaction-specific validation.",
+  "q_mev": {
+    "n-p-g-d": 2.22457,
+    "c12-p-g-n13": 1.943,
+    "n14-p-g-o15": 7.2968,
+    "n15-p-g-o16": 12.1274,
+    "o16-p-g-f17": 0.60027,
+    "o17-p-g-f18": 5.6065,
+    "d-d-n-he3": 3.2689,
+    "d-d-p-t": 4.03266,
+    "d-t-n-he4": 17.589,
+    "c13-a-n-o16": 2.21561,
+    "n15-p-a-c12": 4.966,
+    "o17-p-a-n14": 1.19182
+  },
+  "reactions": {
+    "c12-p-g-n13": [
+      {
+        "label": "ls09n",
+        "coefficients": [
+          17.1482,
+          0.0,
+          -13.692,
+          -0.230881,
+          4.44362,
+          -3.15898,
+          -0.666667
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "ls09r",
+        "coefficients": [
+          17.5428,
+          -3.77849,
+          -5.10735,
+          -2.24111,
+          0.148883,
+          0.0,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "c13-a-n-o16": [
+      {
+        "label": "gl12",
+        "coefficients": [
+          79.3008,
+          -0.30489,
+          7.43132,
+          -84.8689,
+          3.65083,
+          -0.148015,
+          37.6008
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "gl12",
+        "coefficients": [
+          62.5775,
+          -0.0277331,
+          -32.3917,
+          -48.934,
+          44.1843,
+          -20.8743,
+          2.02494
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "o16-p-g-f17": [
+      {
+        "label": "ia08n",
+        "coefficients": [
+          19.0904,
+          0.0,
+          -16.696,
+          -1.16252,
+          0.267703,
+          -0.0338411,
+          -0.666667
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "o17-p-a-n14": [
+      {
+        "label": "br16r",
+        "coefficients": [
+          2.21572,
+          -0.1348314,
+          3.947709,
+          49.94658,
+          -73.67893,
+          0.9905316,
+          15.76833
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "br16r",
+        "coefficients": [
+          -14.43056,
+          -1.133703,
+          49.39112,
+          31.49816,
+          -124.5434,
+          -132.9495,
+          39.54735
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "br16r",
+        "coefficients": [
+          20.76936,
+          -2.197396,
+          -56.71909,
+          50.0,
+          -1.195105,
+          -0.006979267,
+          -31.17547
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "br16r",
+        "coefficients": [
+          -10.52809,
+          -11.66691,
+          -9.464894,
+          38.65714,
+          -13.49619,
+          -15.43055,
+          8.081044
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "n14-p-g-o15": [
+      {
+        "label": "im05n",
+        "coefficients": [
+          17.01,
+          0.0,
+          -15.193,
+          -0.161954,
+          -7.52123,
+          -0.987565,
+          -0.666667
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "im05n",
+        "coefficients": [
+          20.1169,
+          0.0,
+          -15.193,
+          -4.63975,
+          9.73458,
+          -9.55051,
+          0.333333
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "im05r",
+        "coefficients": [
+          7.65444,
+          -2.998,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "im05r",
+        "coefficients": [
+          6.73578,
+          -4.891,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0682
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "n15-p-a-c12": [
+      {
+        "label": "nacrn",
+        "coefficients": [
+          27.4764,
+          0.0,
+          -15.253,
+          1.59318,
+          2.4479,
+          -2.19708,
+          -0.666667
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "nacrr",
+        "coefficients": [
+          -4.87347,
+          -2.02117,
+          0.0,
+          30.8497,
+          -8.50433,
+          -1.54426,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "nacrr",
+        "coefficients": [
+          20.8972,
+          -7.406,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "nacrr",
+        "coefficients": [
+          -6.57522,
+          -1.1638,
+          0.0,
+          22.7105,
+          -2.90707,
+          0.205754,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "n15-p-g-o16": [
+      {
+        "label": "li10n",
+        "coefficients": [
+          20.0176,
+          0.0,
+          -15.24,
+          0.334926,
+          4.59088,
+          -4.78468,
+          -0.666667
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "li10r",
+        "coefficients": [
+          6.59056,
+          -2.92315,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "li10r",
+        "coefficients": [
+          14.5444,
+          -10.2295,
+          0.0,
+          0.0,
+          0.0459037,
+          0.0,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "o17-p-g-f18": [
+      {
+        "label": "il10n",
+        "coefficients": [
+          15.8929,
+          0.0,
+          -16.4035,
+          4.31885,
+          -0.709921,
+          -2.0,
+          -0.666667
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "il10r",
+        "coefficients": [
+          -13.077,
+          -0.746296,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "il10r",
+        "coefficients": [
+          9.39048,
+          -6.22828,
+          0.0,
+          2.31435,
+          -0.302835,
+          0.020133,
+          -1.5
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "d-d-n-he3": [
+      {
+        "label": "gi17n",
+        "coefficients": [
+          19.08764,
+          -0.0001900204,
+          -4.229198,
+          1.693199,
+          -0.08555288,
+          -1.357093e-25,
+          -0.7345125
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "d-d-p-t": [
+      {
+        "label": "go17n",
+        "coefficients": [
+          18.80517,
+          4.362085e-05,
+          -4.322961,
+          1.915721,
+          -0.08156203,
+          -3.288043e-22,
+          -0.879518
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "d-t-n-he4": [
+      {
+        "label": "de04",
+        "coefficients": [
+          25.1794,
+          0.0,
+          -4.5244,
+          0.350337,
+          0.58747,
+          -8.84909,
+          -0.666667
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "de04",
+        "coefficients": [
+          39.3457,
+          0.0,
+          -4.5244,
+          -16.4028,
+          1.73103,
+          -0.122966,
+          2.31304
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ],
+    "n-p-g-d": [
+      {
+        "label": "an06n",
+        "coefficients": [
+          10.7548,
+          0.0,
+          0.0,
+          -2.30472,
+          -0.887862,
+          0.137663,
+          0.0
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "an06n",
+        "coefficients": [
+          12.3687,
+          0.0,
+          0.0,
+          -2.70618,
+          0.11718,
+          -0.00312788,
+          0.469127
+        ],
+        "t9_min": null,
+        "t9_max": null
+      },
+      {
+        "label": "an06n",
+        "coefficients": [
+          8.84688,
+          0.0,
+          0.0,
+          -0.0102082,
+          -0.0893959,
+          0.00696704,
+          1.0
+        ],
+        "t9_min": null,
+        "t9_max": null
+      }
+    ]
+  }
+}
