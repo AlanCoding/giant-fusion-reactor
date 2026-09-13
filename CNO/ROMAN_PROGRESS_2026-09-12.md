@@ -4,6 +4,13 @@
 **Status:** first-pass impactor workbook completed; human review and remaining
 Phase-I workbooks precede the reduced spatial solvers
 
+**13 September chamber addendum:** Workbook 100 now supplies a preliminary
+blast-chamber/radiator envelope. It compares gravity ballast with hot membrane
+strength, separates individual chamber cadence from cycle-balanced throughput,
+and estimates wall-versus-target inventory. Its uniform mixed-gas pressure and
+thin-shell equations are screening bounds; prompt blast impulse, thick-wall
+gravity, wall heat transport, and lifetime remain unresolved.
+
 This file records where the Roman reference-design effort stands, what the
 existing zero-dimensional work has and has not established, and the next
 calculation sequence. It is intended to survive a conversation reset.
@@ -92,6 +99,11 @@ reaches enough CNO fuel without prematurely expanding it.
 ---
 
 ## 3. Why reduced spatial simulations are now necessary
+
+The implementation handoff distilled from this section is now maintained in
+`ROMAN_SIMULATION_HANDOFF.md`. It defines the minimum per-zone state, modular
+transport/network iteration, mandatory benchmarks, and first numerical
+decisions without changing the physical program below.
 
 The critical effects are spatial even if most of the project remains
 zero-dimensional:

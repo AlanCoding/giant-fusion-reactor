@@ -115,6 +115,11 @@ change their inputs.
 
 ### Phase II — reduced spatial simulations
 
+The reviewed pre-simulation physics packet and its minimum proposed solver
+state are summarized in `ROMAN_SIMULATION_HANDOFF.md`. That handoff keeps the
+isolated DT calibration, active DT/N15 unit cell, spherical implosion, and
+side-reaction postprocessing as distinct verification steps.
+
 Only after the Phase-I logic has survived human review should the project
 replace its most important assumed functions with the planned simulations:
 
@@ -987,6 +992,13 @@ interpolation.
 
 ### Stream H — blast-chamber envelope
 
+**First-pass status (2026-09-13):** Workbook 100 now implements the uniform
+mixed-gas pressure, gravity-ballast, thin membrane-strength, chamber-surface
+radiator, cycle-balanced cadence, target hold-up, and material-scaling
+envelopes. Treat these as auditable starting equations. The prompt impulse,
+thick-wall/rubble geometry, radial heat transport, wall lifetime, and chamber
+clearing requirements below remain open and can overturn the selected wall.
+
 Blast-chamber physics is a separate plant-facing calculation. It can be built
 in parallel using provisional shot source cards and later rerun with the final
 reference design. Its required inputs from the target workbooks are:
@@ -1295,7 +1307,7 @@ The filenames are provisional, but the dependency order is intentional.
 | `80_global_allocation.ipynb` | Allocate the single N15 burn budget and all DT use across achieved recipe throughputs; search for closed points. |
 | `90_reference_design.ipynb` | Combine the reaction cards and global allocation into the smallest internally consistent **workbook reference estimate**; print full dimensions/ledgers or the least-infeasible point and parity gaps. Later rerun it with Phase-II simulation cards. |
 | `95_sensitivity.ipynb` | Stress the reference point against nuclear rates, hydrodynamic coefficient, DT-vein timing, recovery, transport, and tamper assumptions. |
-| `100_blast_chamber_envelope.ipynb` | **Phase-I scope:** size separate H2-breeding and He-energy-recovery chamber families; include blast/debris expansion, pressure and thermal homogenization, circulation/cooling, wall/working-gas masses, heat disposition, and the pre-shot state/repetition envelope. |
+| `100_blast_chamber_envelope.ipynb` | **First-pass workbook completed.** Sizes H2-breeding and He-energy-recovery chamber families from the Workbook-40 cards; compares self-gravity and membrane strength, derives a chamber-surface radiator cadence, balances the five recipe throughputs, and exposes target hold-up and Solar-System material scaling. Prompt blast/debris, thick-wall geometry, radial heat transfer, clearing, and lifetime remain open. |
 | `105_ambient_gas_chemistry.ipynb` | Predict equilibrium/frozen molecular and condensed carriers, concentrations, wall/deposit fractions, and continuous side-stream feeds for each chamber family. |
 | `107_activation_and_neutron_pollution.ipynb` | Track activation/transmutation and derive isotope-specific impurity ceilings required to preserve H2 neutron breeding and target behavior. |
 | `110_continuous_recovery_and_cadence.ipynb` | Turn shot source rates and impurity ceilings into bleed flow, chemical/isotope separation, recycle losses, hold-up, circulating inventory, target throughput, and chamber count. |
@@ -1386,9 +1398,9 @@ before those simulations exist.
    temperature, compression, and geometric-confinement brackets. Iterate the
    three under-driven likely cards through the pressure model before promoting
    their complete-target dimensions.
-6. Build `100_blast_chamber_envelope.ipynb` during Phase I and feed it those
-   provisional radii, masses, yields, neutron spectra, debris inventories, and
-   kinetic-energy source cards.
+6. Audit and iterate the first-pass `100_blast_chamber_envelope.ipynb`; then
+   feed it the selected radii, masses, yields, neutron spectra, debris
+   inventories, and kinetic-energy source cards.
 7. Establish the intershot-mixing, ambient-chemistry, neutron-pollution, and
    continuous-recovery interfaces before claiming that unburned N15, D/T,
    alpha, Pb, or catalyst is recoverable.

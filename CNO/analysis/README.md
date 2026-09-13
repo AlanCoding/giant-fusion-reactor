@@ -83,5 +83,7 @@ topologies are not active defaults.
 ```
 
 The Roman work has not yet produced an optimized chamber size, Trajan
-allocation, DT allowance, or complete-cycle value of G_D. Those will be built
-incrementally and reviewed in the workbooks.
+allocation, DT allowance, or complete-cycle value of G_D. Workbook 100 now
+adds preliminary chamber/radiator screening numbers to the Workbook-40 target
+cards, but prompt blast and wall-lifetime physics can overturn them. The final
+values will be built incrementally and reviewed in the workbooks.

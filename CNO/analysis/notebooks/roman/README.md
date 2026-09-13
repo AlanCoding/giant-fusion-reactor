@@ -12,6 +12,16 @@ make physical sense to a human reviewer, Phase II replaces the decisive
 impactor, DT-vein/N15, and spherical-implosion closures with reduced spatial
 simulations. `ROMAN_TODO.md` defines this phase boundary.
 
+The ten notebooks presently in this directory were all executed successfully
+from fresh kernels on 13 September 2026. Workbooks 00--40 form the reviewed
+**pre-simulation physics packet**, ending with Workbook 40's conditional
+all-recipe radius envelope. Workbook 100 is now a first-pass chamber/radiator
+envelope built from those cards; it is deliberately ahead of the unfinished
+global-allocation sequence so its dominant mass assumptions can be audited.
+This does not mark the global allocation, chemistry, bootstrap, or complete
+plant workbooks finished. The reduced solver boundary and proposed minimum
+state are recorded in `ROMAN_SIMULATION_HANDOFF.md`.
+
 ## Rules
 
 1. One primary physical question per notebook.
@@ -156,6 +166,11 @@ For a noninteractive verification run:
 .env/bin/python -m unittest discover -s analysis/tests -v
 ```
 
+To execute every currently present Roman workbook without rewriting its
+reviewed outputs, run:
+
+    .env/bin/python analysis/scripts/verify_roman_workbooks.py
+
 ## Planned order
 
 | Workbook | Question |
@@ -176,7 +191,7 @@ For a noninteractive verification run:
 | `80_global_allocation.ipynb` | Can one N15 burn budget and the complete D/T ledger support all achieved recipe throughputs? |
 | `90_reference_design.ipynb` | Combine the reaction cards and allocation into the smallest defensible Phase-I workbook reference estimate or least-infeasible point. |
 | `95_sensitivity.ipynb` | Which assumptions control the result in consistent likely and conservative cases? |
-| `100_blast_chamber_envelope.ipynb` | What H2/He chamber radii, wall/gas masses, heat loads, intershot mixing/cooling, pre-shot state, and repetition envelope follow from the shot cards? |
+| `100_blast_chamber_envelope.ipynb` | **First-pass completed:** what H2/He chamber radii, gravity/strength wall masses, radiator-limited cadence, cycle-balanced power, target hold-up, and Solar-System material ceiling follow from the Workbook-40 cards? Prompt blast, thick-wall, transport, and lifetime physics remain open. |
 | `105_ambient_gas_chemistry.ipynb` | In which molecules, aerosols, droplets, or deposits do the shot products reside, and at what continuous concentrations? |
 | `107_activation_and_neutron_pollution.ipynb` | What activation accumulates, and how clean must H2 remain to preserve the required neutron-to-D surplus? |
 | `110_continuous_recovery_and_cadence.ipynb` | What bleed flow, chemical/isotope separation, recycle loss, hold-up, inventory, and cadence result? |
@@ -192,8 +207,9 @@ workbooks `27_isolated_dt_vein.ipynb`, `34_dt_n15_unit_cell.ipynb`,
 Workbooks 00, 05, the first-pass 25 impactor/starter screen, the initial 30 timing envelope, the 31 neutron/preheat
 screen, the 33 combined vein-spacing screen, the provisional 35 mechanical
 kernel, the 36 heterogeneous-compression timing screen, and the first-pass 40
-all-recipe radius envelope now exist. Workbook 40 is the present audit point
-for fuel-ball radii. Its conservative cards pass the current pressure-pulse
+all-recipe radius envelope now exist. Workbook 100 adds the first plant-facing
+chamber/radiator envelope. Workbook 40 remains the present audit point for
+fuel-ball radii. Its conservative cards pass the current pressure-pulse
 cross-check; the likely Caesar, Constantine, and Scipio driver layers require
 iteration before their complete-target dimensions can be used as reference
 values.

@@ -67,6 +67,8 @@ a field name explicitly says otherwise.
 | `ignition_timing`, `heterogeneous_compression` | Reduced late-trigger and finite-transit compression clocks |
 | `neutron_heating`, `vein_network` | DT-neutron preheat, vein geometry, timing, and inventory screens |
 | `reaction_envelope` | Common finite-depletion radius and layered-target estimates for all Roman recipes |
+| `roman_reference` | Versioned construction of the likely/conservative Phase-I target-card selections shared by later workbooks |
+| `blast_chamber` | Gravity/strength wall, ideal-gas buffer, radiator cadence, recipe balancing, and fleet-specific-power envelopes |
 | `material_flow` | Reaction-flow conservation and isotope ledgers |
 | `n15_pusher`, `layered_driver` | Trajan-fuel and pressure-driver primitives |
 | `workbook` | Small side-effect-free table builders for human review |

@@ -12,3 +12,7 @@ The scripts in this directory currently have two roles:
 
 The archived v0.5 runner moved with its exact configuration to
 `analysis/archive/n15-complete-layered-v0.5/`.
+
+`verify_roman_workbooks.py` executes every existing Roman notebook into a
+temporary directory. It is the commit-time reproducibility check and does not
+rewrite the reviewed notebook outputs.
