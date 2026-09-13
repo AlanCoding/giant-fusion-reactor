@@ -1290,7 +1290,7 @@ The filenames are provisional, but the dependency order is intentional.
 | `33_dt_vein_spacing.ipynb` | Completed first combined screen: square-lattice pitch, DT volume/mass fraction, finite-shell neutron retention, volumetric-versus-front light-off, scale sweep, and DT:N15 ledger conversion. Replace provisional stopping and network-speed inputs before reference sizing. |
 | `35_driver_implosion.ipynb` | Provisional kernel completed: converts a parameterized mantle pulse into an explicit pressure-volume history, core/tamper motion, cold compression, and preheat sensitivity. Replace its input pulse and screening EOS with outputs from workbooks 20, 30, and 32 before reference sizing. |
 | `36_core_compression_timing.ipynb` | Completed kinematic timing screen: finite inward transit, outer/mid/center compression histories, central-DT trigger thresholds, neutron flight, hotspot burn clock, and scale dependence. Replace prescribed convergence with shell hydrodynamics before reference promotion. |
-| `40_reaction_parameter_envelopes.ipynb` | Use one common calculation flow for Caesar, Constantine, Aurelian, Scipio, and Diocletian. Emit likely/conservative simulation-input cards containing composition, central radius/mass, compressed state, burnup, DT trigger, Trajan/vein and Pb dimensions, shot energy/yield, competing-channel flags, and the Scipio/Diocletian split-versus-combined comparison. |
+| `40_reaction_parameter_envelopes.ipynb` | **First-pass workbook completed.** Uses one common finite-depletion/disassembly calculation for Caesar, Constantine, Aurelian, Scipio, and Diocletian and emits likely/conservative fuel radii, compressed states, masses, burnup, DT trigger, Trajan/vein and Pb dimensions, and shot yields. Its conservative cards pass the current pressure-pulse audit; the likely Caesar, Constantine, and Scipio driver sizes must be iterated. Competing-channel and direct Scipio/Diocletian combine-versus-split decisions remain downstream checks. |
 | `45_neutron_and_d_recovery.ipynb` | Transport Constantine and DT neutrons through the complete target and calculate recoverable D and deposited energy. |
 | `80_global_allocation.ipynb` | Allocate the single N15 burn budget and all DT use across achieved recipe throughputs; search for closed points. |
 | `90_reference_design.ipynb` | Combine the reaction cards and global allocation into the smallest internally consistent **workbook reference estimate**; print full dimensions/ledgers or the least-infeasible point and parity gaps. Later rerun it with Phase-II simulation cards. |
@@ -1382,9 +1382,10 @@ before those simulations exist.
    workbooks.
 4. Add a versioned Pb-208/natural-Pb neutron dataset and tamper material-card
    interface shared by mechanics, transport, activation, and chemistry.
-5. Build the single `40_reaction_parameter_envelopes.ipynb` and emit
-   likely/conservative cards for all five recipes, even if the resulting
-   targets are very large or some points remain least-infeasible.
+5. Human-audit `40_reaction_parameter_envelopes.ipynb`, especially its burnup,
+   temperature, compression, and geometric-confinement brackets. Iterate the
+   three under-driven likely cards through the pressure model before promoting
+   their complete-target dimensions.
 6. Build `100_blast_chamber_envelope.ipynb` during Phase I and feed it those
    provisional radii, masses, yields, neutron spectra, debris inventories, and
    kinetic-energy source cards.

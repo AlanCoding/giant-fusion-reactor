@@ -608,3 +608,44 @@ Two new endpoints are explicit:
   power by reaction, net efficiency, all machinery/material inventories,
   steady inputs and side products, total mass, Saturn-hydrogen lifetime, and
   Type-II scale-up demand for circulating and replacement CNO.
+
+---
+
+## 13. Current all-recipe radius envelope
+
+`40_reaction_parameter_envelopes.ipynb` now applies one visible calculation to
+all five central-fuel recipes. For each chosen composition, temperature,
+compression, burn fraction, and whole-target confinement coefficient, it:
+
+1. integrates exact two-reactant depletion at fixed compressed state;
+2. equates that burn time to `C_h R_f / c_s` to obtain the marginal compressed
+   fuel radius `R_f`;
+3. expands the same fuel mass back to condensed density to obtain the initial
+   fuel-equivalent radius `R0`;
+4. sizes a Trajan/DT driver from cold electron-compression work and adds a
+   four-to-one-by-mass Pb tamper;
+5. selects one card per recipe whose calculated driver demand does not exceed
+   the single N15 burn available per completed catalyst traversal; any small
+   grid residual must later be allocated as driver overdrive so the physical
+   ledger is exactly one;
+6. compares the selected compression with the existing pressure-pulse model;
+7. reports how little of the uniformly hot core the fixed central DT kernel
+   could supply and the radial front speed the missing spatial model must
+   achieve.
+
+The current discrete minimax screens give the following **audit brackets**, not
+simulation-qualified designs:
+
+| Case | Largest initial fuel radius | Largest complete target radius | Burn target | Calculated minimum N15 driver demand |
+|---|---:|---:|---:|---:|
+| likely | 33.80 m | 34.32 m | 50% | 0.9969 |
+| conservative | 434.88 m | 455.89 m | 80% | 0.9593 |
+
+The pressure-pulse cross-check reaches or exceeds every selected conservative
+compression. It under-reaches the likely Caesar, Constantine, and Scipio
+compressions, so those three likely driver/tamper dimensions are explicitly
+provisional. Neither branch proves ignition or radial propagation: the fixed
+central DT kernels provide only a tiny fraction of the energy required to make
+the complete selected cores uniformly hot, and the implied remaining radial
+front speeds are about 3.4--12.0 Mm/s. Those are pass conditions for the later
+spatial calculation, not assumed capabilities.

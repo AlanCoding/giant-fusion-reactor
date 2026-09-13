@@ -66,6 +66,7 @@ a field name explicitly says otherwise.
 | `impactor` | Compressed-DT starter gates and separate impactor energy/pressure requirements |
 | `ignition_timing`, `heterogeneous_compression` | Reduced late-trigger and finite-transit compression clocks |
 | `neutron_heating`, `vein_network` | DT-neutron preheat, vein geometry, timing, and inventory screens |
+| `reaction_envelope` | Common finite-depletion radius and layered-target estimates for all Roman recipes |
 | `material_flow` | Reaction-flow conservation and isotope ledgers |
 | `n15_pusher`, `layered_driver` | Trajan-fuel and pressure-driver primitives |
 | `workbook` | Small side-effect-free table builders for human review |

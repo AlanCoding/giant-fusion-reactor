@@ -191,7 +191,12 @@ workbooks `27_isolated_dt_vein.ipynb`, `34_dt_n15_unit_cell.ipynb`,
 
 Workbooks 00, 05, the first-pass 25 impactor/starter screen, the initial 30 timing envelope, the 31 neutron/preheat
 screen, the 33 combined vein-spacing screen, the provisional 35 mechanical
-kernel, and the 36 heterogeneous-compression timing screen now exist.
+kernel, the 36 heterogeneous-compression timing screen, and the first-pass 40
+all-recipe radius envelope now exist. Workbook 40 is the present audit point
+for fuel-ball radii. Its conservative cards pass the current pressure-pulse
+cross-check; the likely Caesar, Constantine, and Scipio driver layers require
+iteration before their complete-target dimensions can be used as reference
+values.
 `ROMAN_TODO.md` defines the input and output contracts for the remaining
 calculation streams. The impactor, vein, driver,
 central burn, neutron transport, and blast-chamber models should exchange
