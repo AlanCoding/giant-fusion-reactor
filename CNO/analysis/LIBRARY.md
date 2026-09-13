@@ -63,6 +63,9 @@ a field name explicitly says otherwise.
 | `reaction_data`, `reactivity` | Nuclear ledger and REACLIB evaluation |
 | `neutron_transport` | Reduced cross-section, slowing, capture and leakage tools |
 | `eos`, `dynamic_implosion`, `plasma` | EOS and zero-dimensional state evolution |
+| `impactor` | Compressed-DT starter gates and separate impactor energy/pressure requirements |
+| `ignition_timing`, `heterogeneous_compression` | Reduced late-trigger and finite-transit compression clocks |
+| `neutron_heating`, `vein_network` | DT-neutron preheat, vein geometry, timing, and inventory screens |
 | `material_flow` | Reaction-flow conservation and isotope ledgers |
 | `n15_pusher`, `layered_driver` | Trajan-fuel and pressure-driver primitives |
 | `workbook` | Small side-effect-free table builders for human review |
@@ -77,4 +80,3 @@ used by a reviewed notebook.
 ```bash
 .env/bin/python -m unittest discover -s analysis/tests -v
 ```
-

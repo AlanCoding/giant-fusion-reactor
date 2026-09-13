@@ -24,6 +24,9 @@ BUILTIN_DATASETS: Final[dict[str, str]] = {
     "deuterium-loop-rates": (
         "rate-libraries/deuterium-loop-reaclib-default-2026-06-09.json"
     ),
+    "constantine-rate-validation": (
+        "rate-libraries/constantine-rate-validation-2026-09-11.json"
+    ),
     "primary-rates": (
         "rate-libraries/primary-reaclib-default-2026-06-09.json"
     ),
@@ -63,6 +66,12 @@ def load_builtin_rate(reaction_id: str) -> SumReactivity:
     return load_reaclib_rate(dataset_path("deuterium-loop-rates"), reaction_id)
 
 
+def load_constantine_rate_validation() -> dict:
+    """Load the frozen JINA comparison points used by workbook 05."""
+
+    return load_json(dataset_path("constantine-rate-validation"))
+
+
 def load_builtin_neutron_cross_sections() -> CrossSectionLibrary:
     """Load the pinned ENDF/B-VIII.0 light-nuclide MF=3 cross sections."""
 
@@ -73,4 +82,3 @@ def load_roman_mainline() -> dict:
     """Load the architecture-only Roman chamber manifest."""
 
     return load_json(dataset_path("roman-mainline"))
-

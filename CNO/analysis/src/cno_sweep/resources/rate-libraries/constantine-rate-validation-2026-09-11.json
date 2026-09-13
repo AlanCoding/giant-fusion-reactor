@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "retrieved": "2026-09-11",
+  "description": "Independent standard-temperature values displayed by JINA REACLIB for the recommended Constantine desired and competing rates",
+  "units": {
+    "temperature": "T9 (GK)",
+    "rate": "cm^3 mol^-1 s^-1"
+  },
+  "sources": {
+    "c13-a-n-o16": {
+      "label": "gl12",
+      "rate_index": 236713,
+      "rate_url": "https://reaclib.jinaweb.org/c13%28a%2Cn%29o16/gl12/",
+      "coefficients_url": "https://reaclib.jinaweb.org/sets.php?rateindex=236713",
+      "data_points_url": "https://reaclib.jinaweb.org/datapoints.php?rateindex=236713",
+      "recommended": true,
+      "last_modified": "2015-02-23 10:29:09",
+      "reference": "Guo et al., Astrophysical Journal 756:193 (2012), DOI 10.1088/0004-637X/756/2/193"
+    },
+    "c13-p-g-n14": {
+      "label": "nacr",
+      "rate_index": 32796,
+      "rate_url": "https://reaclib.jinaweb.org/c13%28p%2Cg%29n14/nacr/",
+      "coefficients_url": "https://reaclib.jinaweb.org/sets.php?rateindex=32796",
+      "data_points_url": "https://reaclib.jinaweb.org/datapoints.php?rateindex=32796",
+      "recommended": true,
+      "last_modified": "2010-06-11 15:14:12",
+      "reference": "NACRE rate as represented by JINA REACLIB"
+    }
+  },
+  "standard_points": {
+    "c13-a-n-o16": [
+      {"t9": 0.1, "rate_cm3_mol_s": 4.161588e-14},
+      {"t9": 0.5, "rate_cm3_mol_s": 7.665867e-2},
+      {"t9": 1.0, "rate_cm3_mol_s": 2.509077e2},
+      {"t9": 2.0, "rate_cm3_mol_s": 6.066484e4},
+      {"t9": 3.0, "rate_cm3_mol_s": 5.895804e5},
+      {"t9": 5.0, "rate_cm3_mol_s": 3.499810e6},
+      {"t9": 10.0, "rate_cm3_mol_s": 9.744552e6}
+    ],
+    "c13-p-g-n14": [
+      {"t9": 0.1, "rate_cm3_mol_s": 8.413503e-5},
+      {"t9": 0.5, "rate_cm3_mol_s": 4.261434e1},
+      {"t9": 1.0, "rate_cm3_mol_s": 3.883479e3},
+      {"t9": 2.0, "rate_cm3_mol_s": 2.889673e4},
+      {"t9": 3.0, "rate_cm3_mol_s": 4.382398e4},
+      {"t9": 5.0, "rate_cm3_mol_s": 5.680343e4},
+      {"t9": 10.0, "rate_cm3_mol_s": 5.039254e4}
+    ]
+  },
+  "notes": [
+    "Values are transcribed from the JINA standard-temperature tables and are validation data, not an independent experimental evaluation.",
+    "The gl12 literature table shown by JINA contains comparison points only through T9=3; the JINA fit interface also displays calculated standard points through T9=10.",
+    "High-temperature use in an engineered plasma remains a model extrapolation question even when the REACLIB implementation is reproduced exactly."
+  ]
+}

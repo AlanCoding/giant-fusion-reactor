@@ -1,8 +1,9 @@
 {
   "schema_version": 1,
-  "model_family": "Roman five-chamber mainline",
-  "status": "architecture only; no chamber dimensions or closure result",
+  "model_family": "Roman five-recipe mainline",
+  "status": "working topology only; no target dimensions or closure result",
   "source_document": "ROMAN_REFACTOR.md",
+  "workbook_objectives": "ROMAN_TODO.md",
   "central_chamber_count": 5,
   "chambers": [
     {
@@ -21,7 +22,7 @@
       "central_reaction_ids": ["c13-a-n-o16"],
       "initial_fuel": {"c13": 1.0, "he4": 1.0},
       "excluded_from_central_fuel": ["h1"],
-      "post_shot": "export neutron to physically separate hydrogen; recover o16",
+      "post_shot": "route neutron toward hydrogen outside the hot central fuel; recover o16 and any surviving d",
       "neutron_role": "one desired source neutron must escape the hot central fuel and make recoverable D"
     },
     {
@@ -56,14 +57,15 @@
     "id": "trajan",
     "name": "Trajan Mantle",
     "reaction_id": "n15-p-a-c12",
-    "role": "common external fusion driver and terminal catalyst return; not a sixth central chamber"
+    "role": "common external fusion driver and terminal catalyst return; not a sixth central recipe",
+    "working_ignition_hypothesis": "an impactor creates a hot DT starter connected to distributed DT veins that ignite p+n15 throughout the mantle",
+    "working_tamper_candidate": "enriched pb208 at an initial tamper-to-active-driver mass ratio of 4; not yet selected"
   },
   "baseline_rules": [
-    "No baseline central chamber contains more than one intentional hot mainline reaction.",
+    "No baseline central target recipe contains more than one intentional hot mainline reaction.",
     "Beta decays occur after recovery and outside inertial confinement.",
     "Hydrogen is excluded from Constantine central fuel.",
-    "The Constantine neutron is intended for capture on external ordinary hydrogen.",
-    "The Trajan allocation and all chamber dimensions remain unsolved."
+    "The Constantine neutron is intended for capture on ordinary hydrogen outside the hot central fuel; the blanket's radial placement remains unsolved.",
+    "The impactor, DT-vein geometry, Trajan allocation, tamper selection, and all target dimensions remain unsolved."
   ]
 }
-

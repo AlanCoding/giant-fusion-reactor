@@ -86,6 +86,34 @@ def reactivity_rows(
     return rows
 
 
+def reaclib_contribution_rows(
+    reaction_id: str,
+    temperatures_keV: Iterable[float],
+    *,
+    rate_library_path: Path | None = None,
+) -> list[dict]:
+    """Expose each additive REACLIB fit separately for data auditing."""
+
+    library = rate_library_path or dataset_path("deuterium-loop-rates")
+    rate = load_reaclib_rate(library, reaction_id)
+    rows = []
+    for contribution_index, fit in enumerate(rate.contributions, start=1):
+        for temperature_keV in temperatures_keV:
+            temperature = float(temperature_keV)
+            rows.append(
+                {
+                    "reaction_id": reaction_id,
+                    "contribution_index": contribution_index,
+                    "source_id": fit.source_id,
+                    "temperature_keV": temperature,
+                    "t9": temperature * 0.011_604_518_12,
+                    "rate_na_cm3_mol_s": fit.rate_na_cm3_mol_s(temperature),
+                    "reactivity_m3_s": fit.rate_m3_s(temperature),
+                }
+            )
+    return rows
+
+
 def neutron_cross_section_rows(
     nuclides: Iterable[str],
     energies_mev: Iterable[float],
@@ -110,7 +138,7 @@ def neutron_cross_section_rows(
 
 
 def roman_chamber_rows() -> list[dict]:
-    """Flatten the accepted Roman architecture into one row per chamber."""
+    """Flatten the working Roman architecture into one row per target recipe."""
 
     manifest = load_roman_mainline()
     return [
@@ -125,4 +153,3 @@ def roman_chamber_rows() -> list[dict]:
         }
         for chamber in manifest["chambers"]
     ]
-

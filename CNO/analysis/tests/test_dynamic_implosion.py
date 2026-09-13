@@ -7,7 +7,10 @@ from cno_sweep.dynamic_implosion import (
     cold_electron_compression_work_mev_per_unit,
     evolve_cold_work_implosion,
 )
-from cno_sweep.layered_driver import evolve_pressure_drive_to_compression
+from cno_sweep.layered_driver import (
+    evolve_layered_pressure_pulse,
+    evolve_pressure_drive_to_compression,
+)
 from cno_sweep.n15_pusher import additive_volume_density
 from cno_sweep.reaction_data import load_reaction_database
 
@@ -79,6 +82,87 @@ class DynamicImplosionTests(unittest.TestCase):
             ratio_nine.inward_kinetic_mev_per_initial_unit,
             ratio_four.inward_kinetic_mev_per_initial_unit,
         )
+
+    def test_pressure_pulse_conserves_energy_and_reports_real_geometry(self) -> None:
+        result = evolve_layered_pressure_pulse(
+            event_id="constantine-mechanical-test",
+            initial_core_radius_m=1.0,
+            initial_core_density_kg_m3=450.0,
+            initial_abundances={"c13": 1.0, "he4": 1.0},
+            driver_n15_loaded_per_core_unit=1.0,
+            driver_proton_ratio=4.0,
+            n15_burn_fraction=1.0,
+            dt_pairs_loaded_per_core_unit=0.0,
+            dt_burn_fraction=0.0,
+            dt_neutron_deposition_fraction=0.0,
+            driver_density_kg_m3=additive_volume_density(4.0),
+            tamper_to_driver_mass_ratio=4.0,
+            tamper_density_kg_m3=11340.0,
+            burn_duration_over_characteristic_time=0.1,
+        )
+        self.assertEqual(result.outcome, "stagnated")
+        self.assertAlmostEqual(result.driver_to_core_mass_ratio, 19.0 / 17.0)
+        self.assertAlmostEqual(result.tamper_to_driver_mass_ratio, 4.0)
+        self.assertLess(abs(result.energy_residual_fraction), 1.0e-7)
+        self.assertGreater(result.peak_compression_ratio, 1.0e6)
+        self.assertGreater(result.maximum_inward_impulse_n_s, 0.0)
+        self.assertAlmostEqual(result.equal_impulse_inward_fraction, 0.8127376426)
+
+    def test_slower_driver_pulse_reduces_peak_compression(self) -> None:
+        common = dict(
+            event_id="pulse-duration-test",
+            initial_core_radius_m=1.0,
+            initial_core_density_kg_m3=450.0,
+            initial_abundances={"c13": 1.0, "he4": 1.0},
+            driver_n15_loaded_per_core_unit=1.0,
+            driver_proton_ratio=4.0,
+            n15_burn_fraction=1.0,
+            dt_pairs_loaded_per_core_unit=0.0,
+            dt_burn_fraction=0.0,
+            dt_neutron_deposition_fraction=0.0,
+            driver_density_kg_m3=additive_volume_density(4.0),
+            tamper_to_driver_mass_ratio=4.0,
+            tamper_density_kg_m3=11340.0,
+        )
+        fast = evolve_layered_pressure_pulse(
+            burn_duration_over_characteristic_time=0.1,
+            **common,
+        )
+        slow = evolve_layered_pressure_pulse(
+            burn_duration_over_characteristic_time=3.0,
+            **common,
+        )
+        self.assertLess(slow.peak_compression_ratio, fast.peak_compression_ratio)
+
+    def test_late_core_preheat_preserves_more_compression_than_early_preheat(self) -> None:
+        common = dict(
+            event_id="preheat-timing-test",
+            initial_core_radius_m=1.0,
+            initial_core_density_kg_m3=450.0,
+            initial_abundances={"c13": 1.0, "he4": 1.0},
+            driver_n15_loaded_per_core_unit=1.0,
+            driver_proton_ratio=4.0,
+            n15_burn_fraction=0.99,
+            dt_pairs_loaded_per_core_unit=0.0,
+            dt_burn_fraction=0.0,
+            dt_neutron_deposition_fraction=0.0,
+            driver_density_kg_m3=additive_volume_density(4.0),
+            tamper_to_driver_mass_ratio=4.0,
+            tamper_density_kg_m3=11340.0,
+            burn_duration_over_characteristic_time=0.1,
+            core_preheat_mev_per_core_unit=0.04966,
+        )
+        early = evolve_layered_pressure_pulse(
+            preheat_compression_ratio=1.0e2,
+            **common,
+        )
+        late = evolve_layered_pressure_pulse(
+            preheat_compression_ratio=1.0e5,
+            **common,
+        )
+        self.assertLess(abs(early.energy_residual_fraction), 1.0e-7)
+        self.assertLess(abs(late.energy_residual_fraction), 1.0e-7)
+        self.assertGreater(late.peak_compression_ratio, early.peak_compression_ratio)
 
 
 if __name__ == "__main__":
