@@ -1,0 +1,47 @@
+{
+  "all_acceptance_tests_pass": false,
+  "binary_depletion": {
+    "pass": true,
+    "reactant_difference_relative_residual": 0.0,
+    "reaction_extent_m3": 7.977862321124838e27,
+    "two_half_steps_relative_error": 6.661338147750939e-16
+  },
+  "cylindrical_static_equilibrium": {
+    "maximum_density_error": 8.881784197001252e-16,
+    "maximum_velocity_m_s": 2.168404344971009e-16,
+    "pass": true
+  },
+  "hydro_kernel": "first-order HLLC; conservative total energy and species",
+  "periodic_species_advection": {
+    "cell_count": 200,
+    "marker_l1_error_after_one_crossing": 0.10621998741109497,
+    "mass_relative_residual": 0.0,
+    "maximum_local_mass_fraction_closure_error": 2.220446049250313e-16,
+    "maximum_species_relative_residual": 1.4802973661668753e-16,
+    "momentum_relative_residual": 0.0,
+    "numerically_mixed_cell_count": 112,
+    "numerically_mixed_total_width_m": 0.56,
+    "pass": false,
+    "pass_conservation": true,
+    "pass_contact_accuracy": false,
+    "total_energy_relative_residual": 0.0
+  },
+  "qualification": "verification baseline only; not qualified for Roman burn simulations",
+  "schema": "roman-spatial-verification-v0.1",
+  "sod_shock_tube": {
+    "contact_position_error_m": 0.005759999999999987,
+    "mass_absolute_residual": 0.0,
+    "momentum_boundary_balance_residual": 5.551115123125783e-17,
+    "pass": true,
+    "rarefaction_head_error_m": -0.0046099999999999475,
+    "shock_position_error_m": 0.005819999999999936,
+    "star_pressure_relative_error": -6.001791278309465e-05,
+    "star_velocity_relative_error": 0.00016987568516357854,
+    "total_energy_absolute_residual": -2.220446049250313e-16
+  },
+  "spherical_static_equilibrium": {
+    "maximum_density_error": 1.1102230246251565e-15,
+    "maximum_velocity_m_s": 4.01805325123128e-16,
+    "pass": true
+  }
+}

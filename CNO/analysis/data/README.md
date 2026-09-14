@@ -23,7 +23,9 @@ candidate fuel balls can use the same reaction record.
 - `neutron-transport/`: compact MF=3 neutron cross sections extracted from a
   checksum-verified official ENDF archive. The committed card records its
   source URL and archive digest; `../scripts/extract_light_neutron_cross_sections.py`
-  performs the reproducible extraction.
+  performs the reproducible extraction. The present card contains the light
+  fuel nuclides plus Pb-204/206/207/208; natural lead is built from explicit
+  isotope abundances in the transport calculation.
 
 ## Entry rule
 

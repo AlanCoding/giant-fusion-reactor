@@ -26,6 +26,10 @@ FILES = {
     "n15": (15, "n-007_N_015.endf"),
     "o16": (16, "n-008_O_016.endf"),
     "o17": (17, "n-008_O_017.endf"),
+    "pb204": (204, "n-082_Pb_204.endf"),
+    "pb206": (206, "n-082_Pb_206.endf"),
+    "pb207": (207, "n-082_Pb_207.endf"),
+    "pb208": (208, "n-082_Pb_208.endf"),
 }
 MTS = {"total": 1, "elastic": 2, "capture": 102}
 
@@ -52,6 +56,7 @@ def run(archive: Path, output: Path) -> None:
             "Only MF=3 MT=1,2,102 pointwise arrays are retained.",
             "Nonelastic/removal is evaluated as MT1-MT2; MT102 is retained to identify radiative capture.",
             "Transport treats nonelastic reactions on non-hydrogen species as neutron loss, a conservative approximation.",
+            "Lead-isotope evaluations are included for the Roman tamper audit; natural lead is assembled from explicit isotope abundances by the caller.",
         ],
         "nuclides": {},
     }

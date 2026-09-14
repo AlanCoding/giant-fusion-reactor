@@ -125,3 +125,45 @@ def roman_phase_one_target_sets(
         selected_sets[case_name] = selected
         selection_costs[case_name] = cost
     return selected_sets, selection_costs
+
+
+def roman_phase_one_closure_target_sets() -> dict[str, dict[str, LayeredTargetEstimate]]:
+    """Return Workbook-40 cards with a neutron-release-aware Constantine card.
+
+    Workbook 40 minimized the largest target and then selected the lowest-N15
+    card beneath that already-set radius ceiling.  That tie-break chose a slow,
+    large Constantine target even though the N15 savings were negligible.  A
+    neutron born in its thick C13/alpha sphere then remains coupled during a
+    long cooling expansion.  For the closure audit, retain Constantine's
+    selected compression and burn fraction but use the highest temperature in
+    the already-declared case grid.  All other cards remain bit-for-bit the
+    Workbook-40 selections.
+
+    This is a local tie-break correction, not a new global optimization.
+    """
+
+    selected_sets, _ = roman_phase_one_target_sets()
+    cases = roman_phase_one_cases()
+    for case_name, targets in selected_sets.items():
+        case = cases[case_name]
+        old = targets["constantine"]
+        state = reaction_radius_state(
+            ROMAN_REACTION_RECIPES["constantine"],
+            partner_ratio=1.0,
+            compression_ratio=old.radius_state.compression_ratio,
+            ion_temperature_keV=max(case.temperatures_keV),
+            target_heavy_burn_fraction=case.burn_fraction,
+            geometric_confinement_coefficient=(
+                case.geometric_confinement_coefficient
+            ),
+        )
+        targets["constantine"] = layered_target_estimate(
+            state,
+            case.driver_bracket,
+        )
+        if sum(
+            target.n15_burned_per_successful_reaction
+            for target in targets.values()
+        ) > 1.0 + 1.0e-12:
+            raise ValueError("closure-aware Constantine card exceeds N15 budget")
+    return selected_sets

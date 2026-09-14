@@ -46,7 +46,8 @@ These interfaces provide:
 
 - structured reactions, Q values, decay times, and conservation checks;
 - pinned JINA REACLIB rate fits evaluated in SI units;
-- pinned ENDF/B-VIII.0 light-nuclide neutron cross sections;
+- pinned ENDF/B-VIII.0 light-nuclide neutron cross sections plus
+  resonance-reconstructed 293 K Pb-208 total/elastic/capture arrays;
 - the accepted five-chamber Roman architecture as a non-numerical manifest;
 - plain row-oriented tables suitable for notebooks or pandas.
 
@@ -61,13 +62,14 @@ a field name explicitly says otherwise.
 |---|---|
 | `datasets` | Stable names and loaders for packaged numerical data |
 | `reaction_data`, `reactivity` | Nuclear ledger and REACLIB evaluation |
-| `neutron_transport` | Reduced cross-section, slowing, capture and leakage tools |
+| `neutron_transport` | Reduced cross-section, slowing, expanding-core release, capture/albedo, attenuation, and leakage tools |
 | `eos`, `dynamic_implosion`, `plasma` | EOS and zero-dimensional state evolution |
 | `impactor` | Compressed-DT starter gates and separate impactor energy/pressure requirements |
 | `ignition_timing`, `heterogeneous_compression` | Reduced late-trigger and finite-transit compression clocks |
 | `neutron_heating`, `vein_network` | DT-neutron preheat, vein geometry, timing, and inventory screens |
 | `reaction_envelope` | Common finite-depletion radius and layered-target estimates for all Roman recipes |
 | `roman_reference` | Versioned construction of the likely/conservative Phase-I target-card selections shared by later workbooks |
+| `roman_ledger` | Exact one-traversal N15, catalyst, alpha, D/T, neutron, retry, and recovery-loss bookkeeping |
 | `blast_chamber` | Gravity/strength wall, ideal-gas buffer, radiator cadence, recipe balancing, and fleet-specific-power envelopes |
 | `material_flow` | Reaction-flow conservation and isotope ledgers |
 | `n15_pusher`, `layered_driver` | Trajan-fuel and pressure-driver primitives |
@@ -77,6 +79,13 @@ a field name explicitly says otherwise.
 The packaged datasets are immutable snapshots. Refreshing an evaluated source
 should create a newly dated resource rather than silently replacing the file
 used by a reviewed notebook.
+
+The detailed spatial solver is intentionally a separate import package,
+`cno_sim`, under the same Python project. `cno_sweep` remains the reviewed
+zero-dimensional/workbook library; scenario configurations and run launchers
+live under `analysis/simulations/roman/`. See
+[`ROMAN_SIMULATION_HANDOFF.md`](../ROMAN_SIMULATION_HANDOFF.md) for the staged
+solver contract.
 
 ## Test
 

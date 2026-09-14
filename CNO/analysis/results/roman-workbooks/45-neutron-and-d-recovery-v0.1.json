@@ -1,0 +1,287 @@
+{
+  "schema": "roman-neutron-recovery-v0.1",
+  "source_energy_mev": 2.2,
+  "clock_rows": [
+    {
+      "case": "likely",
+      "compressed R (m)": 1.3435306599475674,
+      "hydrodynamic time (s)": 3.4533653807598016e-07,
+      "0.0253-eV absorption time (s)": 6.328048397503586e-05,
+      "absorption/hydro time": 183.24294419466565,
+      "static diffusion escape ~3L/R": 0.0028195912078578297
+    },
+    {
+      "case": "conservative",
+      "compressed R (m)": 16.122188539422975,
+      "hydrodynamic time (s)": 2.0720192284558817e-06,
+      "0.0253-eV absorption time (s)": 9.492072596255378e-05,
+      "absorption/hydro time": 45.810736048666385,
+      "static diffusion escape ~3L/R": 0.00035245282242659824
+    }
+  ],
+  "card_rows": [
+    {
+      "case": "likely",
+      "card": "Workbook 40",
+      "T_i (keV)": 160.0,
+      "compression": 3000.0,
+      "initial fuel R (m)": 19.377065170042076,
+      "compressed fuel R (m)": 1.3435306599475674,
+      "complete target R (m)": 19.563750623837198,
+      "hydro time (s)": 3.4533653807598016e-07,
+      "N15 burned/success": 0.013273652696029505,
+      "central DT burned/success": 1.327742935255015e-07
+    },
+    {
+      "case": "likely",
+      "card": "closure tie-break",
+      "T_i (keV)": 430.0,
+      "compression": 3000.0,
+      "initial fuel R (m)": 0.3322436847890721,
+      "compressed fuel R (m)": 0.023036490468030166,
+      "complete target R (m)": 0.33696709191290813,
+      "hydro time (s)": 3.6120196324802964e-09,
+      "N15 burned/success": 0.013326643241512635,
+      "central DT burned/success": 0.02633951627155486
+    },
+    {
+      "case": "conservative",
+      "card": "Workbook 40",
+      "T_i (keV)": 160.0,
+      "compression": 2000.0,
+      "initial fuel R (m)": 203.12684711192884,
+      "compressed fuel R (m)": 16.122188539422975,
+      "complete target R (m)": 207.5287945552906,
+      "hydro time (s)": 2.0720192284558817e-06,
+      "N15 burned/success": 0.013136660661702186,
+      "central DT burned/success": 1.319038127122524e-09
+    },
+    {
+      "case": "conservative",
+      "card": "closure tie-break",
+      "T_i (keV)": 300.0,
+      "compression": 2000.0,
+      "initial fuel R (m)": 9.125990480325225,
+      "compressed fuel R (m)": 0.7243303444360019,
+      "complete target R (m)": 9.323820214830757,
+      "hydro time (s)": 6.798501018411921e-08,
+      "N15 burned/success": 0.013136737873173895,
+      "central DT burned/success": 1.4545186612380956e-05
+    }
+  ],
+  "release_rows": [
+    {
+      "card": "Workbook 40",
+      "case": "likely",
+      "expansion time / hydro time": 0.5,
+      "core release probability": 0.947243767231121,
+      "decoupling scale R/Rf": 197.74146103471898,
+      "neutron kT at decoupling (eV)": 4.091895229413891
+    },
+    {
+      "card": "Workbook 40",
+      "case": "likely",
+      "expansion time / hydro time": 1.0,
+      "core release probability": 0.8972863306887313,
+      "decoupling scale R/Rf": 197.74146103471898,
+      "neutron kT at decoupling (eV)": 4.091895229413891
+    },
+    {
+      "card": "Workbook 40",
+      "case": "likely",
+      "expansion time / hydro time": 3.0,
+      "core release probability": 0.7224713233603656,
+      "decoupling scale R/Rf": 197.74146103471898,
+      "neutron kT at decoupling (eV)": 4.091895229413891
+    },
+    {
+      "card": "Workbook 40",
+      "case": "likely",
+      "expansion time / hydro time": 10.0,
+      "core release probability": 0.33856446507195215,
+      "decoupling scale R/Rf": 197.74146103471898,
+      "neutron kT at decoupling (eV)": 4.091895229413891
+    },
+    {
+      "card": "Workbook 40",
+      "case": "likely",
+      "expansion time / hydro time": 30.0,
+      "core release probability": 0.039282252458293775,
+      "decoupling scale R/Rf": 197.74146103471898,
+      "neutron kT at decoupling (eV)": 4.091895229413891
+    },
+    {
+      "card": "Workbook 40",
+      "case": "conservative",
+      "expansion time / hydro time": 0.5,
+      "core release probability": 0.8202314506675765,
+      "decoupling scale R/Rf": 559.2917190207281,
+      "neutron kT at decoupling (eV)": 0.5114971337213382
+    },
+    {
+      "card": "Workbook 40",
+      "case": "conservative",
+      "expansion time / hydro time": 1.0,
+      "core release probability": 0.6727900553495223,
+      "decoupling scale R/Rf": 559.2917190207281,
+      "neutron kT at decoupling (eV)": 0.5114971337213382
+    },
+    {
+      "card": "Workbook 40",
+      "case": "conservative",
+      "expansion time / hydro time": 3.0,
+      "core release probability": 0.30454874740413945,
+      "decoupling scale R/Rf": 559.2917190207281,
+      "neutron kT at decoupling (eV)": 0.5114971337213382
+    },
+    {
+      "card": "Workbook 40",
+      "case": "conservative",
+      "expansion time / hydro time": 10.0,
+      "core release probability": 0.019015975805793815,
+      "decoupling scale R/Rf": 559.2917190207281,
+      "neutron kT at decoupling (eV)": 0.5114971337213382
+    },
+    {
+      "card": "Workbook 40",
+      "case": "conservative",
+      "expansion time / hydro time": 30.0,
+      "core release probability": 1.9670567553059627e-05,
+      "decoupling scale R/Rf": 559.2917190207281,
+      "neutron kT at decoupling (eV)": 0.5114971337213382
+    },
+    {
+      "card": "closure tie-break",
+      "case": "likely",
+      "expansion time / hydro time": 0.5,
+      "core release probability": 0.9991663913303253,
+      "decoupling scale R/Rf": 25.893075116684436,
+      "neutron kT at decoupling (eV)": 641.3589995099021
+    },
+    {
+      "card": "closure tie-break",
+      "case": "likely",
+      "expansion time / hydro time": 1.0,
+      "core release probability": 0.9983413174979597,
+      "decoupling scale R/Rf": 25.893075116684436,
+      "neutron kT at decoupling (eV)": 641.3589995099021
+    },
+    {
+      "card": "closure tie-break",
+      "case": "likely",
+      "expansion time / hydro time": 3.0,
+      "core release probability": 0.9950765459012918,
+      "decoupling scale R/Rf": 25.893075116684436,
+      "neutron kT at decoupling (eV)": 641.3589995099021
+    },
+    {
+      "card": "closure tie-break",
+      "case": "likely",
+      "expansion time / hydro time": 10.0,
+      "core release probability": 0.9840768299071895,
+      "decoupling scale R/Rf": 25.893075116684436,
+      "neutron kT at decoupling (eV)": 641.3589995099021
+    },
+    {
+      "card": "closure tie-break",
+      "case": "likely",
+      "expansion time / hydro time": 30.0,
+      "core release probability": 0.9558446227368173,
+      "decoupling scale R/Rf": 25.893075116684436,
+      "neutron kT at decoupling (eV)": 641.3589995099021
+    },
+    {
+      "card": "closure tie-break",
+      "case": "conservative",
+      "expansion time / hydro time": 0.5,
+      "core release probability": 0.9925651715117422,
+      "decoupling scale R/Rf": 118.54890561585646,
+      "neutron kT at decoupling (eV)": 21.34647437822288
+    },
+    {
+      "card": "closure tie-break",
+      "case": "conservative",
+      "expansion time / hydro time": 1.0,
+      "core release probability": 0.9851933839816079,
+      "decoupling scale R/Rf": 118.54890561585646,
+      "neutron kT at decoupling (eV)": 21.34647437822288
+    },
+    {
+      "card": "closure tie-break",
+      "case": "conservative",
+      "expansion time / hydro time": 3.0,
+      "core release probability": 0.9562568177805371,
+      "decoupling scale R/Rf": 118.54890561585646,
+      "neutron kT at decoupling (eV)": 21.34647437822288
+    },
+    {
+      "card": "closure tie-break",
+      "case": "conservative",
+      "expansion time / hydro time": 10.0,
+      "core release probability": 0.8615937168943364,
+      "decoupling scale R/Rf": 118.54890561585646,
+      "neutron kT at decoupling (eV)": 21.34647437822288
+    },
+    {
+      "card": "closure tie-break",
+      "case": "conservative",
+      "expansion time / hydro time": 30.0,
+      "core release probability": 0.6402629372293946,
+      "decoupling scale R/Rf": 118.54890561585646,
+      "neutron kT at decoupling (eV)": 21.34647437822288
+    }
+  ],
+  "h2": {
+    "density_kg_m3": 70.8,
+    "transport_mfp_m": 0.0028476451833627714,
+    "diffusion_length_m": 0.025872561230092635,
+    "capture_one_entry": 0.10422345952877832
+  },
+  "closure_rows": [
+    {
+      "scenario": "working likely",
+      "case": "likely",
+      "expansion_multiplier": 3.0,
+      "target_return_survival": 0.98,
+      "eta_dt": 0.75,
+      "eta_dd": 0.95,
+      "core release": 0.9950765459012918,
+      "eventual H capture after core": 0.8533184959216026,
+      "eta Constantine": 0.8491172214753538,
+      "D consumed": 0.5770415395339509,
+      "D recovered": 1.0453113449168971,
+      "net D": 0.46826980538294627,
+      "G_D": 1.8115010329432186
+    },
+    {
+      "scenario": "working conservative",
+      "case": "conservative",
+      "expansion_multiplier": 10.0,
+      "target_return_survival": 0.95,
+      "eta_dt": 0.55,
+      "eta_dd": 0.9,
+      "core release": 0.8615937168943364,
+      "eventual H capture after core": 0.6994286306194665,
+      "eta Constantine": 0.602623313557742,
+      "D consumed": 0.6857872652251629,
+      "D recovered": 0.8015016204730393,
+      "net D": 0.11571435524787643,
+      "G_D": 1.1687321435020877
+    },
+    {
+      "scenario": "stress / not closed",
+      "case": "conservative",
+      "expansion_multiplier": 30.0,
+      "target_return_survival": 0.9,
+      "eta_dt": 0.35,
+      "eta_dd": 0.8,
+      "core release": 0.6402629372293946,
+      "eventual H capture after core": 0.5377856587390564,
+      "eta Constantine": 0.3443242254641131,
+      "D consumed": 0.6857872652251629,
+      "D recovered": 0.5020552964659006,
+      "net D": -0.18373196875926223,
+      "G_D": 0.7320860592257601
+    }
+  ]
+}

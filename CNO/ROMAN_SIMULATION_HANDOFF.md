@@ -17,6 +17,121 @@ The two decisive calculations are:
 An isolated-DT-vein calculation calibrates the first model. A reaction-network
 postprocessor checks side reactions on the second model's histories.
 
+## Workbook checkpoint before simulation
+
+The pre-simulation packet has done its main job: it has produced explicit
+target cards, exposed the guessed spatial closures, and shown that blast-wall
+capital rather than CNO feed inventory is the leading material-scaling
+constraint under the present chamber assumptions. Four compact calculations
+can still produce system-level decisions without becoming spatial hydro:
+
+1. **Exact global ledger (`10` plus `80`) — first pass complete.** Exactly one
+   net N15 burn is allocated over the five recipes; D, T, alpha, catalyst,
+   retries, and recovery losses are explicit. D-positive likely/conservative
+   points and a deliberately failed stress point are preserved.
+2. **Constantine neutron/D transport (`45`) — reduced first pass complete.** A
+   Maxwellian-group disassembly model replaces the invalid frozen-sphere
+   estimate and identifies expansion time plus target/H albedo as the spatial
+   simulation gates.
+3. **Tamper material (`32`) — neutron first pass complete.** Reconstructed
+   Pb-208 data show its strong advantage near 2.2 MeV and loss of that advantage
+   at 14.1 MeV. Channel-resolved activation and mechanics remain.
+4. **Shared local physics (`20`).** Finite depletion, two-temperature EOS,
+   charged-product stopping, bremsstrahlung, and analytic hydro limits should
+   become solver verification tests. This is less likely to create a headline
+   by itself, but it can prevent a false one.
+
+Workbooks `90` and `95` should then assemble and stress the cards; they should
+not introduce new physical models. Chemistry, fabrication, and plant sheets
+remain important bills of goods but are downstream of the simulation-qualified
+shot source terms.
+
+## Simulation dependency chain
+
+The simulation campaign is a sequence of reduced problems, not one enormous
+model. Each arrow is a versioned result card rather than live notebook state:
+
+```text
+impact impedance/focusing bracket
+    -> hot DT-starter profile
+    -> axial isolated-DT vein propagation
+    -> burn arrival time + alpha/neutron/pressure source along a vein
+    -> radial DT-to-N15 Wigner-Seitz cell
+    -> N15 light-off, DT:N15 cost, and local pressure history
+    -> spherical driver + Pb/tamper + central-fuel implosion
+    -> compression, central-DT trigger, nonlocal preheat, and recipe burn
+    -> full-network and neutron-transport replay
+    -> corrected source terms iterated back only when materially different
+```
+
+### Scenario 0 — verification problems
+
+Before a design run, reproduce fixed-box depletion, shock tubes, planar and
+spherical Sedov-like blasts, homologous spherical compression, static
+charged-particle stopping, and static layered-neutron attenuation. These are
+part of the solver, not optional presentation examples.
+
+The initial `v0.1` kernel now passes exact binary depletion, static radial
+equilibrium, global species conservation, and Sod-shock checks. It deliberately
+fails qualification because first-order contact advection creates excessive
+local numerical mixing. The result and next accuracy gates are recorded in
+`analysis/simulations/roman/scenarios/00_verification.md`.
+
+### Scenario 1 — impactor to starter
+
+Use a one-dimensional planar impedance/shock calculation to turn projectile
+mass, speed, and materials into a shocked-DT state. Carry the geometric
+focusing efficiency as a bracket because an entering projectile and crater/jet
+are not truly one-dimensional. If that bracket controls viability, promote
+only this scenario to two-dimensional axisymmetry. It outputs a radial DT
+density, velocity, ion/electron temperature, and burn state at the moment the
+starter becomes autonomous.
+
+### Scenario 2 — axial isolated-DT propagation
+
+Simulate distance along one DT vein versus time. A radius-dependent transverse
+loss closure represents the vein wall. First use vacuum, then passive N15, so
+the calculation measures rather than assumes the DT-front velocity, minimum
+vein radius, burn fraction, quench distance, and time-resolved alpha, neutron,
+pressure, and heat flux delivered per unit vein length.
+
+### Scenario 3 — radial DT-to-N15 handoff
+
+At representative axial positions, simulate radius outward from the DT vein
+to the halfway plane between neighboring veins. Feed Scenario 2's local arrival
+and source history into this cylindrical Wigner-Seitz cell. The output is the
+largest viable half-pitch, N15 ignition delay and burn fraction, burned DT per
+burned N15, and a pressure-time history. Combining the independent axial and
+radial results is valid only while axial gradients are long compared with the
+cell pitch; otherwise this is the first problem to promote to a two-dimensional
+`r-z` cell.
+
+### Scenario 4 — spherical driver and central-fuel implosion
+
+Simulate the complete target with one-dimensional spherical moving shells:
+central DT kernel, recipe fuel, homogenized DT-veined Trajan driver, and Pb or
+selected tamper. Scenario 3 supplies a distributed driver burn/source history,
+not a scalar coupling efficiency. The simulation must carry the pressure and
+mass motion of both inward and outward boundaries.
+
+Neutrons and charged products deposit wherever their transport says they do.
+This directly tests the important possibility that symmetric preheating and
+early fusion in an outer fuel shell launches an additional inward shock. It
+may improve compression, or it may unload the core and ruin stagnation; the
+sign cannot be assigned without the coupled mass, pressure, and timing solve.
+
+Run Scenario 4 once per Roman recipe from the same code and different reaction
+cards. Do not create five solvers.
+
+### Scenario 5 — network and transport replay
+
+Save zone histories from Scenario 4. Replay larger nuclear networks and more
+expensive neutron/photon transport offline. If side reactions or corrected
+deposition move burn, pressure, catalyst survival, or recovered-neutron yield
+beyond a declared tolerance, feed their source terms back and rerun Scenario
+4. This provides tight coupling where it matters without making every trial
+run maximally expensive.
+
 ## Minimum hydrodynamic state
 
 Use a one-dimensional finite-volume or Lagrangian mesh. In each material zone,
@@ -43,6 +158,75 @@ of extra hydrodynamic variables:
   fails its stated applicability test.
 
 Every operator must add its changes to the same conservative energy ledger.
+
+## Thermal species, fast products, and mass motion
+
+A hydrodynamic cell is locally thermalized only for its bulk ion and electron
+populations. It is not assumed that newly born fusion products thermalize in
+their birth cell.
+
+For every cell or moving mass shell, evolve:
+
+- total mass and face geometry;
+- face velocity or conservative cell momentum;
+- ion and electron internal energies separately;
+- mass fractions or number abundances of the thermal nuclear species;
+- optional subgrid material labels needed to measure numerical versus physical
+  mixing.
+
+Reaction products first enter a fast-particle source ledger. DT alphas,
+p+N15 alphas, and C12 recoils deposit through energy-dependent stopping kernels
+expressed in **areal column**, not a fixed physical millimetre range. A quoted
+0.1-mm path can shrink by orders of magnitude under compression and is not a
+universal mesh size. The kernel distributes energy conservatively across every
+crossed zone and partitions stopping into ion and electron heating. Mesh
+convergence should resolve a burn front with several cells, but the whole
+hundreds-of-metres target does not need sub-millimetre cells.
+
+DT and desired-reaction neutrons use time-dependent few-group transport from
+the beginning. Their flight across a large target can be comparable to the
+implosion clock, and their deposition is precisely the nonlocal preheat that
+may ignite an outer shell. A static exponential heat fraction is not adequate.
+
+For the axial and unit-cell problems, use a conservative Eulerian finite-volume
+hydrodynamic update so mass and every species cross faces through the same
+flux. For the spherical implosion, begin with a Lagrangian moving-mass mesh so
+compression and interface work are clean; add conservative remap only if shell
+tangling or front resolution requires it. Both solvers share EOS, reaction,
+stopping, neutron, radiation, and conservation-ledger operators.
+
+Physical mixing is separate from numerical advection. Start with zero explicit
+mixing and a bracketed species/thermal diffusion coefficient. Hydrodynamic
+instabilities that intrinsically require two or three dimensions must be
+reported as missing physics rather than imitated by an undocumented diffusion
+constant.
+
+## Code and run layout
+
+The implementation boundary is now reserved as follows:
+
+```text
+analysis/src/cno_sim/                    reusable spatial-solver package
+    state/                               mesh, conserved state, species registry
+    hydro/                               Eulerian and spherical Lagrangian updates
+    eos/                                 ion/electron/material EOS adapters
+    reactions/                           local depletion and source operators
+    transport/                           charged products, neutrons, photons
+    scenarios/                           composition of operators into runs
+
+analysis/simulations/roman/              human-facing run definitions
+    configs/                             reviewed YAML/JSON inputs
+    scripts/                             thin launch and convergence scripts
+    scenarios/                           scenario-specific notes and manifests
+
+analysis/results/roman-simulation/       versioned small result cards only
+analysis/tests/simulation/               unit, benchmark, and conservation tests
+```
+
+Large zone histories and checkpoints should live outside Git and be addressed
+by a manifest containing configuration hash, code revision, dataset versions,
+solver tolerances, and output checksums. Notebooks consume reduced result cards
+and plots, never opaque binary state.
 
 ## Calculation A: isolated DT vein
 

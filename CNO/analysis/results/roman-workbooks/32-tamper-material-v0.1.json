@@ -1,0 +1,138 @@
+{
+  "schema": "roman-tamper-screen-v0.1",
+  "natural_pb_atom_fractions": {
+    "pb204": 0.014,
+    "pb206": 0.241,
+    "pb207": 0.221,
+    "pb208": 0.524
+  },
+  "columns": [
+    {
+      "case": "likely",
+      "tamper/core mass ratio": 4.0,
+      "Pb thickness (m)": 0.00025876120395729174,
+      "Pb radial column (kg/m\u00b2)": 2.9343520528756883
+    },
+    {
+      "case": "conservative",
+      "tamper/core mass ratio": 4.0,
+      "Pb thickness (m)": 0.01589614242199744,
+      "Pb radial column (kg/m\u00b2)": 180.26225506545097
+    }
+  ],
+  "attenuation_rows": [
+    {
+      "neutron (MeV)": 2.2,
+      "tamper": "ideal transparent mass",
+      "case": "likely",
+      "nonelastic m\u00b2/kg": 0.0,
+      "one-radial-path survival": 1.0
+    },
+    {
+      "neutron (MeV)": 2.2,
+      "tamper": "ideal transparent mass",
+      "case": "conservative",
+      "nonelastic m\u00b2/kg": 0.0,
+      "one-radial-path survival": 1.0
+    },
+    {
+      "neutron (MeV)": 2.2,
+      "tamper": "enriched Pb-208",
+      "case": "likely",
+      "nonelastic m\u00b2/kg": 2.3552376816423041e-07,
+      "one-radial-path survival": 0.9999993088905862
+    },
+    {
+      "neutron (MeV)": 2.2,
+      "tamper": "enriched Pb-208",
+      "case": "conservative",
+      "nonelastic m\u00b2/kg": 2.3552376816423041e-07,
+      "one-radial-path survival": 0.9999575448556743
+    },
+    {
+      "neutron (MeV)": 2.2,
+      "tamper": "natural Pb (fast region only)",
+      "case": "likely",
+      "nonelastic m\u00b2/kg": 0.00021504024536812857,
+      "one-radial-path survival": 0.9993691952555743
+    },
+    {
+      "neutron (MeV)": 2.2,
+      "tamper": "natural Pb (fast region only)",
+      "case": "conservative",
+      "nonelastic m\u00b2/kg": 0.00021504024536812857,
+      "one-radial-path survival": 0.9619780558340829
+    },
+    {
+      "neutron (MeV)": 2.2,
+      "tamper": "C-12 equal-mass comparator",
+      "case": "likely",
+      "nonelastic m\u00b2/kg": 2.4304356425570765e-07,
+      "one-radial-path survival": 0.9999992868248726
+    },
+    {
+      "neutron (MeV)": 2.2,
+      "tamper": "C-12 equal-mass comparator",
+      "case": "conservative",
+      "nonelastic m\u00b2/kg": 2.4304356425570765e-07,
+      "one-radial-path survival": 0.9999561893787414
+    },
+    {
+      "neutron (MeV)": 14.1,
+      "tamper": "ideal transparent mass",
+      "case": "likely",
+      "nonelastic m\u00b2/kg": 0.0,
+      "one-radial-path survival": 1.0
+    },
+    {
+      "neutron (MeV)": 14.1,
+      "tamper": "ideal transparent mass",
+      "case": "conservative",
+      "nonelastic m\u00b2/kg": 0.0,
+      "one-radial-path survival": 1.0
+    },
+    {
+      "neutron (MeV)": 14.1,
+      "tamper": "enriched Pb-208",
+      "case": "likely",
+      "nonelastic m\u00b2/kg": 0.0007611951386541434,
+      "one-radial-path survival": 0.9977688781429318
+    },
+    {
+      "neutron (MeV)": 14.1,
+      "tamper": "enriched Pb-208",
+      "case": "conservative",
+      "nonelastic m\u00b2/kg": 0.0007611951386541434,
+      "one-radial-path survival": 0.8717829886795582
+    },
+    {
+      "neutron (MeV)": 14.1,
+      "tamper": "natural Pb (fast region only)",
+      "case": "likely",
+      "nonelastic m\u00b2/kg": 0.000749015771291043,
+      "one-radial-path survival": 0.9978045375946974
+    },
+    {
+      "neutron (MeV)": 14.1,
+      "tamper": "natural Pb (fast region only)",
+      "case": "conservative",
+      "nonelastic m\u00b2/kg": 0.000749015771291043,
+      "one-radial-path survival": 0.8736990735863055
+    },
+    {
+      "neutron (MeV)": 14.1,
+      "tamper": "C-12 equal-mass comparator",
+      "case": "likely",
+      "nonelastic m\u00b2/kg": 0.0024750351583841665,
+      "one-radial-path survival": 0.9927636846297215
+    },
+    {
+      "neutron (MeV)": 14.1,
+      "tamper": "C-12 equal-mass comparator",
+      "case": "conservative",
+      "nonelastic m\u00b2/kg": 0.0024750351583841665,
+      "one-radial-path survival": 0.6400842830607881
+    }
+  ],
+  "qualification": "Pb208 uses reconstructed 293.15 K arrays; natural Pb is fast-region only"
+}

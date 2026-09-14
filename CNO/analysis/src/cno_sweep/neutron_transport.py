@@ -10,6 +10,7 @@ loss of the source neutron; this is conservative for material recovery.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from functools import lru_cache
 from math import cos, exp, inf, log, pi, sin, sinh, sqrt
 from pathlib import Path
 
@@ -100,6 +101,36 @@ class DiffusionRecoveryResult:
         return self.d_from_core_h + self.d_from_blanket_h
 
 
+@dataclass(frozen=True)
+class ExpandingCoreReleaseResult:
+    """Conservative one-zone release estimate for a disassembling hot core.
+
+    The neutron is first slowed from its birth energy to the ion-temperature
+    scale.  It is then assumed to remain coupled to homologously expanding,
+    adiabatically cooling fuel until the radial transport optical depth falls
+    to one.  Absorption is integrated during that wait.  Ignoring diffusion
+    out of the surface before optical decoupling makes the release probability
+    conservative within this one-zone expansion history.
+    """
+
+    source_energy_mev: float
+    coupled_energy_keV: float
+    fast_survival_to_coupled: float
+    expansion_time_s: float
+    initial_transport_optical_depth: float
+    decoupling_scale_factor: float
+    decoupling_time_s: float
+    decoupling_energy_eV: float
+    expansion_absorption_optical_depth: float
+    diffusive_escape_before_decoupling: float
+    survival_at_decoupling: float
+    release_probability: float
+
+    @property
+    def core_loss_probability(self) -> float:
+        return 1.0 - self.release_probability
+
+
 class CrossSectionLibrary:
     def __init__(self, path: Path):
         raw = load_json(path)
@@ -131,6 +162,80 @@ class CrossSectionLibrary:
 def number_densities(rho_kg_m3: float, abundances: dict[str, float], xs: CrossSectionLibrary) -> dict[str, float]:
     mass_per_unit = sum(xs.mass_number[name] * count for name, count in abundances.items()) * ATOMIC_MASS
     return {name: rho_kg_m3 * count / mass_per_unit for name, count in abundances.items()}
+
+
+def nonelastic_mass_attenuation_m2_kg(
+    xs: CrossSectionLibrary,
+    nuclide: str,
+    energy_eV: float,
+) -> float:
+    """Conservative removal coefficient per unit isotope mass.
+
+    ``total - elastic`` includes capture, inelastic scattering, and
+    neutron-multiplying channels.  Treating every such event as loss is a
+    material-economy lower bound, not a detailed activation calculation.
+    """
+
+    total = xs.xs_b(nuclide, "total", energy_eV)
+    elastic = min(total, xs.xs_b(nuclide, "elastic", energy_eV))
+    return (
+        max(0.0, total - elastic)
+        * BARN_M2
+        / (xs.mass_number[nuclide] * ATOMIC_MASS)
+    )
+
+
+def mixture_nonelastic_mass_attenuation_m2_kg(
+    xs: CrossSectionLibrary,
+    atom_abundances: dict[str, float],
+    energy_eV: float,
+) -> float:
+    """Mass-weighted conservative removal coefficient for a mixture."""
+
+    total_mass = sum(
+        xs.mass_number[name] * count
+        for name, count in atom_abundances.items()
+    )
+    if total_mass <= 0.0 or any(count < 0.0 for count in atom_abundances.values()):
+        raise ValueError("atom abundances must be nonnegative with positive mass")
+    return sum(
+        xs.mass_number[name]
+        * count
+        / total_mass
+        * nonelastic_mass_attenuation_m2_kg(xs, name, energy_eV)
+        for name, count in atom_abundances.items()
+    )
+
+
+def straight_path_nonelastic_survival(
+    mass_attenuation_m2_kg: float,
+    areal_density_kg_m2: float,
+) -> float:
+    """Uncollided nonelastic survival for a stated radial mass column."""
+
+    if mass_attenuation_m2_kg < 0.0 or areal_density_kg_m2 < 0.0:
+        raise ValueError("attenuation and areal density must be nonnegative")
+    return exp(-mass_attenuation_m2_kg * areal_density_kg_m2)
+
+
+def repeated_blanket_capture_probability(
+    capture_per_blanket_entry: float,
+    survival_per_target_return: float,
+) -> float:
+    """Capture after repeated blanket/target albedo encounters.
+
+    A blanket entry captures with probability ``c``.  Otherwise the neutron
+    returns through the target and survives that excursion with probability
+    ``s`` before trying the blanket again.  The geometric series is
+    ``c / (1 - (1-c)s)``.
+    """
+
+    if not 0.0 <= capture_per_blanket_entry <= 1.0:
+        raise ValueError("capture probability must lie in [0, 1]")
+    if not 0.0 <= survival_per_target_return <= 1.0:
+        raise ValueError("return survival must lie in [0, 1]")
+    denominator = 1.0 - (1.0 - capture_per_blanket_entry) * survival_per_target_return
+    return capture_per_blanket_entry / max(denominator, 1.0e-300)
 
 
 def fixed_three_oven_geometries(
@@ -188,6 +293,7 @@ def fixed_three_oven_geometries(
     return result
 
 
+@lru_cache(maxsize=None)
 def _mean_lab_cosine(mass_number: float) -> float:
     mu = np.linspace(-1.0, 1.0, 2001)
     denominator = np.sqrt(mass_number**2 + 1.0 + 2.0 * mass_number * mu)
@@ -200,6 +306,7 @@ def _mean_lab_cosine(mass_number: float) -> float:
     return float(np.trapezoid(cosine, mu) / 2.0)
 
 
+@lru_cache(maxsize=None)
 def _mean_log_energy_decrement(mass_number: float) -> float:
     if mass_number == 1.0:
         return 1.0
@@ -222,6 +329,74 @@ def _macroscopic(material: Material, xs: CrossSectionLibrary, energy_eV: float) 
     return total, elastic, capture_h, absorption
 
 
+def transport_macroscopic_m1(
+    material: Material,
+    xs: CrossSectionLibrary,
+    energy_eV: float,
+) -> float:
+    """Macroscopic transport cross section in inverse metres."""
+
+    transport = 0.0
+    for name, density in material.number_densities_m3.items():
+        bound = material.bound_hydrogen and name == "h1"
+        total = xs.xs_b(name, "total", energy_eV, bound)
+        elastic = min(total, xs.xs_b(name, "elastic", energy_eV, bound))
+        mean_cosine = 0.0 if bound else _mean_lab_cosine(xs.mass_number[name])
+        transport += density * (
+            max(0.0, total - elastic) + elastic * (1.0 - mean_cosine)
+        ) * BARN_M2
+    return transport
+
+
+def absorption_macroscopic_m1(
+    material: Material,
+    xs: CrossSectionLibrary,
+    energy_eV: float,
+) -> float:
+    """Macroscopic nonelastic/removal cross section in inverse metres."""
+
+    return _macroscopic(material, xs, energy_eV)[3]
+
+
+def maxwellian_neutron_group_coefficients(
+    material: Material,
+    xs: CrossSectionLibrary,
+    temperature_eV: float,
+    quadrature_points: int = 64,
+) -> tuple[float, float, float]:
+    """Return ``<v Sigma_a>``, ``<Sigma_tr>``, and ``<v>``.
+
+    This broad-group average prevents a one-energy cooling trajectory from
+    spuriously following individual resolved resonances.  The energy density
+    is Maxwellian, ``2/sqrt(pi) sqrt(y) exp(-y)`` with ``y=E/kT``.  It remains
+    a one-temperature closure; a transport solver should later evolve the
+    actual neutron spectrum.
+    """
+
+    if temperature_eV <= 0.0 or quadrature_points < 32:
+        raise ValueError("temperature must be positive and quadrature needs >=32 points")
+    y = np.geomspace(1.0e-5, 40.0, quadrature_points)
+    weights = 2.0 / sqrt(pi) * np.sqrt(y) * np.exp(-y)
+    weights /= np.trapezoid(weights, y)
+    neutron_mass_kg = 1.674_927_498_04e-27
+    electronvolt_j = 1.602_176_634e-19
+    absorption_rates = []
+    transport_values = []
+    speeds = []
+    for scaled_energy in y:
+        energy = max(1.0e-5, temperature_eV * float(scaled_energy))
+        speed = sqrt(2.0 * energy * electronvolt_j / neutron_mass_kg)
+        _, _, _, absorption = _macroscopic(material, xs, energy)
+        absorption_rates.append(speed * absorption)
+        transport_values.append(transport_macroscopic_m1(material, xs, energy))
+        speeds.append(speed)
+    return (
+        float(np.trapezoid(weights * np.asarray(absorption_rates), y)),
+        float(np.trapezoid(weights * np.asarray(transport_values), y)),
+        float(np.trapezoid(weights * np.asarray(speeds), y)),
+    )
+
+
 def diffusion_length_m(material: Material, xs: CrossSectionLibrary, energy_eV: float = THERMAL_CUTOFF_EV) -> float:
     absorption = transport = 0.0
     for name, density in material.number_densities_m3.items():
@@ -240,14 +415,158 @@ def transport_mean_free_path_m(
     energy_eV: float = THERMAL_CUTOFF_EV,
 ) -> float:
     """Transport mean free path, including anisotropic elastic scattering."""
-    transport = 0.0
-    for name, density in material.number_densities_m3.items():
-        bound = material.bound_hydrogen and name == "h1"
-        total = xs.xs_b(name, "total", energy_eV, bound)
-        elastic = min(total, xs.xs_b(name, "elastic", energy_eV, bound))
-        mean_cosine = 0.0 if bound else _mean_lab_cosine(xs.mass_number[name])
-        transport += density * (max(0.0, total - elastic) + elastic * (1.0 - mean_cosine)) * BARN_M2
+    transport = transport_macroscopic_m1(material, xs, energy_eV)
     return inf if transport == 0.0 else 1.0 / transport
+
+
+def expanding_core_release(
+    material: Material,
+    xs: CrossSectionLibrary,
+    *,
+    source_energy_mev: float,
+    ion_temperature_keV: float,
+    radius_m: float,
+    hydrodynamic_time_s: float,
+    expansion_time_multiplier: float = 1.0,
+    integration_points: int = 300,
+) -> ExpandingCoreReleaseResult:
+    """Estimate neutron survival until an expanding sphere becomes transparent.
+
+    The imposed scale factor is ``a = 1 + t/t_exp`` with density proportional
+    to ``a^-3``, radius proportional to ``a``, and the coupled neutron/ion
+    energy proportional to ``a^-2``.  ``t_exp`` is the supplied hydrodynamic
+    time times ``expansion_time_multiplier``.  All nonelastic reactions are
+    conservatively counted as loss.  The calculation stops when the radial
+    transport optical depth is one and grants escape to surviving neutrons.
+
+    This is a disassembly bracket, not a substitute for time-dependent Monte
+    Carlo transport on a hydrodynamic history.
+    """
+
+    if min(
+        source_energy_mev,
+        ion_temperature_keV,
+        radius_m,
+        hydrodynamic_time_s,
+        expansion_time_multiplier,
+    ) <= 0.0:
+        raise ValueError("energies, radius, and times must be positive")
+    if integration_points < 50:
+        raise ValueError("integration_points must be at least 50")
+
+    source_eV = source_energy_mev * 1.0e6
+    coupled_eV = min(source_eV, ion_temperature_keV * 1.0e3)
+    fast_survival = (
+        1.0
+        if coupled_eV >= source_eV
+        else slowing_survival(material, xs, source_energy_mev, coupled_eV)
+    )
+    expansion_time = hydrodynamic_time_s * expansion_time_multiplier
+
+    def energy_at(scale: float) -> float:
+        return max(THERMAL_CUTOFF_EV, coupled_eV / scale**2)
+
+    coefficient_cache: dict[float, tuple[float, float, float]] = {}
+
+    def group_coefficients(scale: float) -> tuple[float, float, float]:
+        key = float(scale)
+        if key not in coefficient_cache:
+            coefficient_cache[key] = maxwellian_neutron_group_coefficients(
+                material,
+                xs,
+                energy_at(scale),
+            )
+        return coefficient_cache[key]
+
+    def radial_optical(scale: float) -> float:
+        # Material density falls as a^-3 and radius grows as a.
+        _, transport0, _ = group_coefficients(scale)
+        return (
+            transport0 * radius_m / scale**2
+        )
+
+    initial_optical = radial_optical(1.0)
+    if initial_optical <= 1.0:
+        decoupling_scale = 1.0
+    else:
+        low, high = 1.0, 2.0
+        while radial_optical(high) > 1.0 and high < 1.0e8:
+            low, high = high, 2.0 * high
+        for _ in range(60):
+            middle = sqrt(low * high)
+            if radial_optical(middle) > 1.0:
+                low = middle
+            else:
+                high = middle
+        decoupling_scale = high
+
+    absorption_optical = 0.0
+    escaped_during_expansion = 0.0
+    survival_at_decoupling = 1.0
+    if decoupling_scale > 1.0:
+        scales = np.geomspace(1.0, decoupling_scale, integration_points)
+        absorption_rates = []
+        leakage_rates = []
+        for scale in scales:
+            absorption_rate0, transport0, speed = group_coefficients(float(scale))
+            absorption_rates.append(absorption_rate0 / scale**3)
+            current_transport = transport0 / scale**3
+            current_radius = radius_m * scale
+            diffusion_coefficient = speed / max(3.0 * current_transport, 1.0e-300)
+            diffusion_leakage = pi**2 * diffusion_coefficient / current_radius**2
+            # The diffusion expression becomes invalid near transparency and
+            # otherwise exceeds the free-streaming escape rate.  The cap is
+            # the inverse mean-chord residence time of isotropic particles in
+            # a sphere.
+            ballistic_leakage = 3.0 * speed / (4.0 * current_radius)
+            leakage_rates.append(min(diffusion_leakage, ballistic_leakage))
+
+        absorption_rates = np.asarray(absorption_rates)
+        leakage_rates = np.asarray(leakage_rates)
+        absorption_optical = float(
+            expansion_time * np.trapezoid(absorption_rates, scales)
+        )
+        survival = 1.0
+        absorbed = 0.0
+        escaped = 0.0
+        for index in range(len(scales) - 1):
+            delta_t = expansion_time * (scales[index + 1] - scales[index])
+            absorption_rate = 0.5 * (
+                absorption_rates[index] + absorption_rates[index + 1]
+            )
+            leakage_rate = 0.5 * (
+                leakage_rates[index] + leakage_rates[index + 1]
+            )
+            total_rate = absorption_rate + leakage_rate
+            removed = survival * (1.0 - exp(-total_rate * delta_t))
+            if total_rate > 0.0:
+                absorbed += removed * absorption_rate / total_rate
+                escaped += removed * leakage_rate / total_rate
+            survival -= removed
+        # Once the radial transport optical depth reaches unity, grant prompt
+        # escape to the remaining population.
+        escaped_during_expansion = escaped
+        survival_at_decoupling = survival
+
+    release = fast_survival * (
+        escaped_during_expansion + survival_at_decoupling
+    )
+    return ExpandingCoreReleaseResult(
+        source_energy_mev=source_energy_mev,
+        coupled_energy_keV=coupled_eV / 1.0e3,
+        fast_survival_to_coupled=fast_survival,
+        expansion_time_s=expansion_time,
+        initial_transport_optical_depth=initial_optical,
+        decoupling_scale_factor=decoupling_scale,
+        decoupling_time_s=(decoupling_scale - 1.0) * expansion_time,
+        decoupling_energy_eV=energy_at(decoupling_scale),
+        expansion_absorption_optical_depth=absorption_optical,
+        diffusive_escape_before_decoupling=(
+            fast_survival * escaped_during_expansion
+        ),
+        survival_at_decoupling=(fast_survival * survival_at_decoupling),
+        release_probability=release,
+    )
 
 
 def h_capture_branch(material: Material, xs: CrossSectionLibrary, energy_eV: float = THERMAL_CUTOFF_EV) -> float:

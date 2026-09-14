@@ -1,0 +1,162 @@
+{
+  "schema": "roman-global-allocation-v0.1",
+  "normalization": "one completed heavy-catalyst traversal",
+  "support_rows": [
+    {
+      "case": "likely",
+      "calculated N15 burn": 0.9969654046657896,
+      "unallocated N15 burn reserve": 0.003034595334210355,
+      "N15 loaded": 2.0,
+      "N15 recovered unburned": 1.0,
+      "driver DT loaded": 0.1112,
+      "driver DT burned": 0.08896,
+      "central DT loaded": 0.05289661581358034,
+      "central DT burned": 0.02644830790679017,
+      "all DT burned P": 0.11540830790679017,
+      "equal-shot success floor if failed driver fully burns": 0.9969654046657896
+    },
+    {
+      "case": "conservative",
+      "calculated N15 burn": 0.9592657933047654,
+      "unallocated N15 burn reserve": 0.04073420669523464,
+      "N15 loaded": 2.857142857142857,
+      "N15 recovered unburned": 1.8571428571428572,
+      "driver DT loaded": 0.2285714285714286,
+      "driver DT burned": 0.13714285714285715,
+      "central DT loaded": 4.8653007251422204e-05,
+      "central DT burned": 1.459590217542666e-05,
+      "all DT burned P": 0.13715745304503257,
+      "equal-shot success floor if failed driver fully burns": 0.9592657933047654
+    }
+  ],
+  "allocation_rows": [
+    {
+      "case": "likely",
+      "recipe": "caesar",
+      "N15 burned as driver / traversal": 0.03456877426064899,
+      "core heavy burn fraction": 0.5
+    },
+    {
+      "case": "likely",
+      "recipe": "constantine",
+      "N15 burned as driver / traversal": 0.013326643241512635,
+      "core heavy burn fraction": 0.5
+    },
+    {
+      "case": "likely",
+      "recipe": "aurelian",
+      "N15 burned as driver / traversal": 0.26267248256986137,
+      "core heavy burn fraction": 0.5
+    },
+    {
+      "case": "likely",
+      "recipe": "scipio",
+      "N15 burned as driver / traversal": 0.017058456892918777,
+      "core heavy burn fraction": 0.5
+    },
+    {
+      "case": "likely",
+      "recipe": "diocletian",
+      "N15 burned as driver / traversal": 0.6693390477008478,
+      "core heavy burn fraction": 0.5
+    },
+    {
+      "case": "conservative",
+      "recipe": "caesar",
+      "N15 burned as driver / traversal": 0.02201201407878745,
+      "core heavy burn fraction": 0.8
+    },
+    {
+      "case": "conservative",
+      "recipe": "constantine",
+      "N15 burned as driver / traversal": 0.013136737873173895,
+      "core heavy burn fraction": 0.8
+    },
+    {
+      "case": "conservative",
+      "recipe": "aurelian",
+      "N15 burned as driver / traversal": 0.4556980263387147,
+      "core heavy burn fraction": 0.8
+    },
+    {
+      "case": "conservative",
+      "recipe": "scipio",
+      "N15 burned as driver / traversal": 0.01742451107402035,
+      "core heavy burn fraction": 0.8
+    },
+    {
+      "case": "conservative",
+      "recipe": "diocletian",
+      "N15 burned as driver / traversal": 0.45099450394006896,
+      "core heavy burn fraction": 0.8
+    }
+  ],
+  "scenario_rows": [
+    {
+      "scenario": "likely working point",
+      "case": "likely",
+      "expansion_multiplier": 3.0,
+      "target_return_survival": 0.98,
+      "eta_dt": 0.75,
+      "eta_dd": 0.95,
+      "eta Constantine": 0.8491172214753538,
+      "DT loaded": 0.16409661581358034,
+      "DT burned": 0.11540830790679017,
+      "DD tritium reactions": 0.11540830790679017,
+      "DD neutron reactions": 0.11540830790679017,
+      "D total consumed": 0.5770415395339509,
+      "D from Constantine n": 0.8491172214753538,
+      "D from DT n": 0.08655623093009263,
+      "D from DD n": 0.10963789251145066,
+      "D total recovered": 1.0453113449168971,
+      "net D": 0.46826980538294627,
+      "G_D": 1.8115010329432186,
+      "net alpha": 1.1154083079067902,
+      "net T": 0.0
+    },
+    {
+      "scenario": "conservative working point",
+      "case": "conservative",
+      "expansion_multiplier": 10.0,
+      "target_return_survival": 0.95,
+      "eta_dt": 0.55,
+      "eta_dd": 0.9,
+      "eta Constantine": 0.602623313557742,
+      "DT loaded": 0.22862008157868002,
+      "DT burned": 0.13715745304503257,
+      "DD tritium reactions": 0.13715745304503257,
+      "DD neutron reactions": 0.13715745304503257,
+      "D total consumed": 0.6857872652251629,
+      "D from Constantine n": 0.602623313557742,
+      "D from DT n": 0.07543659917476792,
+      "D from DD n": 0.12344170774052932,
+      "D total recovered": 0.8015016204730393,
+      "net D": 0.11571435524787643,
+      "G_D": 1.1687321435020877,
+      "net alpha": 1.1371574530450326,
+      "net T": 0.0
+    },
+    {
+      "scenario": "conservative stress point",
+      "case": "conservative",
+      "expansion_multiplier": 30.0,
+      "target_return_survival": 0.9,
+      "eta_dt": 0.35,
+      "eta_dd": 0.8,
+      "eta Constantine": 0.3443242254641131,
+      "DT loaded": 0.22862008157868002,
+      "DT burned": 0.13715745304503257,
+      "DD tritium reactions": 0.13715745304503257,
+      "DD neutron reactions": 0.13715745304503257,
+      "D total consumed": 0.6857872652251629,
+      "D from Constantine n": 0.3443242254641131,
+      "D from DT n": 0.0480051085657614,
+      "D from DD n": 0.10972596243602606,
+      "D total recovered": 0.5020552964659006,
+      "net D": -0.18373196875926223,
+      "G_D": 0.7320860592257601,
+      "net alpha": 1.1371574530450326,
+      "net T": 0.0
+    }
+  ]
+}

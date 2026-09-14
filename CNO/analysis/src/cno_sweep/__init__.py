@@ -34,6 +34,18 @@ from .neutron_heating import (
     pn15_self_heating_delta_temperature_keV,
     pn15_zero_loss_burn_time_s,
 )
+from .neutron_transport import (
+    ExpandingCoreReleaseResult,
+    Material,
+    absorption_macroscopic_m1,
+    expanding_core_release,
+    mixture_nonelastic_mass_attenuation_m2_kg,
+    nonelastic_mass_attenuation_m2_kg,
+    number_densities,
+    repeated_blanket_capture_probability,
+    straight_path_nonelastic_survival,
+    transport_macroscopic_m1,
+)
 from .reaction_data import Reaction, load_reaction_database, sum_reactions
 from .vein_network import (
     VeinNetworkPoint,
@@ -81,7 +93,17 @@ from .blast_chamber import (
 from .roman_reference import (
     RomanPhaseOneCase,
     roman_phase_one_cases,
+    roman_phase_one_closure_target_sets,
     roman_phase_one_target_sets,
+)
+from .roman_ledger import (
+    RomanClosureLedger,
+    RomanDriverSupport,
+    constantine_efficiency_for_d_parity,
+    driver_support_from_targets,
+    equal_success_probability_floor,
+    evaluate_roman_closure,
+    expected_n15_attempt_cost,
 )
 from .datasets import (
     BUILTIN_DATASETS,
@@ -109,6 +131,9 @@ __all__ = [
     "KinematicCompressionProfile",
     "DTNeighborPreheat",
     "FastNeutronLengths",
+    "ExpandingCoreReleaseResult",
+    "Material",
+    "absorption_macroscopic_m1",
     "Reaction",
     "VeinNetworkPoint",
     "DTStarterState",
@@ -127,6 +152,8 @@ __all__ = [
     "RecipeShotCard",
     "ThermalCycleAssumptions",
     "RomanPhaseOneCase",
+    "RomanClosureLedger",
+    "RomanDriverSupport",
     "geometry",
     "ideal_fully_ionized_sound_speed",
     "integrate_primary_network",
@@ -144,6 +171,13 @@ __all__ = [
     "fast_neutron_lengths",
     "pn15_self_heating_delta_temperature_keV",
     "pn15_zero_loss_burn_time_s",
+    "expanding_core_release",
+    "mixture_nonelastic_mass_attenuation_m2_kg",
+    "nonelastic_mass_attenuation_m2_kg",
+    "number_densities",
+    "repeated_blanket_capture_probability",
+    "straight_path_nonelastic_survival",
+    "transport_macroscopic_m1",
     "evaluate_vein_network_point",
     "spherical_shell_mean_escape_distance_m",
     "square_lattice_dt_fraction",
@@ -164,7 +198,13 @@ __all__ = [
     "radiative_flux_w_m2",
     "self_gravity_areal_density_kg_m2",
     "roman_phase_one_cases",
+    "roman_phase_one_closure_target_sets",
     "roman_phase_one_target_sets",
+    "constantine_efficiency_for_d_parity",
+    "driver_support_from_targets",
+    "equal_success_probability_floor",
+    "evaluate_roman_closure",
+    "expected_n15_attempt_cost",
     "load_reaction_database",
     "sum_reactions",
     "BUILTIN_DATASETS",

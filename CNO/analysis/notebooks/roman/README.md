@@ -12,15 +12,17 @@ make physical sense to a human reviewer, Phase II replaces the decisive
 impactor, DT-vein/N15, and spherical-implosion closures with reduced spatial
 simulations. `ROMAN_TODO.md` defines this phase boundary.
 
-The ten notebooks presently in this directory were all executed successfully
-from fresh kernels on 13 September 2026. Workbooks 00--40 form the reviewed
-**pre-simulation physics packet**, ending with Workbook 40's conditional
-all-recipe radius envelope. Workbook 100 is now a first-pass chamber/radiator
-envelope built from those cards; it is deliberately ahead of the unfinished
-global-allocation sequence so its dominant mass assumptions can be audited.
-This does not mark the global allocation, chemistry, bootstrap, or complete
-plant workbooks finished. The reduced solver boundary and proposed minimum
-state are recorded in `ROMAN_SIMULATION_HANDOFF.md`.
+The fourteen notebooks presently in this directory were all executed
+successfully from fresh kernels on 13 September 2026. Workbooks 10, 32, 45,
+and 80 now form the first material-closure checkpoint: exact ledgers,
+energy-dependent tamper screening, disassembling-core neutron recovery, and
+global allocation. They exhibit D-positive likely and conservative points,
+while preserving a deliberately failed transport-stress point. This is a
+parameterized Phase-I existence result, not yet a simulation-qualified plant.
+Workbook 100 remains a first-pass chamber/radiator envelope built from the
+Workbook-40 cards and must later consume the closure-aware reference cards.
+Chemistry, bootstrap, and the complete plant workbooks remain unfinished. The
+reduced solver boundary is recorded in `ROMAN_SIMULATION_HANDOFF.md`.
 
 ## Rules
 
@@ -177,18 +179,18 @@ reviewed outputs, run:
 |---|---|
 | `00_data_and_cycle_map.ipynb` | Are the accepted architecture and reusable datasets visible and internally consistent? |
 | `05_nuclear_data.ipynb` | Which Constantine rate interpretation and competing-channel data should be carried? |
-| `10_exact_ledgers.ipynb` | What conservation equations constrain N15, alpha, catalyst, neutron, D, and T flows? |
+| `10_exact_ledgers.ipynb` | **Completed:** exact N15, alpha, catalyst, neutron, D, T, retry, and recovery-loss ledgers. |
 | `20_common_burn_kernel.ipynb` | Do the shared depletion, EOS, stopping, radiation, radius, and disassembly primitives agree with their analytic limits? |
 | `25_impactor_dt_starter.ipynb` | First-pass completed: what energy-sized projectile and pressure/pulse concentration are required for a candidate self-heating DT starter? |
 | `30_dt_vein_ignition.ipynb` | Can the DT network ignite enough of the Trajan mantle before disassembly, and at what DT:N15 cost? |
 | `31_dt_neutron_preheat.ipynb` | How far do DT neutrons travel in each fuel, what local preheat can the veins supply, and what optimistic N15 induction clock follows? |
-| `32_tamper_material.ipynb` | Is enriched Pb-208 or another material the best mechanical tamper after energy-dependent neutron reactions are included? |
+| `32_tamper_material.ipynb` | **First-pass completed:** Pb-208/natural-Pb/transparent/C12 neutron screen; channel-resolved activation and mechanics remain. |
 | `33_dt_vein_spacing.ipynb` | What DT vein pitch and pusher fraction satisfy network, neutron-preheat, N15-front, and inertial timing together? |
 | `35_driver_implosion.ipynb` | What core trajectory follows from the mantle pressure history and selected tamper? |
 | `36_core_compression_timing.ipynb` | How do outer and central fuel compression differ, and when can a central DT trigger fire near stagnation? |
 | `40_reaction_parameter_envelopes.ipynb` | What likely/conservative composition, burnup, fuel-ball size, DT trigger, Trajan/vein, Pb, energy, and yield cards should all five recipes pass to the later simulation? Includes the Scipio/Diocletian split check. |
-| `45_neutron_and_d_recovery.ipynb` | Where do Constantine and DT neutrons go, and how much recoverable D results? |
-| `80_global_allocation.ipynb` | Can one N15 burn budget and the complete D/T ledger support all achieved recipe throughputs? |
+| `45_neutron_and_d_recovery.ipynb` | **First-pass completed:** expanding-core release, H-blanket albedo, exact parity thresholds, and open transport parameters. |
+| `80_global_allocation.ipynb` | **First-pass completed:** one-N15 allocation and complete D/T support ledger with working and failed transport cases. |
 | `90_reference_design.ipynb` | Combine the reaction cards and allocation into the smallest defensible Phase-I workbook reference estimate or least-infeasible point. |
 | `95_sensitivity.ipynb` | Which assumptions control the result in consistent likely and conservative cases? |
 | `100_blast_chamber_envelope.ipynb` | **First-pass completed:** what H2/He chamber radii, gravity/strength wall masses, radiator-limited cadence, cycle-balanced power, target hold-up, and Solar-System material ceiling follow from the Workbook-40 cards? Prompt blast, thick-wall, transport, and lifetime physics remain open. |
@@ -204,15 +206,15 @@ After human approval of the Phase-I workbook logic, add the reduced spatial
 workbooks `27_isolated_dt_vein.ipynb`, `34_dt_n15_unit_cell.ipynb`,
 `37_spherical_implosion.ipynb`, and `38_dt_trigger_compatibility.ipynb`.
 
-Workbooks 00, 05, the first-pass 25 impactor/starter screen, the initial 30 timing envelope, the 31 neutron/preheat
-screen, the 33 combined vein-spacing screen, the provisional 35 mechanical
-kernel, the 36 heterogeneous-compression timing screen, and the first-pass 40
-all-recipe radius envelope now exist. Workbook 100 adds the first plant-facing
-chamber/radiator envelope. Workbook 40 remains the present audit point for
-fuel-ball radii. Its conservative cards pass the current pressure-pulse
-cross-check; the likely Caesar, Constantine, and Scipio driver layers require
-iteration before their complete-target dimensions can be used as reference
-values.
+Workbooks 00, 05, 10, the first-pass 25 impactor/starter screen, the initial 30
+timing envelope, the 31 neutron/preheat screen, the 32 tamper screen, the 33
+combined vein-spacing screen, the provisional 35 mechanical kernel, the 36
+heterogeneous-compression timing screen, the first-pass 40 all-recipe radius
+envelope, 45 neutron recovery, 80 global allocation, and 100 blast chamber now
+exist. Workbook 45 corrects Constantine's low-N15 tie-break locally: the same
+compression and burnup use the hottest already-declared grid point, reducing
+the neutron residence time while staying inside the one-N15 budget. Workbooks
+90 and 95 must reconcile that closure card with the remaining target cards.
 `ROMAN_TODO.md` defines the input and output contracts for the remaining
 calculation streams. The impactor, vein, driver,
 central burn, neutron transport, and blast-chamber models should exchange

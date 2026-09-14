@@ -123,6 +123,11 @@ side-reaction postprocessing as distinct verification steps.
 Only after the Phase-I logic has survived human review should the project
 replace its most important assumed functions with the planned simulations:
 
+The code boundary is now reserved under `analysis/src/cno_sim/`, with reviewed
+run configurations under `analysis/simulations/roman/` and compact result cards
+under `analysis/results/roman-simulation/`. This directory skeleton is a
+planning boundary, not evidence that any spatial solver has been implemented.
+
 1. impact/focusing and compressed-DT-starter formation;
 2. isolated DT-vein propagation;
 3. a representative DT-vein/N15 ignition cell;
@@ -1293,18 +1298,18 @@ The filenames are provisional, but the dependency order is intentional.
 |---|---|
 | `00_data_and_cycle_map.ipynb` | Existing inventory of the accepted network and packaged data; records the historical Constantine quotation discrepancy. |
 | `05_nuclear_data.ipynb` | Completed: adjudicates C13(alpha,n), adds C13(p,gamma), and publishes versioned validation data and branching screens. |
-| `10_exact_ledgers.ipynb` | Construct symbolic and numerical N15, alpha, catalyst, neutron, D, and T ledgers normalized to completed throughput. |
+| `10_exact_ledgers.ipynb` | **Completed:** symbolic and numerical N15, alpha, catalyst, neutron, D, T, retry, and recovery-loss ledgers normalized to completed throughput. |
 | `20_common_burn_kernel.ipynb` | Validate finite depletion, EOS, disassembly, stopping, radiation, `R0/Rf`, and energy-accounting primitives shared by all recipes. |
 | `25_impactor_dt_starter.ipynb` | First-pass workbook completed: energy-sized projectile mass/speed loci, compressed-DT starter gates, and separate pressure/pulse concentration requirements. Iterate after human review; impact focusing remains a Phase-II simulation. |
 | `30_dt_vein_ignition.ipynb` | Initial timing envelope completed: separates early driver ignition from a late central DT hotspot, calculates N15 induction scale, required vein-network reach, central-hotspot compression, pressure-communication delay, and required central-fuel front speed. Still needs calculated propagation/handoff functions and DT:N15 inventory. |
 | `31_dt_neutron_preheat.ipynb` | Completed first screen: ENDF-based 14.1-MeV paths in every fuel, density scaling, DT-loading/depth preheat, exact zero-loss N15 heat increment, and optimistic local induction clock. Still needs a hot/cold inter-vein cell before any propagation speed is claimed. |
-| `32_tamper_material.ipynb` | Compare enriched Pb-208, natural lead, an ideal bound, and a non-lead comparator in both mechanical and energy-dependent neutron terms. |
+| `32_tamper_material.ipynb` | **First-pass completed:** compares enriched Pb-208, natural lead, an ideal bound, and C12 in energy-dependent neutron terms. Channel-resolved activation and coupled mechanics remain. |
 | `33_dt_vein_spacing.ipynb` | Completed first combined screen: square-lattice pitch, DT volume/mass fraction, finite-shell neutron retention, volumetric-versus-front light-off, scale sweep, and DT:N15 ledger conversion. Replace provisional stopping and network-speed inputs before reference sizing. |
 | `35_driver_implosion.ipynb` | Provisional kernel completed: converts a parameterized mantle pulse into an explicit pressure-volume history, core/tamper motion, cold compression, and preheat sensitivity. Replace its input pulse and screening EOS with outputs from workbooks 20, 30, and 32 before reference sizing. |
 | `36_core_compression_timing.ipynb` | Completed kinematic timing screen: finite inward transit, outer/mid/center compression histories, central-DT trigger thresholds, neutron flight, hotspot burn clock, and scale dependence. Replace prescribed convergence with shell hydrodynamics before reference promotion. |
 | `40_reaction_parameter_envelopes.ipynb` | **First-pass workbook completed.** Uses one common finite-depletion/disassembly calculation for Caesar, Constantine, Aurelian, Scipio, and Diocletian and emits likely/conservative fuel radii, compressed states, masses, burnup, DT trigger, Trajan/vein and Pb dimensions, and shot yields. Its conservative cards pass the current pressure-pulse audit; the likely Caesar, Constantine, and Scipio driver sizes must be iterated. Competing-channel and direct Scipio/Diocletian combine-versus-split decisions remain downstream checks. |
-| `45_neutron_and_d_recovery.ipynb` | Transport Constantine and DT neutrons through the complete target and calculate recoverable D and deposited energy. |
-| `80_global_allocation.ipynb` | Allocate the single N15 burn budget and all DT use across achieved recipe throughputs; search for closed points. |
+| `45_neutron_and_d_recovery.ipynb` | **First-pass completed:** calculates disassembling-core release, exact D-parity thresholds, Pb-208 screens, and parameterized repeated H-blanket capture. Spatial target/blanket transport remains. |
+| `80_global_allocation.ipynb` | **First-pass completed:** allocates the single N15 burn budget and all DT/DD support; publishes D-positive likely/conservative points and a failed stress point. |
 | `90_reference_design.ipynb` | Combine the reaction cards and global allocation into the smallest internally consistent **workbook reference estimate**; print full dimensions/ledgers or the least-infeasible point and parity gaps. Later rerun it with Phase-II simulation cards. |
 | `95_sensitivity.ipynb` | Stress the reference point against nuclear rates, hydrodynamic coefficient, DT-vein timing, recovery, transport, and tamper assumptions. |
 | `100_blast_chamber_envelope.ipynb` | **First-pass workbook completed.** Sizes H2-breeding and He-energy-recovery chamber families from the Workbook-40 cards; compares self-gravity and membrane strength, derives a chamber-surface radiator cadence, balances the five recipe throughputs, and exposes target hold-up and Solar-System material scaling. Prompt blast/debris, thick-wall geometry, radial heat transfer, clearing, and lifetime remain open. |
@@ -1388,12 +1393,15 @@ before those simulations exist.
 1. Human-run and review `25_impactor_dt_starter.ipynb`; revise its starter gate,
    coupling brackets, projectile choices, and explanations until its tables
    tell a physically understandable first-pass story.
-2. Build `10_exact_ledgers.ipynb` before choosing per-recipe Trajan allocations.
+2. Human-audit the completed `10`, `32`, `45`, and `80` closure checkpoint,
+   especially the Constantine temperature tie-break, expansion multiplier,
+   target-return survival, and auxiliary-neutron recovery assumptions.
 3. Define the versioned result-card schema shared by impactor, vein, driver,
    reaction-parameter, transport, global-reference, and blast-chamber
    workbooks.
-4. Add a versioned Pb-208/natural-Pb neutron dataset and tamper material-card
-   interface shared by mechanics, transport, activation, and chemistry.
+4. Extend the versioned Pb-208 transport card from total/elastic/capture to
+   channel-resolved activation and secondary-neutron yields; reconstruct the
+   other natural-Pb isotopes below their resonance limits.
 5. Human-audit `40_reaction_parameter_envelopes.ipynb`, especially its burnup,
    temperature, compression, and geometric-confinement brackets. Iterate the
    three under-driven likely cards through the pressure model before promoting

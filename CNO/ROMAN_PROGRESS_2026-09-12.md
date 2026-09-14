@@ -11,6 +11,22 @@ and estimates wall-versus-target inventory. Its uniform mixed-gas pressure and
 thin-shell equations are screening bounds; prompt blast impulse, thick-wall
 gravity, wall heat transport, and lifetime remain unresolved.
 
+**13 September simulation-planning addendum:** The reduced campaign is now
+organized as impactor/starter, axial isolated-DT propagation, radial DT-to-N15
+unit-cell handoff, spherical moving-shell target implosion, and offline
+network/transport replay. `ROMAN_SIMULATION_HANDOFF.md` defines the state,
+non-local fast-product treatment, result-card interfaces, validation gates, and
+conditions for promotion beyond one dimension. The `cno_sim` package and Roman
+run/config/result/test directories have been reserved; no production spatial
+solver is claimed yet.
+
+Scenario-0 implementation has begun with a shared planar/cylindrical/spherical
+finite-volume kernel. Its first result is a useful partial failure: mass,
+energy, shocks, and every species inventory conserve correctly, but first-order
+contact transport smears composition too strongly for a burn wave. Higher-order
+bounded reconstruction and non-local charged-product deposition are therefore
+mandatory gates before the isolated-DT-vein run.
+
 This file records where the Roman reference-design effort stands, what the
 existing zero-dimensional work has and has not established, and the next
 calculation sequence. It is intended to survive a conversation reset.
@@ -661,3 +677,52 @@ central DT kernels provide only a tiny fraction of the energy required to make
 the complete selected cores uniformly hot, and the implied remaining radial
 front speeds are about 3.4--12.0 Mm/s. Those are pass conditions for the later
 spatial calculation, not assumed capabilities.
+
+---
+
+## 14. First material-closure checkpoint
+
+Workbooks 10, 32, 45, and 80 now form a compact pre-simulation closure audit.
+
+The exact ledger is normalized to one completed catalyst traversal. It burns
+exactly one N15 through Trajan, returns the heavy catalyst to C12, repays the
+alpha used by Constantine, leaves one net mainline alpha, and replaces every
+triton burned in DT with an explicit pair of equally probable DD branches.
+Consequently, if `P` DT pairs are irreversibly used, the support system consumes
+`5P` D before neutron recovery credit.
+
+The neutron audit caught a bad secondary tie-break in Workbook 40. Once the
+largest target radius was fixed by other recipes, the selector chose a
+needlessly slow 160-keV Constantine card for a negligible N15 saving. The
+closure card retains the already-reviewed compression and burn fraction but
+uses the highest temperature already in each case grid. Its likely complete
+target radius is 0.337 m at 430 keV; its conservative complete target radius is
+9.32 m at 300 keV. These are local Constantine replacements, not new maxima for
+the five-recipe system.
+
+A frozen compressed sphere would predict almost zero neutron escape, but that
+is the wrong time ordering. Room-temperature absorption takes about 63--95
+microseconds at the Workbook-40 Constantine densities, versus 0.35--2.1
+microseconds for hydrodynamic disassembly. Workbook 45 now uses Maxwellian-group
+cross sections while a homologous sphere expands and cools. The closure-aware
+cards release about 99.5% and 86.2% of their desired neutrons when the assumed
+expansion time is respectively three and ten present hydrodynamic times.
+
+Workbook 32 adds resonance-reconstructed Pb-208 data. Pb-208 is nearly
+transparent to nonelastic reactions near the approximately 2.2-MeV Constantine
+source energy at the present radial columns, whereas natural lead can be much
+worse. At 14.1 MeV the isotope advantage disappears, so DT-neutron recovery is
+still geometry dependent.
+
+The two declared working ledgers are:
+
+| Case | DT burned `P` | D consumed `5P` | D recovered | net D | `G_D` |
+|---|---:|---:|---:|---:|---:|
+| likely working | 0.11541 | 0.57704 | 1.04531 | +0.46827 | 1.8115 |
+| conservative working | 0.13716 | 0.68579 | 0.80150 | +0.11571 | 1.1687 |
+
+Those are parameterized Phase-I existence points. The deliberately slower,
+lossier conservative stress row gives `G_D = 0.7321`, so closure is not an
+algebraic certainty. The spatial simulation must replace the expansion-time,
+driver/Pb return-survival, and auxiliary-neutron recovery assumptions before a
+reference plant is called simulation-qualified.
