@@ -1,0 +1,145 @@
+{
+  "convergence": [
+    {
+      "cell_counts_core_inner_powered_driver_outer": [
+        24,
+        4,
+        4,
+        10,
+        4
+      ],
+      "energy_residual_fraction": -9.619037410486061e-08,
+      "fuel_impact_time_s": 4.748568515673146e-06,
+      "maximum_radius_compression_ratio": 2.807864521650016,
+      "maximum_volume_compression_ratio": 22.137493581521134,
+      "shell_collision_time_s": 3.929260585577622e-06
+    },
+    {
+      "cell_counts_core_inner_powered_driver_outer": [
+        36,
+        6,
+        6,
+        15,
+        6
+      ],
+      "energy_residual_fraction": -4.251750931777291e-08,
+      "fuel_impact_time_s": 4.686896220929308e-06,
+      "maximum_radius_compression_ratio": 2.824233683689567,
+      "maximum_volume_compression_ratio": 22.526923552099973,
+      "shell_collision_time_s": 3.839685322127682e-06
+    },
+    {
+      "cell_counts_core_inner_powered_driver_outer": [
+        48,
+        8,
+        8,
+        20,
+        8
+      ],
+      "energy_residual_fraction": -2.2485595754016607e-08,
+      "fuel_impact_time_s": 4.6664050391977035e-06,
+      "maximum_radius_compression_ratio": 2.843072353799391,
+      "maximum_volume_compression_ratio": 22.98072558274319,
+      "shell_collision_time_s": 3.7863136192250266e-06
+    }
+  ],
+  "geometry": {
+    "driver_mass_kg": 14969472.9423109,
+    "driver_outer_radius_m": 33.12224133594199,
+    "fuel_radius_m": 27.34443377227374,
+    "fuel_to_inner_shell_gap_m": 0.25,
+    "inner_shell_inner_radius_m": 27.59443377227374,
+    "inner_shell_mass_kg": 2993894.58846218,
+    "inner_shell_outer_radius_m": 27.62199743168359,
+    "inter_shell_gap_m": 0.25,
+    "outer_shell_mass_kg": 29938945.8846218,
+    "outer_shell_outer_radius_m": 33.312647046557004,
+    "powered_shell_inner_radius_m": 27.87199743168359,
+    "powered_shell_mass_kg": 26945051.29615962,
+    "powered_shell_outer_radius_m": 28.11330191380433
+  },
+  "one_shell_reference_compression": 23.749497953212824,
+  "plots": [
+    "staged-pb-shells-history-v0.1.png",
+    "staged-pb-shells-density-v0.1.png",
+    "staged-pb-shells-temperature-v0.1.png",
+    "staged-pb-shells-timing-v0.1.png"
+  ],
+  "pulse_energy_fractions": [
+    0.09090909090909091,
+    0.18181818181818182,
+    0.7272727272727273
+  ],
+  "qualification": "nonreacting 1D three-Pb-shell mechanical precursor; fixed total Pb, driver mass, and driver energy; staged source is prescribed",
+  "representative": {
+    "case": "likely",
+    "cell_counts_core_inner_powered_driver_outer": [
+      48,
+      8,
+      8,
+      20,
+      8
+    ],
+    "core_radius_at_maximum_compression_m": 9.617916946690263,
+    "core_reactions_enabled": false,
+    "driver_mass_kg": 14969472.9423109,
+    "elapsed_time_s": 3.8671397909207655e-05,
+    "energy_residual_fraction": -2.2485595754016607e-08,
+    "fuel_gap_m": 0.25,
+    "fuel_impact_inward_speed_m_s": 73918.34096600895,
+    "fuel_impact_thermalized_energy_j": 8317693817415202.0,
+    "fuel_impact_time_s": 4.6664050391977035e-06,
+    "initial_core_radius_m": 27.34443377227374,
+    "injected_driver_energy_j": 2.071372233883557e+20,
+    "inter_shell_gap_m": 0.25,
+    "maximum_mean_core_density_kg_m3": 5603.239827519303,
+    "maximum_radius_compression_ratio": 2.843072353799391,
+    "maximum_volume_compression_ratio": 22.98072558274319,
+    "outcome": "first_core_boundary_stagnation",
+    "pb_mass_fractions_inner_powered_outer": "(0.05, 0.45, 0.5)",
+    "pulse_count": 3,
+    "pulse_relative_energies": "(1.0, 2.0, 8.0)",
+    "pulse_start_times_s": "(0.0, 5e-06, 1.4e-05)",
+    "radiation_transport_enabled": false,
+    "recipe": "diocletian",
+    "shell_collision_inward_speed_m_s": 228425.92230147406,
+    "shell_collision_thermalized_energy_j": 5424188726399816.0,
+    "shell_collision_time_s": 3.7863136192250266e-06,
+    "step_count": 30559,
+    "time_of_maximum_compression_s": 3.8671014741416004e-05,
+    "total_pb_mass_kg": 59877891.7692436
+  },
+  "schema": "roman-staged-pb-shells-v0.1",
+  "third_pulse_timing_sweep": [
+    {
+      "maximum_volume_compression_ratio": 17.93595902888613,
+      "third_pulse_start_us": 10.0,
+      "time_of_maximum_compression_s": 3.50219581433944e-05
+    },
+    {
+      "maximum_volume_compression_ratio": 20.04650497724459,
+      "third_pulse_start_us": 12.0,
+      "time_of_maximum_compression_s": 3.772625506096894e-05
+    },
+    {
+      "maximum_volume_compression_ratio": 21.009000299783896,
+      "third_pulse_start_us": 14.0,
+      "time_of_maximum_compression_s": 4.0348394006241384e-05
+    },
+    {
+      "maximum_volume_compression_ratio": 20.647258694460668,
+      "third_pulse_start_us": 16.0,
+      "time_of_maximum_compression_s": 4.1943411384829076e-05
+    },
+    {
+      "maximum_volume_compression_ratio": 19.605108986225613,
+      "third_pulse_start_us": 18.0,
+      "time_of_maximum_compression_s": 4.302744369440661e-05
+    },
+    {
+      "maximum_volume_compression_ratio": 18.12602037173582,
+      "third_pulse_start_us": 20.0,
+      "time_of_maximum_compression_s": 4.4421039764715054e-05
+    }
+  ]
+}

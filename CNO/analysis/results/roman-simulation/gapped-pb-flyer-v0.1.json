@@ -1,0 +1,208 @@
+{
+  "geometry": {
+    "driver_mass_kg": 14969472.9423109,
+    "driver_outer_radius_m": 33.12189294067943,
+    "flyer_inner_radius_m": 27.84443377227374,
+    "flyer_mass_kg": 29938945.8846218,
+    "flyer_outer_radius_m": 28.112818308712605,
+    "fuel_radius_m": 27.34443377227374,
+    "gap_width_m": 0.5,
+    "outer_tamper_mass_kg": 29938945.8846218,
+    "tamper_outer_radius_m": 33.31230262263277
+  },
+  "plots": [
+    "gapped-pb-flyer-history-v0.1.png",
+    "gapped-pb-flyer-density-v0.1.png",
+    "gapped-pb-flyer-temperature-v0.1.png",
+    "gapped-pb-flyer-sweep-v0.1.png"
+  ],
+  "qualification": "nonreacting 1D spherical mechanical precursor; fixed source history; perfectly inelastic interface-node impact; no radiation transport",
+  "representative": {
+    "case": "likely",
+    "cell_counts_core_flyer_driver_outer_tamper": [
+      48,
+      12,
+      20,
+      8
+    ],
+    "core_radius_at_maximum_compression_m": 9.51300898309681,
+    "core_reactions_enabled": false,
+    "driver_mass_kg": 14969472.9423109,
+    "driver_reactions_depleted": false,
+    "elapsed_time_s": 3.9943894196435505e-05,
+    "energy_residual_fraction": 2.7007078620647733e-07,
+    "final_core_radius_m": 9.513012704120687,
+    "final_target_outer_radius_m": 104.36193365883007,
+    "flyer_mass_kg": 29938945.8846218,
+    "gap_width_m": 0.5,
+    "impact_contact_inward_speed_m_s": 197626.8373920948,
+    "impact_model": "perfectly_inelastic_interface_node",
+    "impact_occurred": true,
+    "impact_thermalized_energy_j": 1.929627073964495e+16,
+    "impact_time_s": 3.5808360006801757e-06,
+    "initial_core_radius_m": 27.34443377227374,
+    "initial_driver_thickness_m": 5.009074631966826,
+    "initial_flyer_thickness_m": 0.26838453643886595,
+    "initial_mean_core_density_kg_m3": 243.8234514112521,
+    "initial_outer_tamper_thickness_m": 0.19040968195334074,
+    "injected_driver_energy_j": 2.071372233883559e+20,
+    "inner_pb_mass_fraction": 0.5,
+    "maximum_core_cell_density_kg_m3": 13024.883797628709,
+    "maximum_core_cell_density_ratio": 53.419323376158346,
+    "maximum_mean_core_density_kg_m3": 5790.66656463958,
+    "maximum_radius_compression_ratio": 2.8744253075825634,
+    "maximum_volume_compression_ratio": 23.74942414736218,
+    "outcome": "first_core_boundary_stagnation",
+    "outer_tamper_mass_kg": 29938945.8846218,
+    "radiation_transport_enabled": false,
+    "recipe": "diocletian",
+    "source_end_time_s": 2e-05,
+    "source_mode": "distributed_vein_growth",
+    "step_count": 6646,
+    "time_of_maximum_compression_s": 3.99384157441951e-05
+  },
+  "schema": "roman-gapped-pb-flyer-v0.1",
+  "sweep": [
+    {
+      "energy_residual_fraction": -2.0038725725839543e-07,
+      "gap_width_m": 0.5,
+      "impact_contact_inward_speed_m_s": 153358.4091685393,
+      "impact_time_s": 2.7362608461044544e-06,
+      "inner_pb_mass_fraction": 0.25,
+      "maximum_radius_compression_ratio": 2.661961932199867,
+      "maximum_volume_compression_ratio": 18.862772266412055
+    },
+    {
+      "energy_residual_fraction": -6.926231964284659e-07,
+      "gap_width_m": 0.5,
+      "impact_contact_inward_speed_m_s": 190700.7302805626,
+      "impact_time_s": 3.7533232815751855e-06,
+      "inner_pb_mass_fraction": 0.5,
+      "maximum_radius_compression_ratio": 2.8059657082583946,
+      "maximum_volume_compression_ratio": 22.092612623825264
+    },
+    {
+      "energy_residual_fraction": -5.48730895695292e-07,
+      "gap_width_m": 0.5,
+      "impact_contact_inward_speed_m_s": 211822.4666333885,
+      "impact_time_s": 4.667304492550625e-06,
+      "inner_pb_mass_fraction": 0.75,
+      "maximum_radius_compression_ratio": 2.7751601114440545,
+      "maximum_volume_compression_ratio": 21.37293346298771
+    },
+    {
+      "energy_residual_fraction": -6.570593830974132e-07,
+      "gap_width_m": 1.0,
+      "impact_contact_inward_speed_m_s": 254157.2977267868,
+      "impact_time_s": 3.925234932882707e-06,
+      "inner_pb_mass_fraction": 0.25,
+      "maximum_radius_compression_ratio": 2.551965716517201,
+      "maximum_volume_compression_ratio": 16.619750782471822
+    },
+    {
+      "energy_residual_fraction": -8.330459112517607e-07,
+      "gap_width_m": 1.0,
+      "impact_contact_inward_speed_m_s": 230075.895058849,
+      "impact_time_s": 5.3179831950283145e-06,
+      "inner_pb_mass_fraction": 0.5,
+      "maximum_radius_compression_ratio": 2.7094442238834087,
+      "maximum_volume_compression_ratio": 19.89026848494681
+    },
+    {
+      "energy_residual_fraction": -5.198818329295302e-07,
+      "gap_width_m": 1.0,
+      "impact_contact_inward_speed_m_s": 226396.72502377644,
+      "impact_time_s": 6.264591590090345e-06,
+      "inner_pb_mass_fraction": 0.75,
+      "maximum_radius_compression_ratio": 2.695033914436578,
+      "maximum_volume_compression_ratio": 19.5745913485015
+    },
+    {
+      "energy_residual_fraction": -1.884708934029259e-06,
+      "gap_width_m": 3.0,
+      "impact_contact_inward_speed_m_s": 408288.60061488854,
+      "impact_time_s": 6.650055423107646e-06,
+      "inner_pb_mass_fraction": 0.25,
+      "maximum_radius_compression_ratio": 2.2297989706019767,
+      "maximum_volume_compression_ratio": 11.086568173073344
+    },
+    {
+      "energy_residual_fraction": -1.6927718045830262e-06,
+      "gap_width_m": 3.0,
+      "impact_contact_inward_speed_m_s": 419433.80196749367,
+      "impact_time_s": 8.873118222577469e-06,
+      "inner_pb_mass_fraction": 0.5,
+      "maximum_radius_compression_ratio": 2.420858487901216,
+      "maximum_volume_compression_ratio": 14.187576296897468
+    },
+    {
+      "energy_residual_fraction": -5.604081478034797e-07,
+      "gap_width_m": 3.0,
+      "impact_contact_inward_speed_m_s": 375439.7442918483,
+      "impact_time_s": 1.0937369386816835e-05,
+      "inner_pb_mass_fraction": 0.75,
+      "maximum_radius_compression_ratio": 2.4556052203885725,
+      "maximum_volume_compression_ratio": 14.807292108197505
+    },
+    {
+      "energy_residual_fraction": -3.273999143704556e-06,
+      "gap_width_m": 5.0,
+      "impact_contact_inward_speed_m_s": 528402.662330384,
+      "impact_time_s": 8.458519069136675e-06,
+      "inner_pb_mass_fraction": 0.25,
+      "maximum_radius_compression_ratio": 2.014703600529817,
+      "maximum_volume_compression_ratio": 8.177743560426732
+    },
+    {
+      "energy_residual_fraction": -2.48019605324813e-06,
+      "gap_width_m": 5.0,
+      "impact_contact_inward_speed_m_s": 530368.8997002781,
+      "impact_time_s": 1.1289111639378765e-05,
+      "inner_pb_mass_fraction": 0.5,
+      "maximum_radius_compression_ratio": 2.2449248639177593,
+      "maximum_volume_compression_ratio": 11.313720099822866
+    },
+    {
+      "energy_residual_fraction": -6.471172541754911e-07,
+      "gap_width_m": 5.0,
+      "impact_contact_inward_speed_m_s": 441498.65386795,
+      "impact_time_s": 1.411765316508067e-05,
+      "inner_pb_mass_fraction": 0.75,
+      "maximum_radius_compression_ratio": 2.3044838155410714,
+      "maximum_volume_compression_ratio": 12.238296964534593
+    },
+    {
+      "energy_residual_fraction": -5.84183450335399e-06,
+      "gap_width_m": 10.0,
+      "impact_contact_inward_speed_m_s": 707251.9474495521,
+      "impact_time_s": 1.16893663498308e-05,
+      "inner_pb_mass_fraction": 0.25,
+      "maximum_radius_compression_ratio": 1.7422289264662367,
+      "maximum_volume_compression_ratio": 5.288294837931955
+    },
+    {
+      "energy_residual_fraction": -3.7965346776053053e-06,
+      "gap_width_m": 10.0,
+      "impact_contact_inward_speed_m_s": 706057.5378142943,
+      "impact_time_s": 1.5747474812282645e-05,
+      "inner_pb_mass_fraction": 0.5,
+      "maximum_radius_compression_ratio": 2.0045090486798856,
+      "maximum_volume_compression_ratio": 8.054230664954426
+    },
+    {
+      "energy_residual_fraction": -8.2326041575418e-07,
+      "gap_width_m": 10.0,
+      "impact_contact_inward_speed_m_s": 590348.1295123639,
+      "impact_time_s": 2.023878323208868e-05,
+      "inner_pb_mass_fraction": 0.75,
+      "maximum_radius_compression_ratio": 2.1437872039560566,
+      "maximum_volume_compression_ratio": 9.852467773537636
+    }
+  ],
+  "sweep_cell_counts": [
+    24,
+    6,
+    10,
+    4
+  ]
+}

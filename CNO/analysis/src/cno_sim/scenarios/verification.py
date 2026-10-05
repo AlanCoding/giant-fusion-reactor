@@ -7,9 +7,14 @@ from dataclasses import asdict
 import numpy as np
 
 from ..eos import IdealTwoTemperatureEOS
-from ..hydro import conservation_totals, evolve_to_time
+from ..hydro import (
+    conservation_totals,
+    evolve_lagrangian_to_time,
+    evolve_to_time,
+    lagrangian_conservation_totals,
+)
 from ..reactions import advance_binary_reaction
-from ..state import Mesh1D, PrimitiveState1D
+from ..state import LagrangianSphericalState, Mesh1D, PrimitiveState1D
 
 
 def _relative(final: float, initial: float) -> float:
@@ -267,15 +272,282 @@ def binary_depletion_benchmark() -> dict[str, float | bool]:
     return result
 
 
+def lagrangian_material_motion_benchmark(
+    cell_count: int = 80,
+) -> dict[str, float | int | bool]:
+    """Check static balance and exact contact carriage on moving mass shells."""
+
+    eos = IdealTwoTemperatureEOS()
+    radii = np.linspace(0.0, 1.0, cell_count + 1)
+    volumes = 4.0 * np.pi / 3.0 * np.diff(radii**3)
+    centres = 0.5 * (radii[:-1] + radii[1:])
+    marker_a = (centres < 0.45).astype(float)
+    fractions = np.vstack([marker_a, 1.0 - marker_a])
+
+    static_state = LagrangianSphericalState(
+        radii,
+        np.zeros(cell_count + 1),
+        volumes,
+        np.full(cell_count, 1.5),
+        np.full(cell_count, 0.5),
+        ("material_a", "material_b"),
+        fractions,
+    )
+    pressure_pa = 4.0 / 3.0
+    static_final, static_steps = evolve_lagrangian_to_time(
+        static_state,
+        eos,
+        final_time_s=0.2,
+        cfl=0.3,
+        external_pressure_pa=pressure_pa,
+    )
+
+    expansion_rate_s = 0.2
+    final_time_s = 0.5
+    moving_state = LagrangianSphericalState(
+        radii,
+        expansion_rate_s * radii,
+        volumes,
+        np.zeros(cell_count),
+        np.zeros(cell_count),
+        ("material_a", "material_b"),
+        fractions,
+    )
+    moving_initial = lagrangian_conservation_totals(moving_state)
+    moving_final, moving_steps = evolve_lagrangian_to_time(
+        moving_state,
+        eos,
+        final_time_s=final_time_s,
+        cfl=0.3,
+    )
+    moving_totals = lagrangian_conservation_totals(moving_final)
+    expected_radii = radii * (1.0 + expansion_rate_s * final_time_s)
+    mixed = (
+        (moving_final.mass_fractions[0] > 0.0)
+        & (moving_final.mass_fractions[0] < 1.0)
+    )
+    species_residual = max(
+        abs(
+            _relative(
+                moving_totals.species_masses_kg[name],
+                moving_initial.species_masses_kg[name],
+            )
+        )
+        for name in moving_initial.species_masses_kg
+    )
+    result = {
+        "cell_count": cell_count,
+        "static_step_count": static_steps,
+        "static_maximum_radius_error_m": float(
+            np.max(np.abs(static_final.face_radii_m - radii))
+        ),
+        "static_maximum_velocity_m_s": float(
+            np.max(np.abs(static_final.face_velocities_m_s))
+        ),
+        "static_maximum_specific_energy_error_j_kg": float(
+            max(
+                np.max(
+                    np.abs(static_final.ion_specific_energy_j_kg - 1.5)
+                ),
+                np.max(
+                    np.abs(static_final.electron_specific_energy_j_kg - 0.5)
+                ),
+            )
+        ),
+        "ballistic_step_count": moving_steps,
+        "ballistic_maximum_radius_error_m": float(
+            np.max(np.abs(moving_final.face_radii_m - expected_radii))
+        ),
+        "ballistic_maximum_velocity_error_m_s": float(
+            np.max(
+                np.abs(
+                    moving_final.face_velocities_m_s
+                    - expansion_rate_s * radii
+                )
+            )
+        ),
+        "ballistic_total_energy_relative_residual": _relative(
+            moving_totals.total_energy_j, moving_initial.total_energy_j
+        ),
+        "maximum_species_relative_residual": species_residual,
+        "numerically_mixed_cell_count": int(np.count_nonzero(mixed)),
+        "maximum_local_mass_fraction_error": float(
+            np.max(np.abs(moving_final.mass_fractions - fractions))
+        ),
+    }
+    result["pass"] = bool(
+        max(
+            abs(result["static_maximum_radius_error_m"]),
+            abs(result["static_maximum_velocity_m_s"]),
+            abs(result["static_maximum_specific_energy_error_j_kg"]),
+            abs(result["ballistic_maximum_radius_error_m"]),
+            abs(result["ballistic_maximum_velocity_error_m_s"]),
+            abs(result["ballistic_total_energy_relative_residual"]),
+            abs(result["maximum_species_relative_residual"]),
+            abs(result["maximum_local_mass_fraction_error"]),
+        )
+        < 1.0e-12
+        and result["numerically_mixed_cell_count"] == 0
+    )
+    return result
+
+
+def spherical_noh_benchmark(
+    cell_count: int = 400,
+    final_time_s: float = 0.15,
+) -> dict[str, float | int | bool]:
+    """Run the spherical Noh implosion against its strong-shock solution.
+
+    For gamma=5/3, unit inward speed, and negligible initial pressure, the
+    analytic spherical solution has shock speed 1/3, post-shock density 64,
+    and post-shock pressure 64/3. Artificial viscosity spreads that shock over
+    several fixed-mass zones, so this is an accuracy/convergence gate rather
+    than an exact roundoff test.
+    """
+
+    radii = np.linspace(0.0, 1.0, cell_count + 1)
+    volumes = 4.0 * np.pi / 3.0 * np.diff(radii**3)
+    velocities = np.full(cell_count + 1, -1.0)
+    velocities[0] = 0.0
+    state = LagrangianSphericalState(
+        radii,
+        velocities,
+        volumes,
+        np.full(cell_count, 1.0e-6),
+        np.zeros(cell_count),
+        ("material",),
+        np.ones((1, cell_count)),
+    )
+    eos = IdealTwoTemperatureEOS()
+    initial = lagrangian_conservation_totals(state)
+    final, steps = evolve_lagrangian_to_time(
+        state,
+        eos,
+        final_time_s,
+        cfl=0.1,
+        quadratic_viscosity=1.0,
+    )
+    totals = lagrangian_conservation_totals(final)
+    centres = 0.5 * (final.face_radii_m[:-1] + final.face_radii_m[1:])
+    density = final.cell_densities_kg_m3
+    primitive = PrimitiveState1D(
+        density,
+        final.cell_velocities_m_s,
+        final.ion_specific_energy_j_kg,
+        final.electron_specific_energy_j_kg,
+        final.species_names,
+        final.mass_fractions,
+    )
+    pressure = eos.pressure_pa(primitive)
+    analytic_shock_radius = final_time_s / 3.0
+    analytic_density = 64.0
+    analytic_pressure = 64.0 / 3.0
+    compressed = density > 0.5 * analytic_density
+    measured_shock_radius = float(
+        np.max(centres[compressed]) if np.any(compressed) else 0.0
+    )
+    plateau = (
+        (centres > 0.3 * analytic_shock_radius)
+        & (centres < 0.8 * analytic_shock_radius)
+    )
+    result = {
+        "cell_count": cell_count,
+        "step_count": steps,
+        "final_time_s": final_time_s,
+        "analytic_shock_radius_m": analytic_shock_radius,
+        "measured_half_density_shock_radius_m": measured_shock_radius,
+        "shock_radius_relative_error": (
+            measured_shock_radius / analytic_shock_radius - 1.0
+        ),
+        "analytic_postshock_density_kg_m3": analytic_density,
+        "maximum_density_kg_m3": float(np.max(density)),
+        "maximum_density_relative_error": float(
+            np.max(density) / analytic_density - 1.0
+        ),
+        "analytic_postshock_pressure_pa": analytic_pressure,
+        "median_plateau_pressure_pa": float(np.median(pressure[plateau])),
+        "plateau_pressure_relative_error": float(
+            np.median(pressure[plateau]) / analytic_pressure - 1.0
+        ),
+        "total_energy_relative_residual": _relative(
+            totals.total_energy_j, initial.total_energy_j
+        ),
+        "minimum_cell_width_m": float(np.min(final.cell_widths_m)),
+    }
+    result["pass"] = bool(
+        abs(result["shock_radius_relative_error"]) < 0.15
+        and abs(result["maximum_density_relative_error"]) < 0.25
+        and abs(result["plateau_pressure_relative_error"]) < 0.30
+        and abs(result["total_energy_relative_residual"]) < 1.0e-5
+        and result["minimum_cell_width_m"] > 0.0
+    )
+    return result
+
+
+def spherical_noh_convergence_benchmark(
+    cell_counts: tuple[int, ...] = (100, 200, 400),
+) -> dict[str, object]:
+    """Require the spherical-shock errors to fall under mesh refinement."""
+
+    if len(cell_counts) < 2 or any(count < 20 for count in cell_counts):
+        raise ValueError("provide at least two cell counts of 20 or greater")
+    runs = {
+        str(cell_count): spherical_noh_benchmark(cell_count)
+        for cell_count in cell_counts
+    }
+    shock_errors = [
+        abs(float(runs[str(count)]["shock_radius_relative_error"]))
+        for count in cell_counts
+    ]
+    density_errors = [
+        abs(float(runs[str(count)]["maximum_density_relative_error"]))
+        for count in cell_counts
+    ]
+    pressure_errors = [
+        abs(float(runs[str(count)]["plateau_pressure_relative_error"]))
+        for count in cell_counts
+    ]
+    result: dict[str, object] = {
+        "cell_counts": list(cell_counts),
+        "runs": runs,
+        "shock_radius_error_decreases": all(
+            later < earlier
+            for earlier, later in zip(shock_errors, shock_errors[1:])
+        ),
+        "maximum_density_error_decreases": all(
+            later < earlier
+            for earlier, later in zip(density_errors, density_errors[1:])
+        ),
+        "plateau_pressure_error_decreases": all(
+            later < earlier
+            for earlier, later in zip(pressure_errors, pressure_errors[1:])
+        ),
+    }
+    result["pass"] = bool(
+        result["shock_radius_error_decreases"]
+        and result["maximum_density_error_decreases"]
+        and result["plateau_pressure_error_decreases"]
+        and runs[str(cell_counts[-1])]["pass"]
+    )
+    return result
+
+
 def run_initial_verification() -> dict[str, object]:
     results = {
-        "schema": "roman-spatial-verification-v0.1",
-        "hydro_kernel": "first-order HLLC; conservative total energy and species",
+        "schema": "roman-spatial-verification-v0.2",
+        "hydro_kernel": (
+            "first-order Eulerian HLLC plus staggered fixed-mass spherical "
+            "Lagrangian RK2"
+        ),
         "binary_depletion": binary_depletion_benchmark(),
         "periodic_species_advection": species_advection_benchmark(),
         "cylindrical_static_equilibrium": radial_equilibrium_benchmark(1),
         "spherical_static_equilibrium": radial_equilibrium_benchmark(2),
         "sod_shock_tube": sod_shock_benchmark(),
+        "lagrangian_material_motion": lagrangian_material_motion_benchmark(),
+        "spherical_noh_implosion_convergence": (
+            spherical_noh_convergence_benchmark()
+        ),
     }
     results["all_acceptance_tests_pass"] = all(
         bool(value.get("pass", value.get("pass_conservation", False)))

@@ -125,8 +125,33 @@ replace its most important assumed functions with the planned simulations:
 
 The code boundary is now reserved under `analysis/src/cno_sim/`, with reviewed
 run configurations under `analysis/simulations/roman/` and compact result cards
-under `analysis/results/roman-simulation/`. This directory skeleton is a
-planning boundary, not evidence that any spatial solver has been implemented.
+under `analysis/results/roman-simulation/`. The Scenario-0 Eulerian and
+fixed-mass spherical kernels are now implemented verification foundations, not
+complete Roman burn simulations. The moving spherical kernel preserves
+material interfaces exactly and converges on the Noh implosion. It now consumes
+preliminary target cards through a cold-Fermi/thermal EOS and prescribed source
+histories; transport, reactions, material EOS, and verified source coupling
+remain before those runs can qualify a target.
+
+An initial Scenario-4 geometry screen now also supports a detached inner Pb
+flyer, a true vacuum acceleration gap, impact joining, and profile plots. Its
+order-twenty compression is not the reference solution; use it to define the
+next pulse-shaping and multi-shell questions without confusing impact speed
+with achieved fuel compression.
+
+The first three-Pb-shell/two-gap screen is also complete. Its optimized
+prescribed 1:2:8 pulse timing demonstrates a late-loading optimum but reaches
+22.98-fold compression versus 23.75 for the simpler flyer. Close the nested-
+shell route as unsuccessful rather than retaining it as a candidate reference
+architecture. The one-flyer result remains a useful mechanical diagnostic but
+also fails the compression requirement.
+
+Do not spend another optimization pass on Pb mass splits, gaps, or assumed
+pulse timing. The next compression gate is a new inverse pressure-history
+calculation with ablation momentum and deliberately coalescing low-entropy
+shocks. It must demonstrate at least 1,000-fold mean-density compression before
+its radii or driver requirements enter the reference-design workbooks. Until
+then, the Phase-I radii remain unsupported by the spatial mechanics.
 
 1. impact/focusing and compressed-DT-starter formation;
 2. isolated DT-vein propagation;
@@ -1328,7 +1353,7 @@ after human approval of the first-pass workbook logic:
 |---|---|
 | `27_isolated_dt_vein.ipynb` | Calculate DT propagation speed and minimum vein radius in vacuum and passive N15. |
 | `34_dt_n15_unit_cell.ipynb` | Calculate active DT-to-N15 ignition, maximum vein spacing, DT:N15 cost, and mantle pressure history. |
-| `37_spherical_implosion.ipynb` | Calculate shell-resolved core compression, late DT ignition, preheated radius, and radial recipe burn. |
+| `37_spherical_implosion.ipynb` | Calculate shell-resolved core compression, late DT ignition, preheated radius, and radial recipe burn. The moving-shell precursor finds ~4 bulk compression for instantaneous heating. A homogenized 10.19%-DT-flash plus cylindrical N15-growth source peaks near 15--25 us and reaches 12.73 at the refined 20-us point; slower N15 release increasingly misses the inward motion. Next replace that swept speed with the DT/N15 unit-cell output and optimize a feasible low-entropy history. |
 | `38_dt_trigger_compatibility.ipynb` | Integrate per-recipe parasitic reactions and catalyst survival on the spatial histories. |
 
 Every notebook must run from a fresh kernel, state assumptions separately from

@@ -1,7 +1,9 @@
 # Scenario 0: Initial Shared-Kernel Verification
 
-**Status:** conservation/shock baseline passes; material-contact accuracy fails;
-the kernel is not qualified for Roman burn simulations.
+**Status:** the Eulerian conservation/shock baseline passes but its moving
+material-contact accuracy fails. The new spherical moving-mass kernel passes
+its first interface and converging-shock gates. Neither is yet qualified for a
+Roman burn calculation.
 
 ## Shared state and equations
 
@@ -27,8 +29,9 @@ to machine precision, verifying the geometric momentum source cancellation.
 
 ## Initial results
 
-The committed result card is
-[`scenario0-verification-v0.1.json`](../../../results/roman-simulation/scenario0-verification-v0.1.json).
+The current committed result card is
+[`scenario0-verification-v0.2.json`](../../../results/roman-simulation/scenario0-verification-v0.2.json).
+The original Eulerian-only card remains preserved as `v0.1`.
 
 - Exact unequal binary depletion preserves the reactant-number difference;
   one full step and two half steps agree to `6.7e-16` relative.
@@ -47,6 +50,20 @@ The committed result card is
 The last result is an intentional failed gate. It demonstrates that global
 species conservation does not prevent locally false mixing.
 
+## Moving spherical complement
+
+The spherical implosion path now uses fixed-mass shells with moving radii. A
+cold two-material sphere can expand through the same radial interval while
+preserving a sharp interface exactly: zero cells are numerically mixed. The
+spherical Noh strong-shock errors also fall monotonically across 100, 200, and
+400 shells; the 400-shell shock-radius error is 6.20% and total-energy residual
+is `2.1e-7`.
+
+The state, equations, conservation convention, and limitations are documented
+in [`00_lagrangian_spherical.md`](00_lagrangian_spherical.md). This does not
+repair the axial solver: Scenario 2 still needs accurate Eulerian contact
+advection because material really must cross its fixed cells.
+
 ## Required work before Scenario 2
 
 1. Add bounded MUSCL/PPM reconstruction and at least second-order time
@@ -62,4 +79,6 @@ species conservation does not prevent locally false mixing.
 6. Add time-dependent neutron flight/deposition only after the local/charged
    conservation ledger passes.
 
-The isolated-DT vein is not started until items 1--5 pass.
+The isolated-DT vein is not started until items 1--5 pass. In parallel, the
+spherical kernel needs verified source coupling and a realistic EOS before it
+can be initialized from a Roman target card.

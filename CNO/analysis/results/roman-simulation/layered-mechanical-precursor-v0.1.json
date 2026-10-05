@@ -1,0 +1,104 @@
+{
+  "schema": "roman-layered-mechanical-precursor-v0.1",
+  "qualification": "nonreacting uniform-source mechanical bracket; not a Roman implosion prediction",
+  "case": "likely",
+  "recipe": "diocletian",
+  "target_card": {
+    "initial_core_radius_m": 27.34443377227374,
+    "driver_outer_radius_m": 32.57433231751137,
+    "target_outer_radius_m": 32.96561109230551,
+    "initial_core_density_kg_m3": 243.82345141125214,
+    "driver_density_kg_m3": 253.12566371681416,
+    "tamper_density_kg_m3": 11340.0,
+    "driver_energy_j": 2.071372233883556e+20,
+    "workbook_compression_ratio": 1008733.5000352265
+  },
+  "physics": {
+    "geometry": "one-dimensional spherical fixed-mass shells",
+    "electron_eos": "relativistic zero-T Fermi floor plus gamma-law excitation",
+    "ion_eos": "gamma-law",
+    "pb208_effective_free_electrons": 0,
+    "artificial_viscosity_C2": 1.0,
+    "driver_source": "spatially uniform half-cosine cumulative pulse",
+    "ion_fraction_of_driver_heating": 0.5,
+    "central_dt_spatially_resolved": false,
+    "fusion_reactions_enabled": false,
+    "radiation_or_particle_transport_enabled": false,
+    "material_strength_or_phase_change_enabled": false
+  },
+  "instantaneous_resolution_sweep": {
+    "40": {
+      "cell_counts_core_driver_tamper": [40, 15, 8],
+      "maximum_volume_compression_ratio": 3.9773197747085143,
+      "maximum_cell_density_ratio_at_peak_mean_compression": 30.230104458542616,
+      "core_radius_at_maximum_compression_m": 17.258594767289825,
+      "maximum_core_boundary_inward_speed_m_s": 2028718.7778521338,
+      "time_of_maximum_compression_s": 8.808036921160886e-06,
+      "energy_residual_fraction": -8.414437615387275e-06,
+      "composition_changed_cell_count": 0
+    },
+    "80": {
+      "cell_counts_core_driver_tamper": [80, 30, 15],
+      "maximum_volume_compression_ratio": 4.077820538083329,
+      "maximum_cell_density_ratio_at_peak_mean_compression": 29.59796945558188,
+      "core_radius_at_maximum_compression_m": 17.115630354365376,
+      "maximum_core_boundary_inward_speed_m_s": 2025975.5738815563,
+      "time_of_maximum_compression_s": 8.89710562143441e-06,
+      "energy_residual_fraction": -2.145536082377628e-06,
+      "composition_changed_cell_count": 0
+    },
+    "160": {
+      "cell_counts_core_driver_tamper": [160, 60, 30],
+      "maximum_volume_compression_ratio": 4.137066185287757,
+      "maximum_cell_density_ratio_at_peak_mean_compression": 32.238577171203424,
+      "core_radius_at_maximum_compression_m": 17.033534656990586,
+      "maximum_core_boundary_inward_speed_m_s": 2024529.3090636914,
+      "time_of_maximum_compression_s": 8.92177864722157e-06,
+      "energy_residual_fraction": 1.380955064535177e-06,
+      "composition_changed_cell_count": 0
+    }
+  },
+  "pulse_duration_sweep_40_core_cells": {
+    "0": {
+      "maximum_volume_compression_ratio": 3.9779435471174054,
+      "maximum_cell_density_ratio_at_peak_mean_compression": 30.80255620968261,
+      "core_radius_at_maximum_compression_m": 17.257692626283646,
+      "time_of_maximum_compression_s": 8.837016307310007e-06
+    },
+    "2e-6": {
+      "maximum_volume_compression_ratio": 4.648514651040433,
+      "maximum_cell_density_ratio_at_peak_mean_compression": 24.323912581875067,
+      "core_radius_at_maximum_compression_m": 16.384412248821793,
+      "time_of_maximum_compression_s": 1.054137477093049e-05
+    },
+    "1e-5": {
+      "maximum_volume_compression_ratio": 8.348358427832762,
+      "maximum_cell_density_ratio_at_peak_mean_compression": 15.630486208917759,
+      "core_radius_at_maximum_compression_m": 13.479338277666415,
+      "time_of_maximum_compression_s": 1.7490772399422305e-05
+    },
+    "5e-5": {
+      "maximum_volume_compression_ratio": 15.305971909139986,
+      "maximum_cell_density_ratio_at_peak_mean_compression": 28.10429055442346,
+      "core_radius_at_maximum_compression_m": 11.013244919626386,
+      "time_of_maximum_compression_s": 3.681109012120642e-05
+    }
+  },
+  "instantaneous_energy_multiplier_sweep_40_core_cells": {
+    "0.25": {
+      "maximum_volume_compression_ratio": 3.9759294736122457,
+      "maximum_core_boundary_inward_speed_m_s": 1010253.5589863695,
+      "time_of_maximum_compression_s": 1.766837582302547e-05
+    },
+    "1": {
+      "maximum_volume_compression_ratio": 3.9779435471174054,
+      "maximum_core_boundary_inward_speed_m_s": 2020612.287199032,
+      "time_of_maximum_compression_s": 8.837016307310007e-06
+    },
+    "4": {
+      "maximum_volume_compression_ratio": 3.978447580137139,
+      "maximum_core_boundary_inward_speed_m_s": 4041277.1625001696,
+      "time_of_maximum_compression_s": 4.418540119391258e-06
+    }
+  }
+}

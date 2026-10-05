@@ -1,0 +1,51 @@
+{
+  "schema": "roman-progressive-driver-v0.1",
+  "qualification": "homogenized source-history sweep; N15 speed remains an input",
+  "case": "likely",
+  "recipe": "diocletian",
+  "driver_thickness_m": 5.229898545237631,
+  "vein_geometry": {
+    "assumed_vein_radius_m": 0.25,
+    "loaded_dt_volume_fraction": 0.014598246621631185,
+    "implied_square_pitch_m": 3.667453337645811,
+    "furthest_matrix_distance_m": 2.3432811247345895
+  },
+  "source": {
+    "dt_flash_deposited_energy_fraction": 0.10190061470595084,
+    "n15_deposited_energy_fraction": 0.8980993852940492,
+    "n15_growth_law": "fraction=(time/growth_time)^2",
+    "spatial_treatment": "spherically homogenized"
+  },
+  "growth_duration_sweep": [
+    {"duration_s": 2e-6, "implied_front_speed_m_s": 1171640.562367295, "mean_compression": 5.169092165680111},
+    {"duration_s": 5e-6, "implied_front_speed_m_s": 468656.22494691785, "mean_compression": 7.731643718507555},
+    {"duration_s": 1e-5, "implied_front_speed_m_s": 234328.11247345892, "mean_compression": 10.844220633385063},
+    {"duration_s": 1.5e-5, "implied_front_speed_m_s": 156218.74164897262, "mean_compression": 11.871265183223167},
+    {"duration_s": 2e-5, "implied_front_speed_m_s": 117164.05623672946, "mean_compression": 11.982205752582779},
+    {"duration_s": 2.5e-5, "implied_front_speed_m_s": 93731.24498938357, "mean_compression": 11.556373576492938},
+    {"duration_s": 3e-5, "implied_front_speed_m_s": 78109.37082448631, "mean_compression": 10.626195543817845},
+    {"duration_s": 5e-5, "implied_front_speed_m_s": 46865.62249469179, "mean_compression": 7.1490744852293195},
+    {"duration_s": 1e-4, "implied_front_speed_m_s": 23432.811247345893, "mean_compression": 4.739611748365282},
+    {"duration_s": 2e-4, "implied_front_speed_m_s": 11716.405623672947, "mean_compression": 4.095499272186297}
+  ],
+  "dt_flash_fraction_sweep_at_50us": [
+    {"dt_flash_energy_fraction": 0.0, "mean_compression": 17.786442654329708},
+    {"dt_flash_energy_fraction": 0.025, "mean_compression": 17.23174505050586},
+    {"dt_flash_energy_fraction": 0.05, "mean_compression": 12.41412896886999},
+    {"dt_flash_energy_fraction": 0.075, "mean_compression": 9.217527858557922},
+    {"dt_flash_energy_fraction": 0.10190061470595084, "mean_compression": 7.1490744852293195},
+    {"dt_flash_energy_fraction": 0.15, "mean_compression": 5.284469091065578},
+    {"dt_flash_energy_fraction": 0.25, "mean_compression": 4.407668854831941}
+  ],
+  "20us_resolution_sweep": [
+    {"core_cells": 40, "mean_compression": 11.982205752582779, "peak_core_radius_m": 11.9496910521559, "peak_cell_density_ratio": 25.636847740138222, "peak_time_s": 2.561034057152397e-5},
+    {"core_cells": 80, "mean_compression": 12.44493844969522, "peak_core_radius_m": 11.799710450770625, "peak_cell_density_ratio": 25.682519114834, "peak_time_s": 2.5721163490567814e-5},
+    {"core_cells": 160, "mean_compression": 12.73277023101605, "peak_core_radius_m": 11.710118791612109, "peak_cell_density_ratio": 24.68005877515552, "peak_time_s": 2.578148993251453e-5}
+  ],
+  "5us_delay_50us_growth": {
+    "mean_compression": 6.416422780809223,
+    "peak_core_radius_m": 14.715373084465272,
+    "peak_cell_density_ratio": 9.99527035372255,
+    "peak_time_s": 3.740171338368978e-5
+  }
+}

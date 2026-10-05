@@ -7,6 +7,13 @@ from .finite_volume import (
     evolve_to_time,
     stable_timestep_s,
 )
+from .lagrangian_spherical import (
+    LagrangianConservationTotals,
+    advance_lagrangian_rk2,
+    evolve_lagrangian_to_time,
+    lagrangian_conservation_totals,
+    stable_lagrangian_timestep_s,
+)
 
 __all__ = [
     "ConservationTotals",
@@ -14,4 +21,9 @@ __all__ = [
     "conservation_totals",
     "evolve_to_time",
     "stable_timestep_s",
+    "LagrangianConservationTotals",
+    "advance_lagrangian_rk2",
+    "evolve_lagrangian_to_time",
+    "lagrangian_conservation_totals",
+    "stable_lagrangian_timestep_s",
 ]

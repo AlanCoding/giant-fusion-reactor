@@ -726,3 +726,148 @@ lossier conservative stress row gives `G_D = 0.7321`, so closure is not an
 algebraic certainty. The spatial simulation must replace the expansion-time,
 driver/Pb return-survival, and auxiliary-neutron recovery assumptions before a
 reference plant is called simulation-qualified.
+
+---
+
+## 15. Scenario-0 moving spherical kernel
+
+The first Phase-II implementation now follows spherical fixed-mass shells.
+Each shell carries fixed mass, separate ion/electron internal energies, and
+species mass fractions; its two faces carry radius and radial velocity. The
+solver derives density from the moving physical volume and applies pressure
+forces and pressure work through the same face areas, with optional artificial
+viscosity heating assigned to ions.
+
+This choice fixes the most immediate numerical problem for the complete
+implosion: in a cold ballistic test, a sharp two-material boundary moves with
+zero mixed cells and no species error. Static pressure balance holds to
+roundoff. In the spherical Noh implosion, shock-radius error falls from 22.7%
+to 12.0% to 6.20% over 100/200/400 shells; at 400 shells the peak-density error
+is -8.24%, plateau-pressure error is -11.8%, and total-energy residual is
+`2.1e-7`.
+
+This is still a hydrodynamic skeleton. It has not been initialized with a
+Roman target and contains no fusion, realistic plasma EOS, charged-product or
+neutron transport, conduction, radiation, or physical mixing. The equations,
+conservation convention, results, and omissions are recorded in
+`analysis/simulations/roman/scenarios/00_lagrangian_spherical.md`, with the
+machine-readable `v0.2` card beside the earlier Scenario-0 result.
+
+---
+
+## 16. First layered implosion precursor
+
+The moving-shell solver has now been initialized with the likely Diocletian
+fuel, active-driver, and Pb dimensions. A new composition-aware EOS supplies a
+relativistic zero-temperature Fermi floor plus separately stored ion heat and
+electron excitation. This makes compression energy-dependent without reviving
+the previous degeneracy-plus-classical-electron double count.
+
+With all `2.0714e20 J` of Workbook-40 deposited driver energy applied
+instantaneously, the mean fuel compression converges from 3.977 to 4.078 to
+4.137 over 40/80/160 core shells. The converging shock gives a small region
+roughly 30 times denser than the initial fuel, but not a uniformly compressed
+core. Multiplying abrupt energy by 0.25, 1, and 4 changes the velocity and time
+scale while leaving bulk compression at about four: this is the strong-shock
+similarity regime, not reversible cold compression.
+
+A half-cosine pressure rise helps: 2, 10, and 50 microseconds give first-pass
+bulk compression ratios 4.65, 8.35, and 15.31. The 50-microsecond case begins
+rebounding before energy injection ends, so merely lengthening the same
+spatially uniform source is not a solution.
+
+This is a negative mechanical result with deliberately narrow scope. It rules
+out inferring the Workbook-40 millionfold compression directly from the
+available scalar energy under an instantaneous filled-core shock. It does not
+rule out shaped multi-shock/isentropic drive, an imploding-shell geometry, or
+feedback from timed fusion. Those pressure-history alternatives are now the
+next spherical calculation. The full assumptions and missing physics are in
+`analysis/simulations/roman/scenarios/40_spherical_target_mechanical.md`.
+
+The next source bracket separates the workbook's 10.19% prompt deposited DT
+energy from its 89.81% slower N15 energy. With 0.25-m veins, the loaded DT ratio
+implies 3.667-m square pitch and a 2.343-m maximum N15 bridge distance. A
+cylindrical-area-growth source has a broad optimum around 15--25 microseconds:
+the 20-us point converges from 11.98 to 12.44 to 12.73 mean compression over
+40/80/160 core shells. At 50, 100, and 200 microseconds it falls to 7.15, 4.74,
+and 4.10 because the N15 energy arrives after the prompt-DT-driven motion.
+
+This source is still averaged over the whole spherical driver. The early DT
+energy is locally confined to veins in the real architecture; the planned
+cylindrical unit cell must decide whether those local impulses equilibrate into
+a gentle global pressure rise or generate many entropy-producing shocks.
+
+---
+
+## 17. First gapped Pb-flyer precursor
+
+Scenario 4 now supports a detached outer annulus, allowing a real vacuum gap
+instead of a fictitious low-density numerical material. The first geometry
+places an inner Pb flyer below the active p/N15/DT driver and retains the
+remaining Pb outside as a tamper. The total driver energy, driver mass, and Pb
+mass are unchanged from the likely Diocletian card.
+
+At impact, the fuel and flyer boundary nodes are joined by momentum
+conservation and their relative kinetic energy is deposited as local ion heat.
+The complete source-plus-hydrodynamics energy residual is `2.7e-7` in the
+representative run. A 0.5-m gap and 50/50 Pb split reaches impact at 3.58 us
+and 198 km/s, then reaches 23.75-fold maximum mean-density compression
+(2.87-fold radial compression). The coarse sweep shows that a longer gap can
+raise impact speed while reducing final compression, so maximizing flyer
+velocity is not equivalent to shaping the best implosion.
+
+The core has no nuclear reactions and transport remains disabled. The
+single-cell peak density is not converged; only the bulk result is used. The
+result card and plots are documented in
+`analysis/simulations/roman/scenarios/41_gapped_pb_flyer.md`.
+
+---
+
+## 18. Three Pb shells and staged pulse shaping
+
+The detached-domain machinery now supports sequential annulus collisions. A
+three-Pb-shell target uses a passive inner impactor, a powered middle flyer,
+and an outer reaction-mass shell, with two genuine vacuum gaps. Total Pb mass,
+driver mass, and driver energy remain identical to the one-flyer case.
+
+The first selected geometry assigns 5%, 45%, and 50% of Pb to the inner,
+powered, and outer shells. Both gaps are 0.25 m. Prescribed two-microsecond
+pulses begin at 0, 5, and 14 us and receive 1:2:8 of the energy. The powered
+shell picks up the inner shell at 3.786 us, and the combined shell reaches the
+fuel at 4.666 us. The largest late pulse then loads the converging joined
+system through stagnation.
+
+Mean-density compression converges from 22.14 to 22.53 to 22.98; the last
+value is 2.843-fold radial compression and a 9.618-m core radius. A direct
+fixed-resource one-flyer rerun gives 23.75, so the added shell is presently
+3.2% worse. The largest-pulse timing curve has a clear maximum at 14 us,
+showing real pulse-shaping sensitivity even though the nested geometry has not
+won. Full assumptions and plots are in
+`analysis/simulations/roman/scenarios/42_staged_pb_shells.md`.
+
+During refinement, artificial viscosity was corrected so that it activates
+only when the true spherical cell volume is decreasing. The old Cartesian
+face-velocity trigger could otherwise cool an expanding spherical cell. The
+Noh verification and the corrected one-flyer comparison both pass after this
+change.
+
+### Closed conclusion
+
+The multi-shell attempt did not accomplish its objective. The first Pb flyer
+and vacuum gap raised the progressive-source result from 12.73 to 23.75 mean
+density compression, a factor of 1.87 but still orders of magnitude short.
+Adding a second flyer/gap and optimizing a three-pulse schedule produced 22.98,
+3.2% worse than the simpler flyer. There is no evidence in these runs that
+additional inelastic Pb-shell pickup supplies the missing compression.
+
+A literal Diocletian radius correction at 22.98-fold compression is about
+34 km initial and 12 km compressed, with roughly `4e16 kg` of central fuel.
+Even 1,000-fold compression still implies about 2.75 km initial and 275 m
+compressed under the current burn-column requirement. These deliberately
+absurd values quantify the failure; they are not a new reference design.
+
+This branch is now frozen. More optimization inside the present model would
+overfit prescribed heat pulses while omitting ablation momentum, shock
+coalescence, low-entropy ramp loading, material phase behavior, and a physical
+driver pressure history. Future work must replace the compression mechanism,
+not continue tuning these shell fractions.
